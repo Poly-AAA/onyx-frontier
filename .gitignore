@@ -17,3 +17,8 @@ bots/openrouter/headless-profile/
 # OS junk
 .DS_Store
 Thumbs.db
+
+# Copies de secours locales (règle Jean : .bak avant toute réécriture)
+*.bak
+*.bak.*
+*.pre-psx.bak
