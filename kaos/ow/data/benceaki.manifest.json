@@ -1,0 +1,88 @@
+{
+ "note": "Manifeste Benceaki provisoire : remplacer par le manifeste JSON du pack (noms des 21 pièces relevés au téléchargement). hides = parties du corps masquées.",
+ "slots": [
+  "coiffe",
+  "cape",
+  "torse",
+  "ceinture",
+  "gants",
+  "jambes",
+  "bottes",
+  "amulette",
+  "anneauG",
+  "anneauD",
+  "arme",
+  "bouclier"
+ ],
+ "visibleSlots": {
+  "coiffe": "head",
+  "cape": "back",
+  "torse": "torso",
+  "ceinture": "hips",
+  "gants": "hands",
+  "jambes": "legs",
+  "bottes": "feet",
+  "amulette": "neck",
+  "arme": "handR",
+  "bouclier": "handL"
+ },
+ "bodies": [
+  {
+   "id": "A",
+   "url": "assets/chars/benceaki/body_A.glb",
+   "scale": [
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "B",
+   "url": "assets/chars/benceaki/body_B.glb",
+   "scale": [
+    1.12,
+    1,
+    1.1
+   ]
+  },
+  {
+   "id": "C",
+   "url": "assets/chars/benceaki/body_C.glb",
+   "scale": [
+    0.92,
+    0.97,
+    0.9
+   ]
+  }
+ ],
+ "pieces": [
+  {
+   "id": "capuche_prov",
+   "slot": "coiffe",
+   "url": null,
+   "placeholder": "hood",
+   "color": "#2a2a33",
+   "hides": [
+    "hair"
+   ]
+  },
+  {
+   "id": "veste_prov",
+   "slot": "torse",
+   "url": null,
+   "placeholder": "jacket",
+   "color": "#c79a2e",
+   "hides": [
+    "torso"
+   ]
+  },
+  {
+   "id": "cape_prov",
+   "slot": "cape",
+   "url": null,
+   "placeholder": "cape",
+   "color": "#8a1c2c",
+   "hides": []
+  }
+ ]
+}

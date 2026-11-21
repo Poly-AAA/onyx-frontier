@@ -1,0 +1,143 @@
+/** C2 : ville verticale dans 1 morceau (piloté par data/city.json) — tours, rue aérienne + bas-fonds, pont, néons, fumée, chantier, fleurs au vent. */
+import { particles } from "../engine.js";
+
+export function createCity(eng, phys, data, rnd) {
+  const { THREE, scene } = eng, C = data.city;
+  const grp = new THREE.Group(); scene.add(grp);
+  const winTex = windowTexture(THREE, false), crackTex = windowTexture(THREE, true);
+  const buildings = [], pickables = [], updaters = [];
+  const [cx, cz] = C.center, half = (C.grid * C.block) / 2;
+  // sol des bas-fonds : grille purement visuelle
+  const gridTex = gridTexture(THREE);
+  gridTex.repeat.set(C.grid * 4, C.grid * 4);
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(C.grid * C.block + 60, C.grid * C.block + 60), eng.material({ map: gridTex, color: "#ffffff" }));
+  ground.rotation.x = -Math.PI / 2; ground.position.set(cx, 0.12, cz); ground.receiveShadow = true; ground.userData.pick = "ground";
+  grp.add(ground); pickables.push(ground);
+  const slot = (i, j) => [cx - half + C.block * (i + 0.5), cz - half + C.block * (j + 0.5)];
+  const eq = (a, i, j) => a && a[0] === i && a[1] === j;
+  const towers = {};
+  for (let j = 0; j < C.grid; j++) for (let i = 0; i < C.grid; i++) {
+    const [x, z] = slot(i, j);
+    if (eq(C.chantierSlot, i, j)) { chantier(x, z); continue; }
+    if (eq(C.parkSlot, i, j)) { flowers(x, z); continue; }
+    if ((C.skipSlots || []).some((s) => eq(s, i, j))) continue;
+    if (Math.abs(z - C.aerialStreet.z) < C.block / 2) continue; // l'avenue aérienne passe ici
+    const w = C.towerFoot[0] + rnd() * (C.towerFoot[1] - C.towerFoot[0]), d = C.towerFoot[0] + rnd() * (C.towerFoot[1] - C.towerFoot[0]);
+    const h = C.towerH[0] + Math.pow(rnd(), 1.6) * (C.towerH[1] - C.towerH[0]);
+    towers[i + "_" + j] = tower(`t${i}_${j}`, x, z, w, h, d);
+  }
+  // rue aérienne (niveau 2) au-dessus des bas-fonds + rampes
+  const A = C.aerialStreet, len = A.x[1] - A.x[0];
+  const deck = new THREE.Mesh(new THREE.BoxGeometry(len, 1, A.width), eng.material({ color: "#3a3644" }));
+  deck.position.set((A.x[0] + A.x[1]) / 2, A.y - 0.5, A.z); deck.castShadow = deck.receiveShadow = true; deck.userData.pick = "ground";
+  grp.add(deck); pickables.push(deck); eng.outline(deck, true);
+  phys.box([deck.position.x, deck.position.y, A.z], [len / 2, 0.5, A.width / 2]);
+  for (let k = 0; k < 8; k++) { const p = new THREE.Mesh(new THREE.BoxGeometry(1.6, A.y - 1, 1.6), eng.material({ color: "#24212c" })); p.position.set(A.x[0] + 20 + k * (len - 40) / 7, (A.y - 1) / 2, A.z + (k % 2 ? 5 : -5)); p.castShadow = true; grp.add(p); }
+  // garde-corps néon
+  [-1, 1].forEach((s) => { const r = new THREE.Mesh(new THREE.BoxGeometry(len, 0.15, 0.15), eng.material({ color: "#000", emissiveMap: solid(THREE, "#ff2e88") })); r.position.set(deck.position.x, A.y + 1, A.z + s * A.width / 2); grp.add(r); });
+  [[A.x[0] - A.ramp / 2, 1], [A.x[1] + A.ramp / 2, -1]].forEach(([rx, dir]) => {
+    const L = Math.hypot(A.ramp, A.y), ang = Math.atan2(A.y, A.ramp);
+    const r = new THREE.Mesh(new THREE.BoxGeometry(L, 1, A.width), eng.material({ color: "#33303d" }));
+    r.position.set(rx, A.y / 2 - 0.5, A.z); r.rotation.z = ang * dir; r.receiveShadow = true; r.userData.pick = "ground";
+    grp.add(r); pickables.push(r);
+    const q = { x: 0, y: 0, z: Math.sin(ang * dir / 2), w: Math.cos(ang * dir / 2) };
+    const b = phys.world.createRigidBody(phys.RAPIER.RigidBodyDesc.fixed().setTranslation(rx, A.y / 2 - 0.5, A.z)); b.setRotation(q, true);
+    phys.world.createCollider(phys.RAPIER.ColliderDesc.cuboid(L / 2, 0.5, A.width / 2), b);
+  });
+  // pont aérien entre deux tours hautes
+  const tall = Object.values(towers).filter((t) => t.h > C.bridge.y + 10).sort((a, b) => a.x - b.x);
+  let bridge = null;
+  for (let a = 0; a < tall.length && !bridge; a++) for (let b = a + 1; b < tall.length && !bridge; b++) {
+    const t1 = tall[a], t2 = tall[b];
+    if (Math.abs(t1.z - t2.z) < 2 && Math.abs(t1.x - t2.x) < C.block * 1.5) bridge = [t1, t2];
+  }
+  if (!bridge && tall.length >= 2) bridge = [tall[0], tall[1]];
+  if (bridge) {
+    const [t1, t2] = bridge, dx = t2.x - t1.x, dz = t2.z - t1.z, L = Math.hypot(dx, dz);
+    const br = new THREE.Mesh(new THREE.BoxGeometry(L, 2.5, C.bridge.width), eng.material({ color: "#4a4458", emissiveMap: winTex, emissiveIntensity: 0.6 }));
+    br.position.set((t1.x + t2.x) / 2, C.bridge.y, (t1.z + t2.z) / 2); br.rotation.y = -Math.atan2(dz, dx); br.castShadow = true; br.userData.isBridge = true;
+    grp.add(br); eng.outline(br, true);
+  }
+  // néons : enseignes émissives + quelques lumières ponctuelles
+  const neons = [];
+  Object.values(towers).forEach((t, k) => {
+    const c = C.neon[k % C.neon.length];
+    const s = new THREE.Mesh(new THREE.PlaneGeometry(3, 10), eng.material({ color: "#000", emissiveMap: solid(THREE, c), emissiveIntensity: 2.5, side: THREE.DoubleSide }));
+    s.position.set(t.x + t.w / 2 + 0.2, 14 + (k % 3) * 6, t.z); s.rotation.y = Math.PI / 2; grp.add(s);
+    if (neons.length < C.neonLights) { const L = new THREE.PointLight(c, 0, 45, 1.6); L.position.set(t.x + t.w / 2 + 4, 12, t.z); grp.add(L); neons.push(L); }
+  });
+  // fumée Blade Runner (bas-fonds)
+  C.smokeVents.forEach(([x, z]) => { const p = particles(eng, { count: 60, color: "#a89cb8", size: 7, opacity: 0.18, area: [6, 2, 6], rise: 2.2, drift: [0.6, 0.2], life: 9 }); p.position.set(x, 0, z); grp.add(p); updaters.push(p.userData.update); });
+  // mobilier provisoire (jamzuz absent) : lampadaires + bancs low-poly
+  for (let k = 0; k < C.props.lamp; k++) { const x = A.x[0] + k * len / (C.props.lamp - 1), z = A.z + A.width / 2 + 6; lamp(x, z, C.neon[k % C.neon.length]); }
+  for (let k = 0; k < C.props.bench; k++) bench(cx - half + 20 + k * 28, A.z - A.width / 2 - 8);
+
+  function tower(id, x, z, w, h, d) {
+    const geo = new THREE.BoxGeometry(w, h, d);
+    const uvs = geo.attributes.uv; for (let i = 0; i < uvs.count; i++) uvs.setXY(i, uvs.getX(i) * w / 8, uvs.getY(i) * h / 8);
+    const color = C.palette[Math.floor(rnd() * C.palette.length)];
+    const m = new THREE.Mesh(geo, eng.material({ color, emissiveMap: winTex, emissiveIntensity: 1.2 }));
+    m.position.set(x, h / 2, z); m.castShadow = m.receiveShadow = true;
+    m.userData = { id, hp: C.destruction.hp, kind: "building", pick: "building" };
+    grp.add(m); eng.outline(m, true); pickables.push(m);
+    const col = phys.box([x, h / 2, z], [w / 2, h / 2, d / 2]);
+    const t = { id, mesh: m, col, x, z, w, h, d }; buildings.push(t);
+    return t;
+  }
+  function chantier(x, z, w = 34) {
+    const tex = chantierTexture(THREE);
+    const bb = new THREE.Mesh(new THREE.PlaneGeometry(w, w * 0.45), new THREE.MeshBasicNodeMaterial({ map: tex, side: THREE.DoubleSide }));
+    bb.position.set(x, w * 0.25, z); bb.userData.chantier = true; grp.add(bb);
+    for (let k = 0; k < 6; k++) { const b = new THREE.Mesh(new THREE.BoxGeometry(4, 1.1, 0.4), eng.material({ color: k % 2 ? "#e0a020" : "#1a1a1a" })); b.position.set(x - w / 2 + 3 + k * (w - 6) / 5, 0.55, z + 6); grp.add(b); }
+    return bb;
+  }
+  function flowers(x, z, size = 34) {
+    const geo = new THREE.PlaneGeometry(0.35, 0.9, 1, 3); geo.translate(0, 0.45, 0);
+    const mat = eng.material({ color: "#ff7ab8", wind: "up", side: THREE.DoubleSide });
+    const im = new THREE.InstancedMesh(geo, mat, C.flowers), m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), cols = ["#ff7ab8", "#ffd23a", "#c35bff", "#ffffff"];
+    for (let i = 0; i < C.flowers; i++) { e.set(0, rnd() * Math.PI, 0); q.setFromEuler(e); m4.compose(new THREE.Vector3(x + (rnd() - 0.5) * size, 0, z + (rnd() - 0.5) * size), q, new THREE.Vector3(1, 0.7 + rnd() * 0.8, 1)); im.setMatrixAt(i, m4); im.setColorAt(i, new THREE.Color(cols[i % 4])); }
+    grp.add(im);
+    const lawn = new THREE.Mesh(new THREE.PlaneGeometry(size + 4, size + 4), eng.material({ color: "#2f5a2c" })); lawn.rotation.x = -Math.PI / 2; lawn.position.set(x, 0.18, z); lawn.receiveShadow = true; lawn.userData.pick = "ground"; grp.add(lawn); pickables.push(lawn);
+  }
+  function lamp(x, z, c) {
+    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.15, 6, 5), eng.material({ color: "#1c1a22" })); pole.position.set(x, 3, z); grp.add(pole);
+    const head = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.25, 0.5), eng.material({ color: "#000", emissiveMap: solid(THREE, c), emissiveIntensity: 3 })); head.position.set(x, 6, z); grp.add(head);
+  }
+  function bench(x, z) {
+    const b = new THREE.Mesh(new THREE.BoxGeometry(2, 0.45, 0.6), eng.material({ color: "#3a3330" })); b.position.set(x, 0.45, z); b.castShadow = true; grp.add(b); eng.outline(b);
+  }
+  /** Destruction : 1er coup = texture fissurée, dernier = bâtiment retiré + image de chantier. */
+  function damage(mesh) {
+    const t = buildings.find((b) => b.mesh === mesh); if (!t) return null;
+    mesh.userData.hp -= 1;
+    if (mesh.userData.hp > 0) { mesh.material.emissiveMap = crackTex; mesh.material.color.multiplyScalar(0.7); mesh.material.needsUpdate = true; return "fissure"; }
+    destroy(t.id); return "detruit";
+  }
+  function destroy(id) {
+    const t = buildings.find((b) => b.id === id); if (!t || t.dead) return;
+    t.dead = true; grp.remove(t.mesh); phys.remove(t.col); pickables.splice(pickables.indexOf(t.mesh), 1);
+    chantier(t.x, t.z, Math.max(t.w, 20));
+  }
+  return { grp, buildings, pickables, neons, damage, destroy, update: (dt) => updaters.forEach((u) => u(dt)) };
+}
+
+function solid(THREE, c) { const cv = document.createElement("canvas"); cv.width = cv.height = 4; const g = cv.getContext("2d"); g.fillStyle = c; g.fillRect(0, 0, 4, 4); const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t; }
+function windowTexture(THREE, cracked) {
+  const cv = document.createElement("canvas"); cv.width = cv.height = 64; const g = cv.getContext("2d");
+  g.fillStyle = "#000"; g.fillRect(0, 0, 64, 64);
+  for (let y = 0; y < 4; y++) for (let x = 0; x < 4; x++) { const r = (x * 7 + y * 13) % 5; g.fillStyle = r > 2 ? "#ffcf6a" : r === 2 ? "#ff6fb4" : "#141018"; g.fillRect(x * 16 + 3, y * 16 + 4, 10, 8); }
+  if (cracked) { g.strokeStyle = "#e8e0d0"; g.lineWidth = 2; g.beginPath(); g.moveTo(5, 0); g.lineTo(22, 20); g.lineTo(14, 38); g.lineTo(40, 52); g.lineTo(36, 64); g.moveTo(22, 20); g.lineTo(50, 12); g.lineTo(64, 26); g.stroke(); }
+  const t = new THREE.CanvasTexture(cv); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.magFilter = THREE.NearestFilter; t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+function gridTexture(THREE) {
+  const cv = document.createElement("canvas"); cv.width = cv.height = 64; const g = cv.getContext("2d");
+  g.fillStyle = "#2a2730"; g.fillRect(0, 0, 64, 64); g.strokeStyle = "#3d3846"; g.lineWidth = 2; g.strokeRect(0, 0, 64, 64);
+  const t = new THREE.CanvasTexture(cv); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+function chantierTexture(THREE) {
+  const cv = document.createElement("canvas"); cv.width = 256; cv.height = 116; const g = cv.getContext("2d");
+  for (let i = -10; i < 30; i++) { g.fillStyle = i % 2 ? "#e0a020" : "#141414"; g.beginPath(); g.moveTo(i * 16, 0); g.lineTo(i * 16 + 16, 0); g.lineTo(i * 16 - 30, 116); g.lineTo(i * 16 - 46, 116); g.fill(); }
+  g.fillStyle = "#141414"; g.fillRect(20, 30, 216, 56); g.fillStyle = "#ffcf3a"; g.font = "bold 34px sans-serif"; g.textAlign = "center"; g.fillText("CHANTIER", 128, 70);
+  g.font = "12px sans-serif"; g.fillText("Néo-Faille Reconstruction", 128, 84);
+  const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
+}

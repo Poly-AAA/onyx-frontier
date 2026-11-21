@@ -1,0 +1,26 @@
+{
+  "name": "neofaille-ow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "serve": "python3 -m http.server 8798",
+    "shots": "python3 tools/shots.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "^0.21.0",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@gltf-transform/cli": "^4.5.1",
+    "esbuild": "^0.28.2",
+    "terser": "^5.51.4"
+  },
+  "private": true
+}

@@ -1,0 +1,61 @@
+{
+ "walkers": [
+  {
+   "id": "civil_1",
+   "class": "scripted",
+   "asset": "kag3d_civil_m1",
+   "colors": {
+    "skin": "#8d5a3b",
+    "torso": "#3d6b8c",
+    "legs": "#2b2b30"
+   },
+   "speed": 1.4,
+   "waypoints": [
+    [
+     110,
+     0,
+     228
+    ],
+    [
+     240,
+     0,
+     228
+    ],
+    [
+     240,
+     0,
+     272
+    ],
+    [
+     110,
+     0,
+     272
+    ]
+   ]
+  },
+  {
+   "id": "flic_1",
+   "class": "scripted",
+   "asset": "vinrax_cop",
+   "optional": true,
+   "colors": {
+    "skin": "#d9a77f",
+    "torso": "#1f2f5a",
+    "legs": "#1a1a22"
+   },
+   "speed": 1.2,
+   "waypoints": [
+    [
+     100,
+     10,
+     250
+    ],
+    [
+     400,
+     10,
+     250
+    ]
+   ]
+  }
+ ]
+}

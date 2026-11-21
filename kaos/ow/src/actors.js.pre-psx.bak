@@ -1,0 +1,116 @@
+/** Corps provisoire low-poly (1,80 m, os nommés comme Mixamo) + fringues Benceaki par manifeste, joueur (toucher pour bouger), PNJ scripté, caméra iso. */
+import { walkSpeed } from "./core/gen.js";
+
+/** Corps articulé : pivots hanches/épaules ; noms d'os façon Mixamo pour le futur swap GLB (C3). */
+export function buildBody(eng, colors, scale = [1, 1, 1]) {
+  const { THREE } = eng, root = new THREE.Group(), M = (c) => eng.material({ color: c });
+  const part = (name, geo, mat, parent, pos) => { const m = new THREE.Mesh(geo, mat); m.name = name; m.position.set(...pos); m.castShadow = true; parent.add(m); eng.outline(m); return m; };
+  const pivot = (name, parent, pos) => { const g = new THREE.Group(); g.name = name; g.position.set(...pos); parent.add(g); return g; };
+  const hips = pivot("mixamorig:Hips", root, [0, 0.95, 0]);
+  const torso = part("mixamorig:Spine", new THREE.BoxGeometry(0.46, 0.6, 0.26), M(colors.torso), hips, [0, 0.33, 0]);
+  const head = part("mixamorig:Head", new THREE.BoxGeometry(0.24, 0.27, 0.25), M(colors.skin), hips, [0, 0.78, 0]);
+  const limbs = {};
+  [["Left", -1], ["Right", 1]].forEach(([s, k]) => {
+    const sh = pivot(`mixamorig:${s}Arm`, hips, [k * 0.31, 0.6, 0]);
+    part(`${s}ArmMesh`, new THREE.BoxGeometry(0.13, 0.62, 0.13), M(colors.torso), sh, [0, -0.31, 0]);
+    const hand = part(`mixamorig:${s}Hand`, new THREE.BoxGeometry(0.11, 0.12, 0.11), M(colors.skin), sh, [0, -0.67, 0]);
+    const hp = pivot(`mixamorig:${s}UpLeg`, hips, [k * 0.12, 0, 0]);
+    part(`${s}LegMesh`, new THREE.BoxGeometry(0.17, 0.86, 0.18), M(colors.legs), hp, [0, -0.43, 0]);
+    const foot = part(`mixamorig:${s}Foot`, new THREE.BoxGeometry(0.17, 0.09, 0.3), M("#151318"), hp, [0, -0.9, 0.05]);
+    limbs[s] = { sh, hp, hand, foot };
+  });
+  root.scale.set(...scale);
+  const anchors = { head, torso, hips, back: torso, neck: torso, legs: hips, feet: hips, hands: hips, handR: limbs.Right.hand, handL: limbs.Left.hand };
+  let phase = 0;
+  return {
+    root, anchors, limbs,
+    /** Marche animée procédurale (suggérée) : balancier jambes/bras. */
+    animate(dt, speed) {
+      phase += dt * speed * 2.6;
+      const a = speed > 0.05 ? Math.sin(phase) * Math.min(0.6, speed * 0.2) : 0;
+      limbs.Left.hp.rotation.x = a; limbs.Right.hp.rotation.x = -a; limbs.Left.sh.rotation.x = -a * 0.8; limbs.Right.sh.rotation.x = a * 0.8;
+      hips.position.y = 0.95 + Math.abs(Math.cos(phase)) * 0.04 * (speed > 0.05 ? 1 : 0);
+    },
+  };
+}
+
+/** Fringues : GLB du manifeste si présent, sinon pièce provisoire low-poly sur l'ancre de l'emplacement. */
+export function dress(eng, body, manifest, equipped) {
+  const { THREE } = eng;
+  Object.entries(equipped).forEach(([slot, pieceId]) => {
+    const piece = manifest.pieces.find((p) => p.id === pieceId); if (!piece) return;
+    const anchor = body.anchors[manifest.visibleSlots[slot]]; if (!anchor) return;
+    if (piece.url) { eng.loadGLB(piece.url).then((g) => anchor.add(g.scene)).catch(() => {}); return; }
+    let m;
+    if (piece.placeholder === "hood") { m = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.36, 6), eng.material({ color: piece.color })); m.position.y = 0.12; }
+    else if (piece.placeholder === "jacket") { m = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.3), eng.material({ color: piece.color })); m.position.y = 0.04; }
+    else if (piece.placeholder === "cape") { const g = new THREE.PlaneGeometry(0.5, 1.05, 2, 6); g.translate(0, -0.45, 0); m = new THREE.Mesh(g, eng.material({ color: piece.color, wind: "hang", windK: 1.2, side: THREE.DoubleSide })); m.position.set(0, 0.28, -0.16); }
+    if (m) { m.castShadow = true; m.name = "piece:" + piece.id; anchor.add(m); eng.outline(m); }
+  });
+}
+
+export function createPlayer(eng, phys, cfg, data, save, opt = {}) {
+  const P = data.player, man = data["benceaki.manifest"];
+  const bodyDef = man.bodies.find((b) => b.id === P.body) || man.bodies[0];
+  const sc = [bodyDef.scale[0] * P.scale.x, bodyDef.scale[1] * P.scale.y, bodyDef.scale[2] * P.scale.z];
+  const body = buildBody(eng, opt.colors || { skin: P.skin, torso: "#2b2833", legs: "#26232c" }, sc);
+  if (!opt.colors) dress(eng, body, man, P.equipped);
+  eng.scene.add(body.root);
+  const spawn = opt.spawn || (save && save.player) || cfg.player.spawn;
+  const ch = phys.character(spawn, 0.35, 0.55);
+  const st = { pm: (save && save.pm) ?? P.stats.pm, target: null, key: null, vy: 0, speed: 0, body, ch, def: P };
+  st.update = (dt) => {
+    const t = ch.body.translation();
+    let dx = 0, dz = 0;
+    if (st.key && (st.key.x || st.key.z)) { st.target = null; const d = Math.hypot(st.key.x, st.key.z); dx = st.key.x / d; dz = st.key.z / d; }
+    else if (st.target) { dx = st.target.x - t.x; dz = st.target.z - t.z; const d = Math.hypot(dx, dz); if (d < 0.3) { st.target = null; dx = dz = 0; } else { dx /= d; dz /= d; } }
+    const v = walkSpeed(cfg.player.walk, st.pm);
+    st.vy = ch.ctl.computedGrounded() ? -0.5 : st.vy + cfg.player.gravity * dt;
+    ch.ctl.computeColliderMovement(ch.col, { x: dx * v * dt, y: st.vy * dt, z: dz * v * dt });
+    const mv = ch.ctl.computedMovement();
+    ch.body.setNextKinematicTranslation({ x: t.x + mv.x, y: t.y + mv.y, z: t.z + mv.z });
+    st.speed = Math.hypot(mv.x, mv.z) / Math.max(dt, 1e-4);
+    if (st.target && st.speed < 0.05 && Math.hypot(dx, dz) > 0) st.stuck = (st.stuck || 0) + dt; else st.stuck = 0;
+    if (st.stuck > 1) st.target = null;
+    if (dx || dz) body.root.rotation.y = Math.atan2(dx, dz);
+    body.root.position.set(t.x, t.y - 0.9, t.z);
+    body.animate(dt, st.speed);
+  };
+  st.pos = () => ch.body.translation();
+  return st;
+}
+
+/** PNJ scripté (classe C4 « scripted ») : boucle de waypoints, marche animée. GLB KAG3D/Vinrax si présent. */
+export function createWalker(eng, def, manifest) {
+  const body = buildBody(eng, def.colors);
+  eng.scene.add(body.root);
+  const asset = manifest.assets.find((a) => a.id === def.asset);
+  if (asset && asset.status === "present") eng.loadGLB(asset.url).then((g) => { body.root.clear(); body.root.add(eng.normalize(g.scene, 1.8)); }).catch(() => {});
+  let k = 0; const p = body.root.position; p.set(...def.waypoints[0]);
+  return {
+    def, body,
+    update(dt) {
+      const w = def.waypoints[(k + 1) % def.waypoints.length];
+      const dx = w[0] - p.x, dy = w[1] - p.y, dz = w[2] - p.z, d = Math.hypot(dx, dy, dz), s = def.speed * dt;
+      if (d <= s) { k = (k + 1) % def.waypoints.length; } else { p.x += dx / d * s; p.y += dy / d * s; p.z += dz / d * s; body.root.rotation.y = Math.atan2(dx, dz); }
+      body.animate(dt, def.speed);
+    },
+  };
+}
+
+/** Caméra iso réglable (+/−) qui suit le joueur. */
+export function createCamera(eng, cfg) {
+  const C = cfg.camera, cam = eng.camera;
+  cam.fov = C.fov; cam.updateProjectionMatrix();
+  const st = { dist: C.distance, yaw: C.isoYaw * Math.PI / 180 };
+  st.zoom = (k) => { st.dist = Math.min(C.max, Math.max(C.min, st.dist * k)); };
+  st.rotate = (a) => { st.yaw += a; };
+  /** Vecteur monde pour une entrée écran (avant/droite) selon l'orientation caméra. */
+  st.toWorld = (fwd, right) => { const y = st.yaw; return { x: -Math.sin(y) * fwd + Math.cos(y) * right, z: -Math.cos(y) * fwd - Math.sin(y) * right }; };
+  st.update = (target) => {
+    const yaw = st.yaw, pitch = C.isoPitch * Math.PI / 180;
+    cam.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * st.dist, target.y + Math.sin(pitch) * st.dist, target.z + Math.cos(yaw) * Math.cos(pitch) * st.dist);
+    cam.lookAt(target.x, target.y + 1, target.z);
+  };
+  return st;
+}

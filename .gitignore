@@ -1,0 +1,19 @@
+# Dependencies and tool caches
+node_modules/
+.codegraph/
+
+# Logs and env/secrets
+*.log
+.env
+.env.*
+*.pem
+id_rsa
+id_ed25519
+id_rsa.pub
+
+# Chrome/Playwright profile (cookies and session data)
+bots/openrouter/headless-profile/
+
+# OS junk
+.DS_Store
+Thumbs.db

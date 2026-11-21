@@ -1,0 +1,152 @@
+/** C1 moteur PSX : WebGPURenderer (repli WebGL2 auto), rendu basse résolution + upscale nearest,
+ * matériau PS1 unique : vertex snapping écran, UV affines (sans correction de perspective), Gouraud par sommet,
+ * fog de distance par sommet, dithering Bayer 4×4 + quantification RGB555. Tout est réglé par config.psx. */
+import { THREE } from "./three.js";
+import { attribute, time, sin, positionLocal, uv, vec2, vec3, vec4, float, uniform, instancedBufferAttribute, texture, floor, mix, pow, max, dot, abs, smoothstep, varying, Fn, screenCoordinate, modelViewProjection, normalWorld, positionView } from "three/tsl";
+import { tex } from "./psxtex.js";
+
+export { THREE };
+
+export async function createEngine(cfg, canvas) {
+  const X = cfg.psx;
+  const renderer = new THREE.WebGPURenderer({ canvas, antialias: false });
+  renderer.setPixelRatio(1);
+  renderer.toneMapping = THREE.NoToneMapping;
+  await renderer.init();
+  const backend = renderer.backend.isWebGPUBackend ? "WebGPU" : "WebGL2";
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.5, X.fog.far * 1.05);
+
+  // --- uniformes partagés par tous les matériaux PSX ---
+  const U = {
+    res: uniform(new THREE.Vector2(1, 1)), // grille de snapping (en demi-pixels NDC)
+    sunDir: uniform(new THREE.Vector3(0.4, 0.8, 0.3).normalize()), sunCol: uniform(new THREE.Color(1, 1, 1)), amb: uniform(new THREE.Color(0.4, 0.4, 0.45)),
+    fogCol: uniform(new THREE.Color(X.sky.day)), fogNear: uniform(X.fog.near), fogFar: uniform(X.fog.far),
+    night: uniform(0), dither: uniform(X.dither), levels: uniform(X.colorLevels), affine: uniform(X.affine ? 1 : 0),
+  };
+  const size = { w: 1, h: 1 };
+  /** Résolution interne : nombre de pixels ≈ psx.res (240×426), quel que soit l'écran ; upscale CSS pixelated. */
+  function resize() {
+    const k = Math.sqrt((X.res[0] * X.res[1]) / (innerWidth * innerHeight));
+    size.w = Math.max(64, Math.round(innerWidth * k)); size.h = Math.max(64, Math.round(innerHeight * k));
+    renderer.setSize(size.w, size.h, false);
+    canvas.style.width = "100%"; canvas.style.height = "100%";
+    U.res.value.set(size.w / (2 * X.snap), size.h / (2 * X.snap));
+    camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
+  }
+  resize(); addEventListener("resize", resize);
+
+  // --- vent : UN seul calcul sinusoïdal partagé ---
+  const W = cfg.wind, windAmp = uniform(W.amplitude);
+  const wave = sin(time.mul(W.speed).add(positionLocal.x.mul(W.frequency)).add(positionLocal.z.mul(W.frequency * 0.7)));
+  const windPosition = (factor, k = 1) => positionLocal.add(vec3(wave.mul(windAmp).mul(factor).mul(k), float(0), wave.mul(windAmp).mul(factor).mul(0.4 * k)));
+
+  // --- briques du shader PSX ---
+  /** Jitter PSX : position écran arrondie sur une grille (résolution réglable via psx.snap). */
+  const snapped = Fn(() => {
+    const c = modelViewProjection;
+    if (!X.snap) return c;
+    const s = floor(c.xy.div(c.w).mul(U.res)).add(0.5).div(U.res);
+    return vec4(s.mul(c.w), c.z, c.w);
+  });
+  const clipW = modelViewProjection.w;
+  /** UV affines : interpolées sans correction de perspective (uv·w / w), mélangées selon psx.affine. */
+  const affineUV = () => mix(uv(), varying(uv().mul(clipW)).div(varying(clipW)), U.affine);
+  const bayer = texture(tex.bayer(), screenCoordinate.div(4)).r.sub(0.5);
+  /** Sortie : Gouraud (calculé par sommet), émissif, fog par sommet, dithering + quantification 15 bits. */
+  function psxOut(rgb, light, emis, fogF) {
+    let c = rgb.mul(light);
+    if (emis) c = c.add(emis);
+    c = mix(c, vec3(U.fogCol), fogF);
+    const g = pow(max(c, vec3(0)), vec3(1 / 2.2)); // quantification en espace ~sRGB, comme le framebuffer PS1
+    const q = floor(g.mul(U.levels).add(bayer.mul(U.dither)).add(0.5)).div(U.levels);
+    return pow(q.clamp(0, 1), vec3(2.2));
+  }
+  class PSXMaterial extends THREE.MeshBasicNodeMaterial {
+    setupOutput(builder, out) { return vec4(psxOut(out.rgb, this._light, this._emis, this._fog), out.a); }
+  }
+  /** Fabrique de matériaux PSX (même API qu'avant : color, map, emissiveMap, vertexColors, wind, side, alphaTest, unlit). */
+  function material(opts = {}) {
+    const m = new PSXMaterial({ fog: false });
+    const col = new THREE.Color(opts.color || "#ffffff");
+    const uvA = affineUV();
+    m.colorNode = opts.map ? texture(opts.map, uvA).mul(vec4(col.r, col.g, col.b, 1)) : vec4(col.r, col.g, col.b, 1);
+    if (opts.blend) { // terrain : 3 textures (sable, herbe, roche) mélangées par l'attribut de sommet "bw"
+      const w = attribute("bw", "vec3"), [a, b, c] = opts.blend.map((t) => texture(t, uvA));
+      m.colorNode = a.mul(w.x).add(b.mul(w.y)).add(c.mul(w.z)).mul(vec4(col.r, col.g, col.b, 1));
+    }
+    if (opts.vertexColors) m.vertexColors = true;
+    if (opts.alphaTest) m.alphaTest = opts.alphaTest;
+    if (opts.side) m.side = opts.side;
+    if (opts.transparent) { m.transparent = true; m.opacity = opts.opacity ?? 1; m.depthWrite = false; }
+    if (opts.wind) m.positionNode = windPosition(opts.wind === "hang" ? float(1).sub(uv().y) : uv().y, opts.windK || 1);
+    m.vertexNode = snapped();
+    const lam = dot(normalWorld, U.sunDir), nl = opts.side === THREE.DoubleSide ? abs(lam) : max(lam, 0);
+    m._light = opts.unlit ? float(1) : varying(vec3(U.amb).add(vec3(U.sunCol).mul(nl)));
+    m._fog = varying(smoothstep(U.fogNear, U.fogFar, positionView.z.negate()));
+    if (opts.emissiveMap) m._emis = texture(opts.emissiveMap, uvA).rgb.mul(float(opts.emissiveIntensity ?? 1).mul(U.night.mul(0.75).add(0.25)));
+    else if (opts.emissive) { const e = new THREE.Color(opts.emissive); m._emis = vec3(e.r, e.g, e.b).mul(opts.emissiveIntensity ?? 1); }
+    return m;
+  }
+  const outline = () => null; // contours toon retirés : ils cassaient le look PS1
+
+  /** Heure du jour → soleil, ambiance, ciel/fog, fenêtres allumées. */
+  const cDay = new THREE.Color(X.sky.day), cDusk = new THREE.Color(X.sky.dusk), cNight = new THREE.Color(X.sky.night), tmp = new THREE.Color();
+  function setTime(h) {
+    const a = (h - 6) / 24 * Math.PI * 2, el = Math.sin(a);
+    U.sunDir.value.set(Math.cos(a) * 0.7, Math.max(0.12, el), 0.45).normalize();
+    const d = Math.max(0, el);
+    U.sunCol.value.setRGB(1.0, 0.9, 0.78).multiplyScalar(0.25 + d * X.light.sun);
+    U.amb.value.setRGB(0.36, 0.34, 0.46).multiplyScalar(0.55 + d * X.light.ambient);
+    tmp.copy(cNight).lerp(el > 0 ? cDay : cDusk, Math.min(1, Math.abs(el) * 1.6) * (el > 0 ? 1 : 0.5));
+    if (el > -0.15 && el < 0.25) tmp.lerp(cDusk, 0.35 * (1 - Math.abs(el - 0.05) / 0.2));
+    U.fogCol.value.copy(tmp); scene.background = U.fogCol.value;
+    U.night.value = el > 0.15 ? 0 : Math.min(1, (0.15 - el) * 4);
+    return el;
+  }
+  const render = () => renderer.render(scene, camera);
+  // chargeurs de modèles à la demande (chunks séparés) : GLB/glTF et FBX (packs PSX itch.io)
+  let gltf = null, fbx = null;
+  const loadGLB = async (url) => { if (!gltf) { const { GLTFLoader } = await import("three/examples/jsm/loaders/GLTFLoader.js"); gltf = new GLTFLoader(); } return gltf.loadAsync(url); };
+  const loadFBX = async (url) => { if (!fbx) { const { FBXLoader } = await import("three/examples/jsm/loaders/FBXLoader.js"); fbx = new FBXLoader(); } return { scene: await fbx.loadAsync(url) }; };
+  const loadModel = (url) => (/\.fbx$/i.test(url) ? loadFBX(url) : loadGLB(url));
+  /** Passe un modèle importé en PSX : textures Nearest, matériau PSX qui garde la texture et la couleur. */
+  const psxify = (obj) => { obj.traverse((o) => { if (!o.isMesh) return; const src = Array.isArray(o.material) ? o.material[0] : o.material; const map = src && src.map; if (map) { map.magFilter = map.minFilter = THREE.NearestFilter; map.generateMipmaps = false; } o.material = material({ map, color: src && src.color ? "#" + src.color.getHexString() : "#ffffff" }); }); return obj; };
+  /** Normalisation d'échelle à l'import : hauteur cible (perso = 1,80 m). */
+  const normalize = (obj, height) => { const b = new THREE.Box3().setFromObject(obj), h = b.max.y - b.min.y || 1; obj.scale.multiplyScalar(height / h); obj.position.y -= b.min.y * height / h; return obj; };
+  return { THREE, renderer, scene, camera, backend, subdiv: X.subdivide, material, outline, windAmp, U, size, setTime, render, loadGLB, loadFBX, loadModel, psxify, normalize, tex };
+}
+
+/** Particules semi-transparentes (fumée, sable, nuages) : sprites instanciés pilotés par JSON. */
+export function particles(eng, { count = 200, color = "#888", size = 2, opacity = 0.35, area = [40, 20, 40], rise = 1, drift = [0.3, 0], life = 8 }) {
+  const { THREE } = eng;
+  const pos = new Float32Array(count * 3), seed = new Float32Array(count);
+  for (let i = 0; i < count; i++) { pos[i * 3] = (Math.random() - 0.5) * area[0]; pos[i * 3 + 1] = Math.random() * area[1]; pos[i * 3 + 2] = (Math.random() - 0.5) * area[2]; seed[i] = Math.random() * life; }
+  const attr = new THREE.InstancedBufferAttribute(pos, 3);
+  const mat = new THREE.SpriteNodeMaterial({ transparent: true, depthWrite: false });
+  const puff = puffTex(THREE), c = new THREE.Color(color);
+  mat.positionNode = instancedBufferAttribute(attr);
+  mat.scaleNode = float(size);
+  mat.colorNode = texture(puff).mul(vec3(c.r, c.g, c.b));
+  mat.opacityNode = texture(puff).a.mul(opacity);
+  const pts = new THREE.Sprite(mat);
+  pts.count = count; pts.frustumCulled = false;
+  pts.userData.update = (dt) => {
+    for (let i = 0; i < count; i++) {
+      seed[i] += dt;
+      pos[i * 3] += drift[0] * dt; pos[i * 3 + 1] += rise * dt; pos[i * 3 + 2] += drift[1] * dt;
+      if (seed[i] > life) { seed[i] = 0; pos[i * 3] = (Math.random() - 0.5) * area[0]; pos[i * 3 + 1] = rise >= 0 ? 0 : area[1]; pos[i * 3 + 2] = (Math.random() - 0.5) * area[2]; }
+    }
+    attr.needsUpdate = true;
+  };
+  return pts;
+}
+let _puff;
+/** Bouffée 16×16 en pixels (pas de dégradé lisse). */
+function puffTex(THREE) {
+  if (_puff) return _puff;
+  const c = document.createElement("canvas"); c.width = c.height = 16; const g = c.getContext("2d"), img = g.createImageData(16, 16);
+  for (let y = 0; y < 16; y++) for (let x = 0; x < 16; x++) { const d = Math.hypot(x - 7.5, y - 7.5) / 8, a = d < 0.55 ? 255 : d < 0.8 ? 150 : d < 1 ? 60 : 0; img.data.set([255, 255, 255, a], (y * 16 + x) * 4); }
+  g.putImageData(img, 0, 0);
+  _puff = new THREE.CanvasTexture(c); _puff.magFilter = _puff.minFilter = THREE.NearestFilter; _puff.generateMipmaps = false; return _puff;
+}

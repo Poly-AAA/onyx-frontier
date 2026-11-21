@@ -1,0 +1,325 @@
+{
+  "assets/chars/manifest.json": {
+    "mtime": 1795225834.1221976,
+    "seen": 1795231581.7808669,
+    "ast_hash": "b6ecbdddbc2a23a5d51b62c71cb11dd3",
+    "semantic_hash": "b6ecbdddbc2a23a5d51b62c71cb11dd3"
+  },
+  "data/career-data.json": {
+    "mtime": 1795225974.6176553,
+    "seen": 1795231581.780925,
+    "ast_hash": "5ccee1fe8f69648105ac57534df37a5b",
+    "semantic_hash": "5ccee1fe8f69648105ac57534df37a5b",
+    "ast_empty": true
+  },
+  "data/generated-spells.json": {
+    "mtime": 1795225478.9856796,
+    "seen": 1795231581.780928,
+    "ast_hash": "3f954cccfd78f51f13260073fb2dd118",
+    "semantic_hash": "3f954cccfd78f51f13260073fb2dd118",
+    "ast_empty": true
+  },
+  "ow/data/assets.manifest.json": {
+    "mtime": 1795230807.5698311,
+    "seen": 1795231581.7809296,
+    "ast_hash": "0f7558eaf908d3cb61e841f378cbef5e",
+    "semantic_hash": "0f7558eaf908d3cb61e841f378cbef5e",
+    "ast_empty": true
+  },
+  "ow/data/benceaki.manifest.json": {
+    "mtime": 1795230816.6095388,
+    "seen": 1795231581.7809312,
+    "ast_hash": "5f598046d80e0d4363e7b6bf33d80bd8",
+    "semantic_hash": "5f598046d80e0d4363e7b6bf33d80bd8",
+    "ast_empty": true
+  },
+  "ow/data/biomes.json": {
+    "mtime": 1795231365.9597778,
+    "seen": 1795231581.780933,
+    "ast_hash": "d6c24838248b5835a93c720f08df95b6",
+    "semantic_hash": "d6c24838248b5835a93c720f08df95b6",
+    "ast_empty": true
+  },
+  "ow/data/city.json": {
+    "mtime": 1795230837.640859,
+    "seen": 1795231581.7809339,
+    "ast_hash": "49ba22acbb85bc9e20c8f50e669da3fb",
+    "semantic_hash": "49ba22acbb85bc9e20c8f50e669da3fb",
+    "ast_empty": true
+  },
+  "ow/data/config.json": {
+    "mtime": 1795231555.7976403,
+    "seen": 1795231581.7809374,
+    "ast_hash": "473593a4686cf06bab76efce29e2259b",
+    "semantic_hash": "473593a4686cf06bab76efce29e2259b",
+    "ast_empty": true
+  },
+  "ow/data/layers.json": {
+    "mtime": 1795230807.5698311,
+    "seen": 1795231581.780939,
+    "ast_hash": "b749959e4faaa3b71fe5113505718208",
+    "semantic_hash": "b749959e4faaa3b71fe5113505718208",
+    "ast_empty": true
+  },
+  "ow/data/npcs.json": {
+    "mtime": 1795231310.5375698,
+    "seen": 1795231581.78094,
+    "ast_hash": "f3c652328a0a8396ab5bea8aacd9fee3",
+    "semantic_hash": "f3c652328a0a8396ab5bea8aacd9fee3",
+    "ast_empty": true
+  },
+  "ow/data/player.json": {
+    "mtime": 1795230816.6095388,
+    "seen": 1795231581.780941,
+    "ast_hash": "9438e39952db84e0861756b5bbcf71e4",
+    "semantic_hash": "9438e39952db84e0861756b5bbcf71e4",
+    "ast_empty": true
+  },
+  "ow/data/schemas/c3-character.schema.json": {
+    "mtime": 1795230552.8220673,
+    "seen": 1795231581.7809427,
+    "ast_hash": "7fca4a28934eb54a8d63dcbe387dc40c",
+    "semantic_hash": "7fca4a28934eb54a8d63dcbe387dc40c"
+  },
+  "ow/data/schemas/c4-npc.schema.json": {
+    "mtime": 1795230552.8220673,
+    "seen": 1795231581.780991,
+    "ast_hash": "1d31372417cabe9602c22bce0bae2e56",
+    "semantic_hash": "1d31372417cabe9602c22bce0bae2e56"
+  },
+  "ow/data/schemas/c5-vehicle.schema.json": {
+    "mtime": 1795230552.8220673,
+    "seen": 1795231581.7810228,
+    "ast_hash": "27e87e84d4a74a41b0dac4b952d902ed",
+    "semantic_hash": "27e87e84d4a74a41b0dac4b952d902ed"
+  },
+  "ow/data/schemas/c6-combat.schema.json": {
+    "mtime": 1795230807.5698311,
+    "seen": 1795231581.7810519,
+    "ast_hash": "d0693b95d52a3545744251d08480c0f9",
+    "semantic_hash": "d0693b95d52a3545744251d08480c0f9"
+  },
+  "ow/data/schemas/c7-recipe.schema.json": {
+    "mtime": 1795230552.8220673,
+    "seen": 1795231581.7810802,
+    "ast_hash": "ee97d1c1f4344f56faf1b0801e3e4530",
+    "semantic_hash": "ee97d1c1f4344f56faf1b0801e3e4530"
+  },
+  "ow/data/schemas/c8-ai.schema.json": {
+    "mtime": 1795230552.8220673,
+    "seen": 1795231581.7811086,
+    "ast_hash": "4ce559adeb1ae19629e4c925dc60bef8",
+    "semantic_hash": "4ce559adeb1ae19629e4c925dc60bef8"
+  },
+  "ow/data/terrain.json": {
+    "mtime": 1795230816.6095388,
+    "seen": 1795231581.7811391,
+    "ast_hash": "12ac91ed55155845f0cc5b3253c9675c",
+    "semantic_hash": "12ac91ed55155845f0cc5b3253c9675c",
+    "ast_empty": true
+  },
+  "ow/package.json": {
+    "mtime": 1795230990.0959299,
+    "seen": 1795231581.7811403,
+    "ast_hash": "3f764ea036f24cf8edf5f4089d8801a5",
+    "semantic_hash": "3f764ea036f24cf8edf5f4089d8801a5"
+  },
+  "ow/src/actors.js": {
+    "mtime": 1795231108.8280911,
+    "seen": 1795231581.7811646,
+    "ast_hash": "e1dcaabf3be325c95d13466e197fe707",
+    "semantic_hash": "e1dcaabf3be325c95d13466e197fe707"
+  },
+  "ow/src/core/gen.js": {
+    "mtime": 1795231080.8529956,
+    "seen": 1795231581.7811842,
+    "ast_hash": "80b26766afea98f5a40b413b4ae25897",
+    "semantic_hash": "80b26766afea98f5a40b413b4ae25897"
+  },
+  "ow/src/core/save.js": {
+    "mtime": 1795230709.7169948,
+    "seen": 1795231581.7812166,
+    "ast_hash": "dbfcc335a3d6708cad08a39a5c638073",
+    "semantic_hash": "dbfcc335a3d6708cad08a39a5c638073"
+  },
+  "ow/src/engine.js": {
+    "mtime": 1795231555.7896407,
+    "seen": 1795231581.7812428,
+    "ast_hash": "af4733532654eb20b746ccf547286b67",
+    "semantic_hash": "af4733532654eb20b746ccf547286b67"
+  },
+  "ow/src/layers.js": {
+    "mtime": 1795230970.2645712,
+    "seen": 1795231581.7812726,
+    "ast_hash": "3f8ef6de2c8c4c4c14b717bd68190c23",
+    "semantic_hash": "3f8ef6de2c8c4c4c14b717bd68190c23"
+  },
+  "ow/src/main.js": {
+    "mtime": 1795231555.7976403,
+    "seen": 1795231581.7812955,
+    "ast_hash": "3f572e3c08eab5796bba036ceedc1a50",
+    "semantic_hash": "3f572e3c08eab5796bba036ceedc1a50"
+  },
+  "ow/src/phys.js": {
+    "mtime": 1795230893.8150427,
+    "seen": 1795231581.7813222,
+    "ast_hash": "dcc491f227eb799f4db05e3354d1b1ec",
+    "semantic_hash": "dcc491f227eb799f4db05e3354d1b1ec"
+  },
+  "ow/src/world/city.js": {
+    "mtime": 1795231572.633096,
+    "seen": 1795231581.7813492,
+    "ast_hash": "a613b36fab99a9fc856ce52ddb4e85bf",
+    "semantic_hash": "a613b36fab99a9fc856ce52ddb4e85bf"
+  },
+  "ow/src/world/terrain.js": {
+    "mtime": 1795231409.0943835,
+    "seen": 1795231581.781379,
+    "ast_hash": "b0d9ac22ab547c591ba73cc5108bded5",
+    "semantic_hash": "b0d9ac22ab547c591ba73cc5108bded5"
+  },
+  "ow/tests/core.test.mjs": {
+    "mtime": 1795230709.7209947,
+    "seen": 1795231581.7814062,
+    "ast_hash": "0fd8e741c037f3778284be59062dc7c8",
+    "semantic_hash": "0fd8e741c037f3778284be59062dc7c8"
+  },
+  "ow/tools/build.mjs": {
+    "mtime": 1795231272.2908063,
+    "seen": 1795231581.7814343,
+    "ast_hash": "9a7fd26e032862bb81d9095e170311a6",
+    "semantic_hash": "9a7fd26e032862bb81d9095e170311a6"
+  },
+  "ow/tools/shots.py": {
+    "mtime": 1795231572.633096,
+    "seen": 1795231581.7814615,
+    "ast_hash": "25e3149bca91aba1dd8a6da09a639176",
+    "semantic_hash": "25e3149bca91aba1dd8a6da09a639176"
+  },
+  "package.json": {
+    "mtime": 1795226354.5533717,
+    "seen": 1795231581.7814875,
+    "ast_hash": "2b53f0a2efbc46efd50bfae982e8fd7a",
+    "semantic_hash": "2b53f0a2efbc46efd50bfae982e8fd7a"
+  },
+  "server.mjs": {
+    "mtime": 1795226258.1604881,
+    "seen": 1795231581.781506,
+    "ast_hash": "f39c54f9cd941277a6823c440112e697",
+    "semantic_hash": "f39c54f9cd941277a6823c440112e697"
+  },
+  "src/ai/dialogue.js": {
+    "mtime": 1795226471.4175935,
+    "seen": 1795231581.7815237,
+    "ast_hash": "588a70494f55fa891dea4f842ef4e0c0",
+    "semantic_hash": "588a70494f55fa891dea4f842ef4e0c0"
+  },
+  "src/ai/missions.js": {
+    "mtime": 1795225708.506259,
+    "seen": 1795231581.7815416,
+    "ast_hash": "2740115e40fb36cf71729474919589a4",
+    "semantic_hash": "2740115e40fb36cf71729474919589a4"
+  },
+  "src/ai/npc-brain.js": {
+    "mtime": 1795225909.5957575,
+    "seen": 1795231581.7815616,
+    "ast_hash": "681606cdc54c899bb1b48358a1753a5e",
+    "semantic_hash": "681606cdc54c899bb1b48358a1753a5e"
+  },
+  "src/ai/npcs-data.js": {
+    "mtime": 1795226000.608815,
+    "seen": 1795231581.7815785,
+    "ast_hash": "a7829d22630c24e129199ad86b29204c",
+    "semantic_hash": "a7829d22630c24e129199ad86b29204c"
+  },
+  "src/combat/brawl.js": {
+    "mtime": 1795225901.752011,
+    "seen": 1795231581.7815998,
+    "ast_hash": "467d5b68a1955a63ad23467fb42d536f",
+    "semantic_hash": "467d5b68a1955a63ad23467fb42d536f"
+  },
+  "src/combat/bridge.js": {
+    "mtime": 1795225727.6736393,
+    "seen": 1795231581.7816205,
+    "ast_hash": "31077567dd7d56f6ac8b72dfc324ed00",
+    "semantic_hash": "31077567dd7d56f6ac8b72dfc324ed00"
+  },
+  "src/core/roguelite.js": {
+    "mtime": 1795225478.9816797,
+    "seen": 1795231581.781639,
+    "ast_hash": "7581361e9cd6530a53cd7941f9808cc5",
+    "semantic_hash": "7581361e9cd6530a53cd7941f9808cc5"
+  },
+  "src/core/spell-lab.js": {
+    "mtime": 1795225478.9816797,
+    "seen": 1795231581.7816577,
+    "ast_hash": "ca83712a916ecb771f0fc4d161b95037",
+    "semantic_hash": "ca83712a916ecb771f0fc4d161b95037"
+  },
+  "src/game.js": {
+    "mtime": 1795226113.533164,
+    "seen": 1795231581.7816768,
+    "ast_hash": "23b9b29e1bea6ce29ff6ffaf656686cd",
+    "semantic_hash": "23b9b29e1bea6ce29ff6ffaf656686cd"
+  },
+  "src/life/jobs.js": {
+    "mtime": 1795226000.5968153,
+    "seen": 1795231581.7816918,
+    "ast_hash": "026d4b434f3b7bf801f5f9e08ce58e13",
+    "semantic_hash": "026d4b434f3b7bf801f5f9e08ce58e13"
+  },
+  "src/main.js": {
+    "mtime": 1795226351.941456,
+    "seen": 1795231581.7817144,
+    "ast_hash": "ad14b70ac0cc73c8e73e6fbaceae33b6",
+    "semantic_hash": "ad14b70ac0cc73c8e73e6fbaceae33b6"
+  },
+  "src/render/iso.js": {
+    "mtime": 1795226059.5709088,
+    "seen": 1795231581.7817347,
+    "ast_hash": "08250b2405623dd5fb2ecfc7fbf1b1a5",
+    "semantic_hash": "08250b2405623dd5fb2ecfc7fbf1b1a5"
+  },
+  "src/ui.js": {
+    "mtime": 1795226213.037947,
+    "seen": 1795231581.7817533,
+    "ast_hash": "b0d3178aa43a2ce975fafee450eaa1d8",
+    "semantic_hash": "b0d3178aa43a2ce975fafee450eaa1d8"
+  },
+  "src/world/city.js": {
+    "mtime": 1795225847.7737563,
+    "seen": 1795231581.781776,
+    "ast_hash": "4dd3e11a925195595dca246f14c6d7b1",
+    "semantic_hash": "4dd3e11a925195595dca246f14c6d7b1"
+  },
+  "src/world/path.js": {
+    "mtime": 1795225608.1815026,
+    "seen": 1795231581.7818017,
+    "ast_hash": "d0cd6f0ede610f6da0e248224bfe4c67",
+    "semantic_hash": "d0cd6f0ede610f6da0e248224bfe4c67"
+  },
+  "tests/core.test.mjs": {
+    "mtime": 1795226352.1174505,
+    "seen": 1795231581.781827,
+    "ast_hash": "0574f2af977c12e3015a069b7d7c7de9",
+    "semantic_hash": "0574f2af977c12e3015a069b7d7c7de9"
+  },
+  "tools/build.mjs": {
+    "mtime": 1795226213.041947,
+    "seen": 1795231581.7818432,
+    "ast_hash": "e6d9aea556e615fcd55837ef46f2ff49",
+    "semantic_hash": "e6d9aea556e615fcd55837ef46f2ff49"
+  },
+  "tools/compose_sprites.py": {
+    "mtime": 1795225825.3704805,
+    "seen": 1795231581.7818637,
+    "ast_hash": "8fcea4b88abe8d27e805608f93280a85",
+    "semantic_hash": "8fcea4b88abe8d27e805608f93280a85"
+  },
+  "tools/shots.py": {
+    "mtime": 1795226295.2032905,
+    "seen": 1795231581.7818825,
+    "ast_hash": "da982d5d7eda4334d510db43a5ef0fea",
+    "semantic_hash": "da982d5d7eda4334d510db43a5ef0fea"
+  }
+}

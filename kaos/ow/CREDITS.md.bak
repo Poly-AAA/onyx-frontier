@@ -1,0 +1,19 @@
+# CREDITS — Néo-Faille open world (kaos/ow)
+
+## Utilisés dans la V1 (code, bundlé en local)
+| Auteur | Projet | Lien | Licence | Fichiers |
+|---|---|---|---|---|
+| mrdoob & contributeurs three.js | three.js r187 (WebGPURenderer, TSL, GLTFLoader) | https://github.com/mrdoob/three.js | MIT | `dist/ow.js`, `dist/chunk-*.js` |
+| Dimforge | Rapier 3D compat 0.21 | https://github.com/dimforge/rapier.js | Apache-2.0 | `dist/ow.js`, `assets/rapier.wasm` |
+
+Tous les visuels de la V1 sont des primitives et des textures générées par le code (aucun fichier image, aucun sprite 2D).
+
+## Prévu (pas encore téléchargé ; à compléter au téléchargement avec la licence relevée sur chaque page)
+| Auteur | Pack | Lien | Licence | Fichiers |
+|---|---|---|---|---|
+| Benceaki | PSX Halloween Characters (3 corps + 21 pièces) | https://benceaki.itch.io/psx-halloween-characters | à vérifier, crédit | `assets/chars/benceaki/` |
+| KAG3D | Low Poly PSX Civilian Pack vol.1 | https://kag3d.itch.io/low-poly-psx-style-civilian-pack-vol1 | à vérifier, crédit | `assets/npc/kag3d/` |
+| **Vinrax** | PSX Cop / Skeleton / Casual Male / Secretary | https://vinrax.itch.io | gratuit, **crédit requis : « Vinrax »** | `assets/npc/vinrax/` |
+| jamzuz | kit urbain modulaire | itch.io | à vérifier | `assets/kits/jamzuz/` |
+| valsekamerplant | 200+ assets urbains | itch.io | à vérifier | `assets/kits/valsekamerplant/` |
+| m-w-marker | Heightmap Level Generator | https://github.com/m-w-marker/heightmap-level-generator | MIT | `assets/terrain/` (non utilisé en V1) |

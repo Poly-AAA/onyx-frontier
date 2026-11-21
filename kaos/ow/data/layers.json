@@ -1,0 +1,44 @@
+{
+ "C3_character": {
+  "schema": "schemas/c3-character.schema.json",
+  "status": "stub"
+ },
+ "C4_npc": {
+  "schema": "schemas/c4-npc.schema.json",
+  "classes": [
+   "inert",
+   "scripted",
+   "key"
+  ],
+  "status": "stub"
+ },
+ "C5_vehicle": {
+  "schema": "schemas/c5-vehicle.schema.json",
+  "status": "stub"
+ },
+ "C6_combat": {
+  "schema": "schemas/c6-combat.schema.json",
+  "circle": {
+   "rangePlus": 3,
+   "min": 5,
+   "max": 16,
+   "forfeitSeconds": 3
+  },
+  "status": "stub",
+  "formatScale": {
+   "1v1": 1,
+   "3v3": 1.3,
+   "5v5": 1.6
+  }
+ },
+ "C7_craft": {
+  "schema": "schemas/c7-recipe.schema.json",
+  "status": "stub"
+ },
+ "C8_ai": {
+  "schema": "schemas/c8-ai.schema.json",
+  "localModel": "phi-3-mini-q4 | gemma-2b-q4",
+  "worldTickGameMinutes": 10,
+  "status": "stub"
+ }
+}

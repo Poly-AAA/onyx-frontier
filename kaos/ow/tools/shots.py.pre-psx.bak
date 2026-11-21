@@ -1,0 +1,51 @@
+"""Preuves headless : réseau externe coupé, 0 sprite 2D, 0 erreur console, captures 393x873, débordement UI 360/320, FPS approx."""
+import json, sys, subprocess, time
+from playwright.sync_api import sync_playwright
+PORT = 8798
+srv = subprocess.Popen([sys.executable, "-m", "http.server", str(PORT)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+time.sleep(1)
+URL = f"http://localhost:{PORT}/index.html"
+errs, external, images, total = [], [], [], {"bytes": 0}
+def route(r):
+    u = r.request.url
+    if not u.startswith(f"http://localhost:{PORT}") and not u.startswith("data:") and not u.startswith("blob:"):
+        external.append(u); return r.abort()
+    r.continue_()
+try:
+    with sync_playwright() as p:
+        b = p.chromium.launch(executable_path="/usr/bin/google-chrome", args=["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"])
+        ctx = b.new_context(viewport={"width": 393, "height": 873}, device_scale_factor=1, is_mobile=True, has_touch=True)
+        pg = ctx.new_page()
+        pg.route("**/*", route)
+        pg.on("pageerror", lambda e: errs.append("pageerror: " + str(e)))
+        pg.on("console", lambda m: m.type == "error" and errs.append(m.text))
+        def resp(r):
+            try: total["bytes"] += len(r.body())
+            except Exception: pass
+            if r.request.resource_type == "image" or r.url.endswith((".png", ".gif", ".jpg", ".webp")): images.append(r.url)
+        pg.on("response", resp)
+        pg.goto(URL)
+        pg.wait_for_function("() => window.NF && NF.terrain.live.size >= 9", timeout=120000)
+        pg.wait_for_timeout(4000)
+        info = pg.evaluate("() => ({backend: NF.eng.backend, chunks: [...NF.terrain.live.keys()], towers: NF.city.buildings.length, fps: NF.state.fps})")
+        pg.evaluate("() => { NF.state.minutes = 12*60; NF.cam.yaw = -Math.PI/2 - 0.35; NF.cam.dist = 300; }")  # crépuscule, vue le long de l'avenue
+        pg.wait_for_timeout(2500); pg.screenshot(path="screenshots/01-ville-verticale.png")
+        # persos qui marchent (joueur en marche + PNJ civil)
+        pg.evaluate("() => { NF.cam.dist = 22; NF.cam.yaw = 0.8; NF.state.minutes = 12*60; const w = NF.walkers[0].body.root.position; const b=NF.player.ch.body; b.setNextKinematicTranslation({x:w.x+3,y:2,z:w.z+3}); NF.player.target = {x:w.x+12, y:0, z:w.z+3}; }")
+        pg.wait_for_timeout(1200); pg.screenshot(path="screenshots/03-persos-marchent.png")
+        walk = pg.evaluate("() => ({npc: NF.walkers.map(w => [w.body.root.position.x.toFixed(1), w.body.root.position.z.toFixed(1)]), playerSpeed: NF.player.speed.toFixed(2)})")
+        # terrain et biome : téléporte hors ville, attend 3x3
+        pg.evaluate("() => { NF.player.target=null; NF.player.ch.body.setNextKinematicTranslation({x:-1400,y:500,z:900}); NF.state.minutes = 14*60; NF.cam.dist = 260; }")
+        pg.wait_for_function("() => NF.terrain.live.size >= 4 && NF.terrain.pending() === 0", timeout=120000)
+        pg.wait_for_timeout(5000); pg.screenshot(path="screenshots/02-terrain-biome.png")
+        biome = pg.evaluate("() => document.querySelector('#hud').textContent")
+        fps = pg.evaluate("() => new Promise(r => setTimeout(() => r(NF.state.fps), 3000))")
+        saved = pg.evaluate("() => { document.querySelector('#saveBtn').click(); document.querySelector('#saveBtn').click(); return [!!localStorage.getItem('neofaille.v1'), !!localStorage.getItem('neofaille.v1.bak')]; }")
+        over = {}
+        for w in (360, 320):
+            pg.set_viewport_size({"width": w, "height": 740}); pg.wait_for_timeout(400)
+            over[w] = pg.evaluate("w => [...document.querySelectorAll('body *')].filter(e => { const r = e.getBoundingClientRect(); return e.id !== 'view' && getComputedStyle(e).opacity !== '0' && (r.right > w + 0.5 || r.left < -0.5) && r.width > 0; }).map(e => e.id || e.tagName)", w)
+        b.close()
+finally:
+    srv.terminate()
+print(json.dumps({"info": info, "walk": walk, "biome_hud": biome, "fps_headless": fps, "save": saved, "overflow": over, "external_requests": external, "images_2d": images, "loaded_MB": round(total["bytes"] / 1e6, 2), "console_errors": errs}, ensure_ascii=False, indent=1))

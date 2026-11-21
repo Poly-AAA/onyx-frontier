@@ -1,0 +1,78 @@
+{
+ "note": "Packs attendus (itch.io, non trouvés sur la box) : déposer les fichiers aux chemins indiqués ; le loader les utilise à la place des placeholders procéduraux. scale = normalisation à l'import (perso = 1,80 m).",
+ "assets": [
+  {
+   "id": "jamzuz_bench",
+   "type": "prop",
+   "format": "glb",
+   "url": "assets/kits/jamzuz/bench.glb",
+   "size": 2.0,
+   "status": "missing",
+   "placeholder": "bench"
+  },
+  {
+   "id": "jamzuz_lamp",
+   "type": "prop",
+   "format": "glb",
+   "url": "assets/kits/jamzuz/lamp.glb",
+   "size": 6.0,
+   "status": "missing",
+   "placeholder": "lamp"
+  },
+  {
+   "id": "jamzuz_building",
+   "type": "building",
+   "format": "glb",
+   "url": "assets/kits/jamzuz/building_*.glb",
+   "status": "missing",
+   "placeholder": "tower"
+  },
+  {
+   "id": "valsekamerplant_urban",
+   "type": "prop-pack",
+   "format": "glb",
+   "url": "assets/kits/valsekamerplant/*.glb",
+   "count": 200,
+   "status": "missing",
+   "placeholder": "crate"
+  },
+  {
+   "id": "skyscrapers_stylized",
+   "type": "building",
+   "format": "glb",
+   "url": "assets/kits/skyscrapers/*.glb",
+   "status": "missing",
+   "placeholder": "tower"
+  },
+  {
+   "id": "benceaki_body_A",
+   "type": "body",
+   "format": "glb",
+   "url": "assets/chars/benceaki/body_A.glb",
+   "height": 1.8,
+   "status": "missing",
+   "placeholder": "lowpoly_body",
+   "source": "https://benceaki.itch.io/psx-halloween-characters"
+  },
+  {
+   "id": "kag3d_civil_m1",
+   "type": "npc",
+   "format": "glb",
+   "url": "assets/npc/kag3d/civil_m1.glb",
+   "height": 1.8,
+   "status": "missing",
+   "placeholder": "lowpoly_body",
+   "source": "https://kag3d.itch.io/low-poly-psx-style-civilian-pack-vol1"
+  },
+  {
+   "id": "vinrax_cop",
+   "type": "npc",
+   "format": "glb",
+   "url": "assets/npc/vinrax/cop.glb",
+   "height": 1.8,
+   "status": "missing",
+   "placeholder": "lowpoly_body",
+   "source": "https://vinrax.itch.io/psx-cop-character"
+  }
+ ]
+}

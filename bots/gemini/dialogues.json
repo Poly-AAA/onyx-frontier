@@ -1,0 +1,171 @@
+{
+  "version": 1,
+  "tiers": ["sain", "effleure", "marque", "ronge", "perdu"],
+  "npcs": [
+    {
+      "id": "mei_nouilles",
+      "name": "Mei",
+      "npcType": "civil",
+      "role": "Vendeuse de nouilles de rue sous les néons violets",
+      "lines": {
+        "sain": [
+          "Des nouilles chaudes pour te réchauffer de cette pluie acide.",
+          "Mets-toi à l'abri, le courant saute sans arrêt ce soir.",
+          "Tu veux du piment rouge ou vert ? Ça réveille les morts."
+        ],
+        "effleure": [
+          "T'as une drôle de lueur sur les mains, l'ami...",
+          "L'air vibre bizarrement autour de toi. C'est le Général ?",
+          "Regarde pas tes fringues, y a un truc qui brille dessus."
+        ],
+        "marque": [
+          "Tes yeux... ils ont la couleur de la Faille. Dégage.",
+          "Je veux pas d'histoires avec la milice. Va-t'en.",
+          "Ton barda dérègle mon enseigne néon. Tire-toi !"
+        ],
+        "ronge": [
+          "Mon Dieu... ta peau se détache ! Ne me touche pas !",
+          "Au secours ! Un déviant des Failles ! Ne m'approche pas !",
+          "Je ferme ! Barrez-vous, monstre ! Aidez-moi !"
+        ],
+        "perdu": [
+          "C'est quoi cette chose ? Un démon ! Fuyez !",
+          "Pitié, ne me consumez pas ! Laissez-moi !",
+          "AAAARGH ! Aide ! La chose de la Faille !"
+        ]
+      }
+    },
+    {
+      "id": "kaelen_garde",
+      "name": "Kaelen",
+      "npcType": "garde",
+      "role": "Sentinelle de la milice corporative sous la pluie d'ambre",
+      "lines": {
+        "sain": [
+          "Circulez. Pas d'attroupement dans ce secteur.",
+          "Papiers en règle ? Non ? Alors avancez.",
+          "Couvre-feu décrété suite à l'incident de l'ange."
+        ],
+        "effleure": [
+          "Hé, toi. Tu transportes quoi dans ce sac ? Montre.",
+          "L'ambiance est lourde... C'est ton barda qui fait ça ?",
+          "Restez discret. Les superviseurs n'aiment pas les anomalies."
+        ],
+        "marque": [
+          "Contrôle d'identité. Tes biomarqueurs sont corrompus.",
+          "Tu trimbales de la contrebande de Faille. Arrête-toi !",
+          "Main sur la nuque ! Ne fais aucun geste brusque."
+        ],
+        "ronge": [
+          "Infection de Faille détectée ! Exécution imminente !",
+          "Tu es une menace pour la ville. Mets-toi à genoux !",
+          "Armes chargées ! Cible contaminée en vue !"
+        ],
+        "perdu": [
+          "Abattez l'abomination avant qu'elle n'ouvre un portail !",
+          "Zone rouge ! Feu à volonté sur le monstre !",
+          "Pour les Corporations ! Crève, créature des Failles !"
+        ]
+      }
+    },
+    {
+      "id": "vane_marchand",
+      "name": "Vane",
+      "npcType": "marchand",
+      "role": "Brocanteur techno obsédé par l'ange abattu",
+      "lines": {
+        "sain": [
+          "Tu as vu le ciel ? Le Général a abattu un ange, oui ! Un vrai !",
+          "Des ailes dorées plein les égouts... Quelle trouvaille ça serait !",
+          "Regarde ces circuits. Directement tombés du portail."
+        ],
+        "effleure": [
+          "Hé, ton barda... Il vient de l'ange abattu ? Intéressant.",
+          "Ces reflets bizarres sur tes mains... Ça vaut cher, ça.",
+          "Tu vends ce que tu ramènes des Failles ? Je prends tout."
+        ],
+        "marque": [
+          "Tu brilles de l'intérieur, toi. C'est dangereux.",
+          "L'ange du Général a laissé de sales traces sur toi.",
+          "Attention, la milice traque les porteurs de ta trempe."
+        ],
+        "ronge": [
+          "Du balai ! Tes gadgets corrodent mes pièces de rechange !",
+          "Tu pourrais pas t'éloigner ? Tu me donnes la nausée.",
+          "Ton infection contamine ma camelote ! Casse-toi !"
+        ],
+        "perdu": [
+          "Au secours ! Une entité des Failles pille ma boutique !",
+          "Ne me touche pas avec tes griffes spectrales !",
+          "Prends tout, mais épargne-moi, démon !"
+        ]
+      }
+    },
+    {
+      "id": "clinique_lumen",
+      "name": "Dr. Aris Thorne",
+      "npcType": "clinique",
+      "role": "Médecin chef de la Clinique Saint-Lumen",
+      "lines": {
+        "sain": [
+          "Bienvenue à la Clinique Saint-Lumen. Que puis-je pour vous ?",
+          "Nos implants de néons purifient l'âme et le sang.",
+          "Vous semblez en bonne santé. Restez prudent dehors."
+        ],
+        "effleure": [
+          "Je détecte une anomalie subtile. Attention à l'exposition.",
+          "Une désinfection légère est conseillée. C'est en supplément.",
+          "La Faille laisse des traces. Ne laissez pas cela s'incruster."
+        ],
+        "marque": [
+          "Votre ADN est altéré. Nos filtres ne suffiront plus.",
+          "C'est un stade avancé. La milice risque d'intervenir.",
+          "Je ne peux pas risquer la licence de la clinique."
+        ],
+        "ronge": [
+          "Refus de soin. Votre corps appartient aux Failles.",
+          "Partez immédiatement. Nous ne traitons pas les monstres.",
+          "La sécurité va vous escorter dehors. Adieu."
+        ],
+        "perdu": [
+          "Sécurité ! Code noir ! Une abomination à la réception !",
+          "Vous êtes médicalement irrécupérable. Sortez d'ici.",
+          "Hors de ma vue, créature ! Saint-Lumen vous rejette."
+        ]
+      }
+    },
+    {
+      "id": "mama_vesper",
+      "name": "Mama Vesper",
+      "npcType": "guerisseur",
+      "role": "Guérisseuse occulte fascinée par la corruption",
+      "lines": {
+        "sain": [
+          "Tu es trop propre, enfant. La ville ne t'a pas encore mordu.",
+          "Viens près du brasero. L'odeur des mondes morts m'enivre.",
+          "Le Général a abattu un ange, mais tu cherches d'autres dieux."
+        ],
+        "effleure": [
+          "Ah, les Failles t'ont effleuré. C'est si beau, cette lueur.",
+          "Ne fuis pas ce cadeau. Laisse le portail t'ouvrir l'esprit.",
+          "Je vois des échos d'autres mondes dans ton aura."
+        ],
+        "marque": [
+          "Marqué par le vide ! Tu deviens si intéressant...",
+          "La corruption chante en toi. Viens que je l'écoute.",
+          "Les anges déchus et les Failles partagent le même sang."
+        ],
+        "ronge": [
+          "Magnifique ! Ta chair s'accorde avec l'au-delà !",
+          "Ne lutte pas. Laisse la Faille consumer ton enveloppe.",
+          "Je peux t'aider à t'abandonner totalement au néant."
+        ],
+        "perdu": [
+          "Oh... Tu es devenu le portail lui-même. C'est divin.",
+          "Le néant t'a pris. Je m'incline devant ta nouvelle forme.",
+          "Entre dans la Faille, mon bel ange corrompu."
+        ]
+      }
+    }
+  ]
+}

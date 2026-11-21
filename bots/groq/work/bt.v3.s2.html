@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Neo-Faille · cerveaux IA (adaptateur v3.4.1)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;overflow-x:hidden}
+  body{background:#15131c;color:#e8e2d0;font-family:system-ui,sans-serif;display:flex;flex-direction:column;align-items:center}
+  main{width:100%;max-width:430px;margin:0 auto;padding:8px}
+  h1{margin:0.5em 0 0.2em;font-size:1.4em}
+  h2{margin:0 0 0.8em;font-size:1em;font-weight:normal;color:#a09f9c}
+  #controls{margin-bottom:0.8em;display:flex;gap:0.5em;align-items:center;flex-wrap:wrap}
+  select,button{padding:0.4em 0.6em;font-size:0.9em;border:none;border-radius:4px;background:#3a3542;color:#e8e2d0}
+  canvas{background:#2b2832;display:block;width:100%;height:auto;margin-bottom:0.8em}
+  table{border-collapse:collapse;width:100%;table-layout:fixed;word-break:break-word;font-size:12px;margin-bottom:0.8em}
+  th,td{border:1px solid #3a3542;padding:0.3em 0.4em;font-size:12px;text-align:left}
+  th{background:#3a3542}
+  .summary{max-width:430px;width:100%;font-size:0.8em}
+  .summary li{margin:0.2em 0}
+</style>
+</head>
+<body>
+<main>
+<h1>Neo-Faille · cerveaux IA (adaptateur v3.4.1)</h1>
+<h2>Démo hors‑ligne des différents cerveaux — FIXED démarre à portée (il ne se déplace jamais)</h2>
+<div id="controls">
+  <label for="brainSelect">Cerveau&nbsp;:</label>
+  <select id="brainSelect"></select>
+  <button id="replayBtn">Rejouer</button>
+</div>
+<canvas id="gridCanvas" width="364" height="364"></canvas>
+<table id="logTable">
+  <thead><tr><th>Tour</th><th>Step</th><th>Action</th><th>Legal</th><th>Effets</th></tr></thead>
+  <tbody></tbody>
+</table>
+<ul class="summary" id="summaryList"></ul>
+</main>
+
+<script src="vendor/combat-grid.from-v3.4.1.js"></script>
+<script src="vendor/dofus-touch-ai.from-v3.4.1.js"></script>
+<script src="brains-adapter.js"></script>
+<script>
+(() => {
+  const CELL = 26;
+  const GRID_SIZE = 14;
+  const BRAINS = ['TACTICAL','AGGRESSIVE','SUPPORT','BLOCKING','RUNAWAY','LUNATIC','FIXED','BOSS_BOUNTY_HUNTER','BATTLE_CLERIC','TACTICAL_SUPPORT_FOCUS_KILL'];
+  const SPELLS = {
+    punch:{id:'punch',name:'Coup',cost:2,range:1,dmg:[8,12]},
+    arc:{id:'arc',name:'Trait',cost:3,range:5,minRange:2,dmg:[10,14],element:'air',los:true},
+    soin:{id:'soin',name:'Soin',cost:3,range:3,heal:[8,12],type:'heal'},
+    zone:{id:'zone',name:'Onde',cost:4,range:4,aoe:1,dmg:[6,9],element:'feu'}
+  };
+  const START = { FIXED: {c:5, r:7} };
+  const makeWorld = (brain) => {
+    const G = {
+      blocks:new Set(['6,6','6,7','7,6','3,9','10,4','8,11','4,3']),
+      roster:[],
+      player:{name:'Héros',c:1,r:7,pv:100,pvMax:100,pa:6,paMax:6,pm:3,pmMax:3,alive:true,stats:{agi:10},spells:['punch','arc']},
+      enemy:{id:'boss',name:'Boss',side:'b',c:12,r:6,pv:50,pvMax:120,pa:7,paMax:7,pm:4,pmMax:4,alive:true,stats:{agi:8},spells:['punch','arc','soin','zone']},
+    };
+    const ov = START[brain];
+    if (ov) { G.enemy.c = ov.c; G.enemy.r = ov.r; }
+    const ally = {id:'allie',name:'Alliée',side:'a',c:2,r:9,pv:60,pvMax:80,pa:6,paMax:6,pm:3,pmMax:3,alive:true,stats:{agi:5},spells:['punch']};
+    const m2 = {id:'m2',name:'Sbire',side:'b',c:11,r:9,pv:30,pvMax:60,pa:6,paMax:6,pm:3,pmMax:3,alive:true,stats:{agi:4},spells:['punch','soin']};
+    G.roster=[ally,G.enemy,m2];
+    G.playerSide='a';
+    return G;
+  };
+  const results = [];
+  const runAll = () => {
+    for (const brain of BRAINS) {
+      const G = makeWorld(brain);
+      const per = {brain, turns:[], illegal:0, totalActions:0, unsupported:[], error:null, finalBoss:null, heroPv:null, allyPv:null, bossStart:{c:G.enemy.c,r:G.enemy.r}};
+      try {
+        let bossPos = {c:G.enemy.c, r:G.enemy.r};
+        for (let t=0;t<3;t++) {
+          const opts = {gridSize:GRID_SIZE, spellById:id=>SPELLS[id]||null, seed:100+t, brain, resetPoints:true};
+          const turnRes = window.NeoFailleBrainsAdapter.playTurn(G, G.enemy, opts);
+          const turnInfo = {t, actions:[], unsupported:turnRes.unsupported||[]};
+          per.unsupported.push(...turnInfo.unsupported);
+          for (const act of turnRes.actions||[]) {
+            const a = act.action||{};
+            const entry = {
+              type: a.type,
+              spellId: a.spellId||null,
+              to: a.to||null,
+              target: a.target||null,
+              path: a.path||null,
+              from: {c: bossPos.c, r: bossPos.r},
+              legal: act.legal,
+              stepType: act.stepType,
+              effects: (act.result && act.result.effects) || []
+            };
+            turnInfo.actions.push(entry);
+            per.totalActions++;
+            if (!act.legal.ok) per.illegal++;
+            if (a.type === 'move' && a.to) {
+              bossPos = {c: a.to.c, r: a.to.r};
+            }
+          }
+          per.turns.push(turnInfo);
+        }
+        per.finalBoss = {c:G.enemy.c, r:G.enemy.r, pv:G.enemy.pv};
+        per.heroPv = G.player.pv;
+        const ally = G.roster.find(u=>u.id==='allie');
+        per.allyPv = ally ? ally.pv : null;
+        per.finalUnits = [G.player, ...G.roster].map(u => ({
+          id: u.id || u.name,
+          name: u.name,
+          side: u === G.player ? 'a' : (u.side || 'b'),
+          c: u.c,
+          r: u.r,
+          pv: u.pv,
+          pvMax: u.pvMax,
+          alive: u.alive !== false
+        }));
+      } catch (e) {
+        per.error = e.message || String(e);
+        console.error('Brain error', brain, e);
+      }
+      results.push(per);
+    }
+    window.__brainsResults = results;
+    window.__brainsDone = true;
+    populateUI();
+  };
+  const populateUI = () => {
+    const select = document.getElementById('brainSelect');
+    select.innerHTML = '';
+    results.forEach((r,i)=>{ const opt=document.createElement('option'); opt.value=i; opt.textContent=r.brain; select.appendChild(opt); });
+    const summary = document.getElementById('summaryList');
+    summary.innerHTML = '';
+    results.forEach(r=>{
+      const li=document.createElement('li');
+      const uniq = Array.from(new Set(r.unsupported||[]));
+      const uns = uniq.length ? uniq.join(', ') : '—';
+      li.textContent=`${r.brain}: actions=${r.totalActions}, illegal=${r.illegal}, unsupported=${uns}${r.error?' – error: '+r.error:''}`;
+      summary.appendChild(li);
+    });
+    select.addEventListener('change',drawSelected);
+    document.getElementById('replayBtn').addEventListener('click',()=>{ results.length=0; runAll(); });
+    drawSelected();
+  };
+  const drawSelected = () => {
+    const idx = document.getElementById('brainSelect').value;
+    const data = results[idx];
+    if (!data) return;
+    drawCanvas(data);
+    fillLog(data);
+  };
+  const drawCanvas = (data) => {
+    const canvas = document.getElementById('gridCanvas');
+    canvas.width = GRID_SIZE * CELL;
+    canvas.height = GRID_SIZE * CELL;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // grid
+    ctx.strokeStyle = '#3a3542';
+    for (let i = 0; i <= GRID_SIZE; i++) {
+      ctx.beginPath(); ctx.moveTo(i * CELL, 0); ctx.lineTo(i * CELL, GRID_SIZE * CELL); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, i * CELL); ctx.lineTo(GRID_SIZE * CELL, i * CELL); ctx.stroke();
+    }
+    // blocks
+    ctx.fillStyle = '#3a3542';
+    const G = makeWorld(data.brain);
+    G.blocks.forEach(b => {
+      const [c, r] = b.split(',').map(Number);
+      ctx.fillRect(c * CELL, r * CELL, CELL, CELL);
+    });
+    // units final positions
+    const drawUnit = (unit, color) => {
+      const x = unit.c * CELL + CELL / 2;
+      const y = unit.r * CELL + CELL / 2;
+      ctx.beginPath(); ctx.arc(x, y, CELL * 0.35, 0, 2 * Math.PI);
+      if (unit.alive === false) {
+        ctx.strokeStyle = '#e8e2d0'; ctx.lineWidth = 2; ctx.stroke();
+      } else {
+        ctx.fillStyle = color; ctx.fill();
+        // HP bar
+        const barW = CELL * 0.7;
+        const barH = 2;
+        const barX = x - barW / 2;
+        const barY = y + CELL * 0.35 + 2;
+        ctx.fillStyle = '#3a3542';
+        ctx.fillRect(barX, barY, barW, barH);
+        const ratio = unit.pvMax > 0 ? unit.pv / unit.pvMax : 0;
+        ctx.fillStyle = '#7fb069';
+        ctx.fillRect(barX, barY, barW * ratio, barH);
+      }
+    };
+    data.finalUnits.forEach(unit => {
+      const color = unit.side === 'a' ? '#d9a441' : '#b5443c';
+      drawUnit(unit, color);
+    });
+    // move polylines
+    ctx.strokeStyle = '#e8e2d0';
+    ctx.lineWidth = 2;
+    data.turns.forEach(turn => {
+      turn.actions.forEach(act => {
+        if (act.type === 'move' && act.path && act.path.length > 0) {
+          const points = [act.from, ...act.path];
+          ctx.beginPath();
+          ctx.moveTo(points[0].c * CELL + CELL / 2, points[0].r * CELL + CELL / 2);
+          for (let i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].c * CELL + CELL / 2, points[i].r * CELL + CELL / 2);
+          }
+          ctx.stroke();
+        }
+      });
+    });
+    // boss START position: small hollow red circle
+    const sx = data.bossStart.c * CELL + CELL / 2;
+    const sy = data.bossStart.r * CELL + CELL / 2;
+    ctx.beginPath(); ctx.arc(sx, sy, CELL * 0.2, 0, 2 * Math.PI);
+    ctx.strokeStyle = '#b5443c'; ctx.lineWidth = 2; ctx.stroke();
+    // cast targets
+    ctx.strokeStyle = '#f08a4b';
+    ctx.lineWidth = 2;
+    data.turns.forEach(turn => {
+      turn.actions.forEach(act => {
+        if (act.type === 'cast' && act.target) {
+          const x = act.target.c * CELL + CELL / 2;
+          const y = act.target.r * CELL + CELL / 2;
+          ctx.beginPath(); ctx.moveTo(x - 5, y - 5); ctx.lineTo(x + 5, y + 5); ctx.moveTo(x + 5, y - 5); ctx.lineTo(x - 5, y + 5); ctx.stroke();
+        }
+      });
+    });
+  };
+  const formatEffects = (eff) => {
+    if (!eff || !eff.length) return '—';
+    const parts = [];
+    eff.forEach(e => {
+      if (e.kind === 'damage') {
+        let s = `${e.id} −${e.amount}`;
+        if (e.killed) s += ' KO';
+        if (e.absorbed > 0) s += ` (bouclier ${e.absorbed})`;
+        parts.push(s);
+      } else if (e.kind === 'heal') {
+        parts.push(`${e.id} +${e.amount}`);
+      } else if (e.kind === 'shield') {
+        parts.push(`${e.id} bouclier +${e.amount}`);
+      }
+    });
+    return parts.length ? parts.join(', ') : '—';
+  };
+  const fillLog = (data) => {
+    const tbody=document.querySelector('#logTable tbody');
+    tbody.innerHTML='';
+    data.turns.forEach(turn=>{ turn.actions.forEach((act,i)=>{ const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${turn.t}</td><td>${act.stepType||''}</td><td>${act.type}${act.spellId?(' '+act.spellId):''}</td><td>${act.legal.ok?'✓':'✗'}</td><td>${formatEffects(act.effects)}</td>`;
+      tbody.appendChild(tr);
+    });});
+  };
+  document.addEventListener('DOMContentLoaded',runAll);
+})();
+</script>
+</body>
+</html>

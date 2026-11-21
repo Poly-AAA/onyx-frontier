@@ -1,0 +1,82 @@
+{
+ "seed": 870,
+ "world": {
+  "chunkSize": 500,
+  "chunkSegments": 48,
+  "streamRadius": 1,
+  "mapSizeKm": 29.5,
+  "fog": [
+   0.0011,
+   "#1a1424"
+  ]
+ },
+ "render": {
+  "style": "psx",
+  "note": "rendu PS1 : voir psx"
+ },
+ "wind": {
+  "speed": 1.6,
+  "amplitude": 0.25,
+  "frequency": 0.35
+ },
+ "player": {
+  "file": "player.json",
+  "walk": 4.0,
+  "jump": 6.5,
+  "gravity": -20,
+  "spawn": [
+   150,
+   2,
+   234
+  ]
+ },
+ "camera": {
+  "mode": "iso",
+  "fov": 30,
+  "distance": 34,
+  "min": 10,
+  "max": 320,
+  "step": 1.25,
+  "isoYaw": 45,
+  "isoPitch": 42
+ },
+ "files": [
+  "biomes.json",
+  "city.json",
+  "npcs.json",
+  "assets.manifest.json",
+  "layers.json",
+  "benceaki.manifest.json",
+  "terrain.json",
+  "dirt.json",
+  "props.json"
+ ],
+ "mods": [],
+ "dayMinutes": 24,
+ "startHour": 11,
+ "psx": {
+  "res": [
+   240,
+   426
+  ],
+  "snap": 1,
+  "affine": true,
+  "dither": 1.0,
+  "colorLevels": 31,
+  "fog": {
+   "near": 40,
+   "far": 480,
+   "note": "distances au-delà de la cible caméra"
+  },
+  "sky": {
+   "day": "#8fa6c4",
+   "dusk": "#c87a68",
+   "night": "#120e1e"
+  },
+  "light": {
+   "sun": 0.95,
+   "ambient": 0.45
+  },
+  "subdivide": 10
+ }
+}

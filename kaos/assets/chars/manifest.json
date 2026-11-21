@@ -1,0 +1,89 @@
+{
+ "frame": 128,
+ "cols": 15,
+ "rows": 8,
+ "looks": {
+  "player": [
+   "Shadow",
+   "NakedBody2",
+   "Shoes5",
+   "Legs7",
+   "Chest15",
+   "Belt2",
+   "Hands4",
+   "Head2"
+  ],
+  "thug": [
+   "Shadow",
+   "NakedBody",
+   "Shoes1",
+   "Legs6",
+   "Chest13",
+   "Hands1",
+   "Head3"
+  ],
+  "rico": [
+   "Shadow",
+   "NakedBody2",
+   "Shoes1",
+   "Legs1",
+   "Chest3",
+   "Hands1",
+   "Head2"
+  ],
+  "nova": [
+   "Shadow",
+   "NakedBody",
+   "Shoes4",
+   "LegsFeminine",
+   "ChestFeminine",
+   "HandsFeminine",
+   "HeadFeminine"
+  ],
+  "doc": [
+   "Shadow",
+   "NakedBody3",
+   "Shoes3",
+   "Legs5",
+   "Chest12",
+   "Hands3",
+   "Head9"
+  ],
+  "brute": [
+   "Shadow",
+   "NakedBody2",
+   "Shoes5",
+   "Legs7",
+   "Chest15",
+   "Belt2",
+   "Hands4",
+   "Head14"
+  ],
+  "ghost": [
+   "Shadow",
+   "NakedBody3",
+   "Shoes2",
+   "Legs8",
+   "Chest18",
+   "Head20"
+  ],
+  "vendor": [
+   "Shadow",
+   "NakedBody",
+   "Shoes1",
+   "Legs2",
+   "Chest5",
+   "Head12"
+  ],
+  "cop": [
+   "Shadow",
+   "NakedBody2",
+   "Shoes3",
+   "Legs4",
+   "Chest10",
+   "Belt1",
+   "Hands2",
+   "Head17"
+  ]
+ }
+}

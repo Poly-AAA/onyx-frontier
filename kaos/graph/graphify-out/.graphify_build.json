@@ -1,0 +1,1 @@
+{"excludes": ["screenshots/", "*.bak", "**/*.bak", "node_modules/", "dist/"], "code_only": true}

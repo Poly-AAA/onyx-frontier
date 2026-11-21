@@ -1,0 +1,65 @@
+{
+ "noise": {
+  "scale": 0.0016,
+  "octaves": 5,
+  "biomeScale": 0.00012
+ },
+ "biomes": [
+  {
+   "id": "desert",
+   "color": [
+    "#d4ac6a",
+    "#f0d49a"
+   ],
+   "height": 40,
+   "ridged": false,
+   "grass": 0,
+   "trees": 0,
+   "particles": "sand",
+   "range": [
+    0.0,
+    0.38
+   ],
+   "tint": "#f0e0c8"
+  },
+  {
+   "id": "forest",
+   "color": [
+    "#3f7a38",
+    "#6a9a48"
+   ],
+   "height": 70,
+   "ridged": false,
+   "grass": 220,
+   "trees": 40,
+   "flowers": 60,
+   "particles": null,
+   "range": [
+    0.38,
+    0.66
+   ],
+   "tint": "#d8e8c8"
+  },
+  {
+   "id": "montagne",
+   "color": [
+    "#5e5a5c",
+    "#9a948c"
+   ],
+   "height": 260,
+   "ridged": true,
+   "grass": 30,
+   "trees": 6,
+   "particles": "clouds",
+   "range": [
+    0.66,
+    1.0
+   ],
+   "tint": "#d8ccc0"
+  }
+ ],
+ "cityFlatten": {
+  "radius": 700,
+  "blend": 400
+ }
+}

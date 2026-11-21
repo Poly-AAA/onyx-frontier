@@ -1,0 +1,269 @@
+{
+ "console": [],
+ "pageerrors": [],
+ "requests": [],
+ "results_393": [
+  {
+   "brain": "TACTICAL",
+   "totalActions": 10,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [
+    "teleportNearEnemy"
+   ],
+   "finalBoss": {
+    "c": 6,
+    "r": 8,
+    "pv": 79
+   }
+  },
+  {
+   "brain": "AGGRESSIVE",
+   "totalActions": 10,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [
+    "attractEnemy",
+    "teleportNearEnemy"
+   ],
+   "finalBoss": {
+    "c": 2,
+    "r": 8,
+    "pv": 79
+   }
+  },
+  {
+   "brain": "SUPPORT",
+   "totalActions": 7,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [],
+   "finalBoss": {
+    "c": 11,
+    "r": 8,
+    "pv": 111
+   }
+  },
+  {
+   "brain": "BLOCKING",
+   "totalActions": 3,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [],
+   "finalBoss": {
+    "c": 4,
+    "r": 8,
+    "pv": 50
+   }
+  },
+  {
+   "brain": "RUNAWAY",
+   "totalActions": 7,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [],
+   "finalBoss": {
+    "c": 8,
+    "r": 8,
+    "pv": 50
+   }
+  },
+  {
+   "brain": "LUNATIC",
+   "totalActions": 9,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [],
+   "finalBoss": {
+    "c": 7,
+    "r": 8,
+    "pv": 71
+   }
+  },
+  {
+   "brain": "FIXED",
+   "totalActions": 6,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [],
+   "finalBoss": {
+    "c": 5,
+    "r": 7,
+    "pv": 50
+   }
+  },
+  {
+   "brain": "BOSS_BOUNTY_HUNTER",
+   "totalActions": 10,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [
+    "attractEnemy",
+    "teleportNearEnemy"
+   ],
+   "finalBoss": {
+    "c": 2,
+    "r": 8,
+    "pv": 79
+   }
+  },
+  {
+   "brain": "BATTLE_CLERIC",
+   "totalActions": 12,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [
+    "teleportNearEnemy"
+   ],
+   "finalBoss": {
+    "c": 10,
+    "r": 8,
+    "pv": 111
+   }
+  },
+  {
+   "brain": "TACTICAL_SUPPORT_FOCUS_KILL",
+   "totalActions": 9,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [],
+   "finalBoss": {
+    "c": 4,
+    "r": 8,
+    "pv": 111
+   }
+  }
+ ],
+ "results_360": [
+  {
+   "brain": "TACTICAL",
+   "totalActions": 10,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [
+    "teleportNearEnemy"
+   ],
+   "finalBoss": {
+    "c": 6,
+    "r": 8,
+    "pv": 79
+   }
+  },
+  {
+   "brain": "AGGRESSIVE",
+   "totalActions": 10,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [
+    "attractEnemy",
+    "teleportNearEnemy"
+   ],
+   "finalBoss": {
+    "c": 2,
+    "r": 8,
+    "pv": 79
+   }
+  },
+  {
+   "brain": "SUPPORT",
+   "totalActions": 7,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [],
+   "finalBoss": {
+    "c": 11,
+    "r": 8,
+    "pv": 111
+   }
+  },
+  {
+   "brain": "BLOCKING",
+   "totalActions": 3,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [],
+   "finalBoss": {
+    "c": 4,
+    "r": 8,
+    "pv": 50
+   }
+  },
+  {
+   "brain": "RUNAWAY",
+   "totalActions": 7,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [],
+   "finalBoss": {
+    "c": 8,
+    "r": 8,
+    "pv": 50
+   }
+  },
+  {
+   "brain": "LUNATIC",
+   "totalActions": 9,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [],
+   "finalBoss": {
+    "c": 7,
+    "r": 8,
+    "pv": 71
+   }
+  },
+  {
+   "brain": "FIXED",
+   "totalActions": 6,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [],
+   "finalBoss": {
+    "c": 5,
+    "r": 7,
+    "pv": 50
+   }
+  },
+  {
+   "brain": "BOSS_BOUNTY_HUNTER",
+   "totalActions": 10,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [
+    "attractEnemy",
+    "teleportNearEnemy"
+   ],
+   "finalBoss": {
+    "c": 2,
+    "r": 8,
+    "pv": 79
+   }
+  },
+  {
+   "brain": "BATTLE_CLERIC",
+   "totalActions": 12,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [
+    "teleportNearEnemy"
+   ],
+   "finalBoss": {
+    "c": 10,
+    "r": 8,
+    "pv": 111
+   }
+  },
+  {
+   "brain": "TACTICAL_SUPPORT_FOCUS_KILL",
+   "totalActions": 9,
+   "illegal": 0,
+   "error": null,
+   "unsupported": [],
+   "finalBoss": {
+    "c": 4,
+    "r": 8,
+    "pv": 111
+   }
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+1. RUNTIME CRASH: `ReferenceError: opts is not defined` in cellIdOf (module-level function uses `opts`). Make cellIdOf(c, r, gridSize) and cellToCR(id, gridSize) take gridSize explicitly; toFighter(ent, gridSize).
+2. Scoping: step functions use `opts.rules.*` and `aiCtx.opts.rules.*` which never exist. createContext must build `rules = createRules(G, opts)` ONCE and expose it as `aiCtx.rules`; every step function must use `aiCtx.rules`, `aiCtx.opts`, `aiCtx.gridSize` (= opts.gridSize || 10) consistently. reachable(G, ent, opts) may build its own rules when called directly, but steps should pass/reuse aiCtx.rules.
+3. castStep loops must use aiCtx.gridSize (opts.gridSize may be undefined -> loop never runs).
+4. `when` steps must evaluate the chosen branch with the SAME aiCtx (same memory, same unsupported list, same eval budget) — do not rebuild a context via a recursive decideNext. Write a helper runSteps(aiCtx, steps) -> {action, stepType} | null used by decideNext and by `when` branches (branch can be an array or a brain name string resolved via AI.BRAIN_PIPELINES).
+5. unsupported step types (teleportNearEnemy, attractEnemy, and any unknown type) must be pushed once into aiCtx.unsupported (an array supplied by playTurn via opts.unsupported, or created) and playTurn must return it.
+6. Budget: one evaluation counter per decideNext call stored on aiCtx (aiCtx.evals), shared by castStep and moveToCastStep.
+7. Make sure decideNext also works for composite objects (evaluatePipeline(aiCtx)) and utility_fusion objects, as per SPEC item 4.

@@ -1,0 +1,27 @@
+EVERYDAY NPCs - PSX MODERN TOWN VOL. 1 - LICENSE
+
+By purchasing or downloading this asset pack you receive a non-exclusive,
+worldwide, perpetual license to use the included files under these terms.
+
+YOU CAN
+- Use the assets in unlimited commercial and non-commercial projects
+  (games, apps, videos, animations, streams, prototypes, game jams).
+- Modify, recolor, re-rig, retarget and combine the assets with other work.
+- Ship the assets inside your compiled/packaged project.
+
+YOU CANNOT
+- Resell, redistribute, sublicense or share the asset files themselves,
+  modified or not, as standalone files or as part of another asset pack,
+  template, starter kit or marketplace listing.
+- Claim the assets as your own original artwork.
+- Use the assets to train or fine-tune generative AI models.
+
+NO ATTRIBUTION REQUIRED (it is appreciated: "Everyday NPCs by the author on itch.io").
+
+AI DISCLOSURE
+The characters, textures, animations and demo code in this pack were
+produced with the help of AI tools (procedural generation in Blender and
+Godot scripting assisted by an AI model). This is disclosed on the store
+page as required by itch.io.
+
+The assets are provided "as is", without warranty of any kind.

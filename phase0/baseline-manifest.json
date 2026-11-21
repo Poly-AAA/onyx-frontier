@@ -1,0 +1,18 @@
+{
+  "source": "/workspace/share/v3.4.1-release/combat-v3.4.1-ios-pixel.html",
+  "snapshot": "/workspace/game/references/combat-v3.4.1-baseline.html",
+  "bytes": 8141168,
+  "sha256": "f284828e2bd65fb85193366b580a992ddbe5eef8d6838a6754987756d87b06d7",
+  "worldgacha": {
+    "url": "https://tools.oyasumi-gamedev.com/worldgacha/",
+    "type": "river",
+    "seed": 435235616,
+    "size": 4000,
+    "res": 512,
+    "town": 1,
+    "status": "public page fetched; seeded rendered layout not inspected"
+  },
+  "phase": "0-partial",
+  "gameCodeWritten": 0,
+  "modelPlanningCalls": 3
+}

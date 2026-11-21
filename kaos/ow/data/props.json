@@ -1,0 +1,164 @@
+{
+ "items": [
+  {
+   "id": "taxi",
+   "kind": "vehicle",
+   "url": "assets/vehicles/veh-taxi.glb",
+   "pos": [
+    200,
+    0.12,
+    262
+   ],
+   "rot": 1.57,
+   "height": 1.5,
+   "dirt": "vehicle"
+  },
+  {
+   "id": "police_car",
+   "kind": "vehicle",
+   "url": "assets/vehicles/veh-police.glb",
+   "pos": [
+    230,
+    0.12,
+    262
+   ],
+   "rot": 1.57,
+   "height": 1.5,
+   "dirt": "vehicle"
+  },
+  {
+   "id": "motorbike",
+   "kind": "vehicle",
+   "url": "assets/vehicles/veh-motorbike.glb",
+   "pos": [
+    168,
+    0.12,
+    238
+   ],
+   "rot": 0.4,
+   "height": 1.2,
+   "dirt": "vehicle"
+  },
+  {
+   "id": "hover",
+   "kind": "vehicle",
+   "url": "assets/vehicles/veh-hover.glb",
+   "pos": [
+    280,
+    10.3,
+    250
+   ],
+   "rot": 1.57,
+   "height": 1.2,
+   "dirt": "vehicle"
+  },
+  {
+   "id": "cone1",
+   "url": "assets/props/prop-cone.glb",
+   "pos": [
+    238,
+    0.12,
+    292
+   ],
+   "rot": 0.2,
+   "height": 0.7,
+   "dirt": "prop"
+  },
+  {
+   "id": "cone2",
+   "url": "assets/props/prop-cone.glb",
+   "pos": [
+    244,
+    0.12,
+    296
+   ],
+   "rot": -0.4,
+   "height": 0.7,
+   "dirt": "prop"
+  },
+  {
+   "id": "dumpster",
+   "url": "assets/props/prop-dumpster.glb",
+   "pos": [
+    214,
+    0.12,
+    268
+   ],
+   "rot": 0,
+   "height": 1.4,
+   "dirt": "under"
+  },
+  {
+   "id": "trashcan",
+   "url": "assets/props/prop-trashcan.glb",
+   "pos": [
+    188,
+    0.12,
+    238
+   ],
+   "rot": 0.3,
+   "height": 1.0,
+   "dirt": "prop"
+  },
+  {
+   "id": "trashbag",
+   "url": "assets/props/prop-trashbag.glb",
+   "pos": [
+    216,
+    0.12,
+    266
+   ],
+   "rot": 1,
+   "height": 0.5,
+   "dirt": "under"
+  },
+  {
+   "id": "duct",
+   "url": "assets/props/prop-duct.glb",
+   "pos": [
+    250,
+    2.2,
+    250
+   ],
+   "rot": 1.57,
+   "height": 0.8,
+   "dirt": "under"
+  },
+  {
+   "id": "tree",
+   "url": "assets/props/prop-tree.glb",
+   "pos": [
+    300,
+    0.3,
+    198
+   ],
+   "rot": 0.5,
+   "height": 6,
+   "dirt": "prop"
+  },
+  {
+   "id": "bush",
+   "url": "assets/props/prop-bush.glb",
+   "pos": [
+    308,
+    0.3,
+    204
+   ],
+   "rot": 1.2,
+   "height": 1.4,
+   "dirt": "prop"
+  },
+  {
+   "id": "industrial",
+   "url": "assets/props/prop-industrial.glb",
+   "pos": [
+    90,
+    0,
+    420
+   ],
+   "rot": 0.4,
+   "dirt": "under",
+   "scale": 0.35
+  }
+ ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "neo-faille-kaos",
+  "version": "1.0.0",
+  "description": "Kaos — branche open world isométrique de Neo-Faille",
+  "main": "index.js",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "shots": "python3 tools/shots.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

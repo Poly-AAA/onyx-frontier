@@ -1,0 +1,73 @@
+{
+ "title": "Perso (Benceaki)",
+ "type": "object",
+ "required": [
+  "id",
+  "body",
+  "parts",
+  "skeleton"
+ ],
+ "properties": {
+  "id": {
+   "type": "string"
+  },
+  "skeleton": {
+   "const": "mixamo"
+  },
+  "body": {
+   "enum": [
+    "A",
+    "B",
+    "C"
+   ]
+  },
+  "parts": {
+   "type": "array",
+   "maxItems": 21,
+   "items": {
+    "type": "string"
+   }
+  },
+  "scale": {
+   "type": "object",
+   "properties": {
+    "x": {
+     "type": "number"
+    },
+    "y": {
+     "type": "number"
+    },
+    "z": {
+     "type": "number"
+    }
+   }
+  },
+  "morphs": {
+   "type": "object",
+   "properties": {
+    "training": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1
+    },
+    "hunger": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1
+    }
+   }
+  },
+  "lostLimbs": {
+   "type": "array",
+   "items": {
+    "enum": [
+     "armL",
+     "armR",
+     "legL",
+     "legR"
+    ]
+   }
+  }
+ },
+ "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

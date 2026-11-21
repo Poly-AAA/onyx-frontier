@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"/>
+<title>Neo-Faille — Kaos (open world)</title>
+<link rel="stylesheet" href="style.css"/><link rel="icon" href="data:,"/></head>
+<body>
+<canvas id="view"></canvas>
+<header id="hud">
+  <div class="row"><div id="hp"><div id="hpFill"></div><span id="hpTxt"></span></div><span id="gold"></span><span id="clock"></span></div>
+  <div class="row small"><span id="lvl"></span><span id="fatigue"></span><span id="ia"></span></div>
+  <div id="track"></div>
+</header>
+<canvas id="minimap" width="114" height="114"></canvas>
+<div id="toasts"></div>
+<div id="context"></div>
+<div id="spellbar" hidden><div id="brawlInfo"></div><div id="pa"><div id="paFill"></div></div><div id="spells"></div></div>
+<nav id="menu"><button id="btnBag">🎒 Sac</button><button id="btnSpells">✨ Sorts</button><button id="btnJobs">⚒ Métiers</button><button id="btnMissions">📜 Missions</button></nav>
+<section id="dialogue"><div class="dhead"><b id="dlgName"></b><button id="dlgClose">✕</button></div><div id="dlgMeta"></div><div id="dlgLog"></div><div id="dlgMission"></div><div id="dlgChoices"></div>
+  <form id="dlgForm"><input id="dlgInput" placeholder="Dire quelque chose…" maxlength="160"/><button>➤</button></form></section>
+<section id="panel"><div class="dhead"><b id="panelTitle"></b><button id="panelClose">✕</button></div><div id="panelBody"></div></section>
+<script src="dist/kaos.js"></script>
+</body></html>

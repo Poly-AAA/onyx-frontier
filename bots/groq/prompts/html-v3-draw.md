@@ -1,0 +1,8 @@
+CONTEXT: offline demo page (canvas 14x14, cell CELL=26 px, grid coordinates c,r are 0-based: cell (c,r) top-left pixel = (c*CELL, r*CELL)). data = {brain, bossStart:{c,r}, finalUnits:[{id,name,side:'a'|'b',c,r,pv,pvMax,alive}], turns:[{t, actions:[{type:'move'|'cast', from:{c,r}, path:[{c,r}]|null, to, target, spellId, legal, stepType, effects:[{id, kind:'damage'|'heal'|'shield', amount, absorbed, killed}]}]}]}. makeWorld(brain) returns a fresh world G whose G.blocks is a Set of "c,r" strings.
+FIX IN THIS REGION (drawCanvas and formatEffects), bugs found by review of a headless screenshot:
+1. Coordinates are drawn with (c-1)/(r-1): everything is shifted by one cell. Use 0-based (c*CELL, r*CELL). Set canvas.width = canvas.height = GRID_SIZE*CELL before drawing.
+2. Units must come from data.finalUnits (the REAL final state), not from a re-created world with guessed pv. Draw side 'a' gold #d9a441, side 'b' red #b5443c, dead units hollow; draw a small HP bar (2px high) under each living unit: ratio pv/pvMax, color #7fb069 on #3a3542.
+3. Move polylines must go through every cell of act.path starting at act.from (not a straight line prev->to). Color #e8e2d0, lineWidth 2.
+4. Draw blocks from makeWorld(data.brain).blocks with 0-based coords. Keep grid lines, boss start hollow circle, cast target crosses (#f08a4b).
+5. formatEffects(effects) receives an ARRAY: return '—' if empty; else join with ', ' items: damage -> `${e.id} −${e.amount}` + (e.killed ? ' KO' : '') + (e.absorbed > 0 ? ` (bouclier ${e.absorbed})` : ''); heal -> `${e.id} +${e.amount}`; shield -> `${e.id} bouclier +${e.amount}`.
+No Math.random. Keep the same function names (const drawCanvas = (data) => {...}; const formatEffects = (eff) => {...};).

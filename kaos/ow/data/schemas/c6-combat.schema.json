@@ -1,0 +1,32 @@
+{
+ "title": "Cercle de combat",
+ "type": "object",
+ "properties": {
+  "rangePlus": {
+   "const": 3
+  },
+  "min": {
+   "const": 5
+  },
+  "max": {
+   "const": 16
+  },
+  "forfeitSeconds": {
+   "const": 3
+  },
+  "comboWindow": {
+   "type": "number"
+  },
+  "energyFillSeconds": {
+   "type": "number"
+  },
+  "formatScale": {
+   "type": "object",
+   "description": "multiplicateur du rayon selon le format (3v3 ×1,3 ; 5v5 ×1,6)",
+   "additionalProperties": {
+    "type": "number"
+   }
+  }
+ },
+ "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

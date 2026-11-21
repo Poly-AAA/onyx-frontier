@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"/>
+<title>Néo-Faille — open world V1</title><link rel="icon" href="data:,"/><link rel="stylesheet" href="style.css"/></head>
+<body>
+<canvas id="view"></canvas>
+<div id="hud">Chargement…</div>
+<div id="toast"></div>
+<div id="loading">Néo-Faille — chargement du monde…</div>
+<nav id="bar">
+  <button id="zoomOut">Caméra −</button><button id="zoomIn">Caméra +</button>
+  <button id="pmMinus">PM −</button><button id="pmPlus">PM +</button>
+  <button id="rotL">Tourner −</button><button id="rotR">Tourner +</button><button id="persoBtn">Perso 1</button>
+  <button id="modeBtn">Mode : marcher</button><button id="saveBtn">Sauver</button>
+</nav>
+<script type="module" src="dist/ow.js"></script>
+</body></html>

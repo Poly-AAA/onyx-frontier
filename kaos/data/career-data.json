@@ -1,0 +1,2983 @@
+{
+  "questions": [
+    {
+      "id": "q1",
+      "text": "Une porte grince dans la nuit. Que fais-tu ?",
+      "choices": [
+        {
+          "id": "ouvre",
+          "label": "Je l'ouvre, tout de suite",
+          "flags": {
+            "discipline": 1,
+            "style": 1
+          },
+          "stats": {
+            "force": 10,
+            "ini": 8
+          }
+        },
+        {
+          "id": "ecoute",
+          "label": "J'écoute longtemps, sans bouger",
+          "flags": {
+            "étude": 2
+          },
+          "stats": {
+            "sage": 12,
+            "intel": 6
+          }
+        },
+        {
+          "id": "fenetre",
+          "label": "Je fais le tour par la fenêtre",
+          "flags": {
+            "ruse": 2
+          },
+          "stats": {
+            "agi": 10,
+            "chance": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "Un oiseau de métal se pose sur ton rebord. Que lui offres-tu ?",
+      "choices": [
+        {
+          "id": "miette",
+          "label": "Une miette de pain, sans un mot",
+          "flags": {
+            "loyauté": 2,
+            "social": 1
+          },
+          "stats": {
+            "vit": 12,
+            "sage": 4
+          }
+        },
+        {
+          "id": "cuivre",
+          "label": "Un fil de cuivre, pour voir",
+          "flags": {
+            "artisan": 3
+          },
+          "stats": {
+            "intel": 10,
+            "force": 6
+          }
+        },
+        {
+          "id": "observe",
+          "label": "Rien. Je l'observe seulement",
+          "flags": {
+            "solitaire": 2
+          },
+          "stats": {
+            "sage": 8,
+            "chance": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "La rivière change de couleur deux fois par jour. Tu t'installes…",
+      "choices": [
+        {
+          "id": "amont",
+          "label": "En amont, où l'eau est encore claire",
+          "flags": {
+            "discipline": 2
+          },
+          "stats": {
+            "force": 8,
+            "vit": 8
+          }
+        },
+        {
+          "id": "milieu",
+          "label": "Au milieu, là où ça tourne",
+          "flags": {
+            "libre": 2
+          },
+          "stats": {
+            "chance": 12,
+            "agi": 6
+          }
+        },
+        {
+          "id": "aval",
+          "label": "En aval, pour voir tout ce qui arrive",
+          "flags": {
+            "étude": 2
+          },
+          "stats": {
+            "intel": 10,
+            "ini": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "On te tend un masque sans visage. Tu…",
+      "choices": [
+        {
+          "id": "portes",
+          "label": "Le portes tout un soir",
+          "flags": {
+            "buzz": 2,
+            "presse": 2
+          },
+          "stats": {
+            "ini": 10,
+            "chance": 6
+          }
+        },
+        {
+          "id": "dessine",
+          "label": "Le poses et tu le dessines",
+          "flags": {
+            "étude": 2,
+            "artisan": 1
+          },
+          "stats": {
+            "intel": 12,
+            "sage": 4
+          }
+        },
+        {
+          "id": "refuses",
+          "label": "Le refuses, poliment",
+          "flags": {
+            "loyauté": 2,
+            "discipline": 1
+          },
+          "stats": {
+            "sage": 8,
+            "vit": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "Un enfant te demande le chemin de la mer. La mer est loin.",
+      "choices": [
+        {
+          "id": "accompagne",
+          "label": "Je l'accompagne un bout de route",
+          "flags": {
+            "social": 3,
+            "loyauté": 1
+          },
+          "stats": {
+            "vit": 10,
+            "sage": 6
+          }
+        },
+        {
+          "id": "trace",
+          "label": "Je trace le chemin dans la poussière",
+          "flags": {
+            "étude": 1
+          },
+          "stats": {
+            "intel": 8,
+            "sage": 8
+          }
+        },
+        {
+          "id": "verite",
+          "label": "Je dis la vérité : c'est trop loin aujourd'hui",
+          "flags": {
+            "discipline": 1
+          },
+          "stats": {
+            "force": 8,
+            "ini": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "Ta lampe n'a plus que trois clics. La nuit est longue.",
+      "choices": [
+        {
+          "id": "economise",
+          "label": "Un clic maintenant, deux pour plus tard",
+          "flags": {
+            "discipline": 2
+          },
+          "stats": {
+            "sage": 10,
+            "intel": 6
+          }
+        },
+        {
+          "id": "toucher",
+          "label": "Je l'éteins et je marche au toucher",
+          "flags": {
+            "ruse": 1,
+            "libre": 1
+          },
+          "stats": {
+            "agi": 10,
+            "chance": 8
+          }
+        },
+        {
+          "id": "brule",
+          "label": "Je la brûle entière pour finir le travail",
+          "flags": {
+            "victoire": 3,
+            "style": 1
+          },
+          "stats": {
+            "force": 10,
+            "vit": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "Au marché de Cendre-Rive, un marchand te rend trop de pièces.",
+      "choices": [
+        {
+          "id": "rend",
+          "label": "Je les rends tout de suite",
+          "flags": {
+            "loyauté": 3
+          },
+          "stats": {
+            "sage": 10,
+            "vit": 4
+          }
+        },
+        {
+          "id": "garde",
+          "label": "Je les garde. Je reviendrai, peut-être",
+          "flags": {
+            "argent": 3,
+            "ruse": 1
+          },
+          "stats": {
+            "chance": 10,
+            "ini": 6
+          }
+        },
+        {
+          "id": "offre",
+          "label": "J'achète quelque chose pour quelqu'un d'autre",
+          "flags": {
+            "social": 2
+          },
+          "stats": {
+            "chance": 6,
+            "intel": 6
+          }
+        }
+      ]
+    }
+  ],
+  "presenters": [
+    "Mira Veine",
+    "Rook Calde"
+  ],
+  "commentary": {
+    "win": [
+      "{who} : {name} l'emporte. {result}, propre et net.",
+      "{who} : Belle lecture de jeu de {name}. {foe} n'a pas vu venir la fin.",
+      "{who} : {name} marque des points. Les recruteurs notent ça.",
+      "{who} : Victoire de {name}. Le public amateur commence à retenir le nom.",
+      "{who} : {result}. {name} reste debout, {foe} doit s'incliner.",
+      "{who} : Pas un festival, mais {name} a fait le travail.",
+      "{who} : {name} impose son rythme. {foe} a décroché trop tôt.",
+      "{who} : Ça sent le rookie qui veut un contrat, dit {who}."
+    ],
+    "loss": [
+      "{who} : {name} s'incline face à {foe}. La leçon est rude.",
+      "{who} : Défaite de {name}. {result}. On verra s'il relèvera la tête.",
+      "{who} : {foe} était trop juste ce soir. {name} a payé ses trous.",
+      "{who} : Pas de panique, {name} a encore des soirs pour se montrer.",
+      "{who} : {name} perd, mais le style n'était pas ridicule.",
+      "{who} : Coup dur pour {name}. Les équipes regardent aussi comment on perd."
+    ],
+    "activity": [
+      "{who} : {name} a choisi {activity}. Ça se voit sur le visage.",
+      "{who} : On signale {name} en {activity}. Les alliés apprécient, ou pas.",
+      "{who} : {activity} pour {name}. Petite pierre, grand mur.",
+      "{who} : {name} soigne ses relations. Dans cette ligue, ça compte autant qu'un sort.",
+      "{who} : Bruit autour de {name} après cette {activity}."
+    ],
+    "presse": [
+      "{who} : En conférence, {name} a répondu : « {answer} ».",
+      "{who} : Les micros ont accroché {name}. Réponse retenue : {answer}.",
+      "{who} : {name} ne s'est pas défilé. Le bandeau d'info s'en souviendra.",
+      "{who} : Conférence close. {name} laisse une impression {tone}."
+    ],
+    "draft": [
+      "{who} : Le marché s'ouvre pour {name}. {n} offres sont sur la table.",
+      "{who} : {name} est demandé. Score de draft {score}.",
+      "{who} : Les clubs parlent de {name}. Reste à signer.",
+      "{who} : Offre de {team}. {name} doit choisir sa maison."
+    ],
+    "unsigned": [
+      "{who} : Aucun contrat pour {name} ce soir. La tournée des premières parties commence.",
+      "{who} : {name} reste agent libre. Une blessure, une retraite, et tout peut basculer.",
+      "{who} : Pas drafté. {name} devra convaincre sur le tas, en lever de rideau.",
+      "{who} : Les amateurs regardent {name} de loin. Encore faut-il une place libre."
+    ],
+    "recruit": [
+      "{who} : {team} a une place. {name} est le profil le plus intéressant du marché.",
+      "{who} : Contrat surprise : {team} tend la main à {name}.",
+      "{who} : Un départ dans l'effectif de {team} ouvre la porte à {name}."
+    ],
+    "house": [
+      "{who} : {name} s'équipe à la maison. On bricole, on fond, on découd.",
+      "{who} : Nouvelle acquisition pour {name} : {item}."
+    ],
+    "press_idle": [
+      "{who} : Conférence sans sujet. {name} a parlé dans le vide. Le buzz recule.",
+      "{who} : Pas de nouvelle, et {name} convoque la presse. Les journalistes ricanent.",
+      "{who} : {name} a voulu un micro. La salle était tiède. {tone}."
+    ],
+    "press_loyal": [
+      "{who} : Le grand public a boudé, mais les ultras de {name} ont applaudi quand même.",
+      "{who} : Les curieux sont partis. Les fidèles, eux, ont aimé entendre {name}.",
+      "{who} : Mauvaise idée pour le buzz, bonne pour le noyau dur."
+    ],
+    "press_news": [
+      "{who} : {name} a commenté l'actualité. Réponse retenue : « {answer} ».",
+      "{who} : Conférence utile. {name} pose {tone} sur le sujet du jour.",
+      "{who} : Les micros ont accroché. {name} sort grandi de la séance."
+    ],
+    "media": [
+      "{who} : {name} a publié {activity}. Les commentaires fusent déjà.",
+      "{who} : Sur les fils de la Sphère, {name} prend position : {answer}.",
+      "{who} : Publication remarquée de {name}. {tone}."
+    ],
+    "season": [
+      "{who} : {name} et {team} passent l'hiver dans la Ligue des Neuf Cercles.",
+      "{who} : Journée {n}. {name} a rendez-vous avec le calendrier.",
+      "{who} : Le classement bouge. {team} n'a plus le droit à l'erreur."
+    ],
+    "rested": [
+      "{who} : Le chef d'équipe laisse {name} au repos. La fatigue parlait trop fort.",
+      "{who} : {name} est écarté pour ce soir. Décision du banc."
+    ],
+    "promo": [
+      "{who} : {team} est repéré par la Ligue nationale. La saison 2 s'annonce ailleurs.",
+      "{who} : Promotion. {name} et les siens quittent le cercle amateur."
+    ],
+    "releg": [
+      "{who} : {team} termine en bas. Relégation, et le club peut disparaître.",
+      "{who} : Fin de cycle pour {team}. {name} redevient un nom sur le marché."
+    ],
+    "consequence": [
+      "{who} : {line}",
+      "{who}, plus tard : {line}"
+    ],
+    "train": [
+      "{who} : La séance laisse une trace. {line}",
+      "{who} observe les gains : {line}"
+    ],
+    "injury": [
+      "{who} : On te raconte déjà sur le banc. Blessure, {line}."
+    ],
+    "offseason": [
+      "{who} : Le marché s'ouvre. Des uns partent, d'autres signent."
+    ],
+    "spell": [
+      "{who} : Le sort a changé. Un choix, maintenant."
+    ],
+    "death": [
+      "{who} : {name} est tombé. L'arène se tait. Le maillot reste, le corps non.",
+      "{who}, bas : On n'oublie pas {name}. Un autre rookie prendra la pièce, pas la vie."
+    ],
+    "director": [
+      "{who} : « {line} »",
+      "{dir} a parlé. {line}"
+    ]
+  },
+  "news": [
+    "Ligue amateur : dernière journée, les rookies passent devant les micros.",
+    "Un titulaire se blesse à l'épaule : rumeurs de place au mercato.",
+    "Les ateliers de forgemagie affichent complet dans le quartier bas.",
+    "Conférence de presse animée : un capitaine refuse de commenter un depart.",
+    "Un vétéran parle retraite « avant que le corps ne décide pour moi ».",
+    "Le bandeau officiel : inscriptions ouvertes pour le tournoi pré-draft.",
+    "Une équipe du milieu de tableau cherche un profil « pas cher, déjà prêt ».",
+    "Sponsors locaux promettent une prime si le public dépasse deux mille têtes.",
+    "Rumeur : un club national observait les demies du tournoi rookie.",
+    "Météo des arènes : vent de face sur le grand cercle, les distances mentent."
+  ],
+  "activities": {
+    "entrainement": {
+      "title": "Entraînement",
+      "start": "ent1"
+    },
+    "sortie": {
+      "title": "Sortie avec un allié",
+      "start": "sor1"
+    },
+    "presse": {
+      "title": "Conférence de presse",
+      "start": "pre1"
+    },
+    "invite": {
+      "title": "Inviter un allié à la maison",
+      "start": "inv1"
+    }
+  },
+  "nodes": {
+    "ent1": {
+      "text": "Le gymnase sent la poussière et le cuir. Ton allié {ally} t'attend près des mannequins. Par où tu commences ?",
+      "choices": [
+        {
+          "id": "e_cardio",
+          "label": "Tourner autour de l'arène, jusqu'à plus soif",
+          "next": "ent2a",
+          "fatigue": 12,
+          "statsHint": "endurance",
+          "rel": 4,
+          "flags": {
+            "discipline": 1
+          }
+        },
+        {
+          "id": "e_cible",
+          "label": "Enchaîner les sorts sur cible",
+          "next": "ent2b",
+          "fatigue": 10,
+          "style": 6,
+          "rel": 2,
+          "flags": {
+            "étude": 1
+          }
+        },
+        {
+          "id": "e_sparring",
+          "label": "Proposer un sparring à {ally}",
+          "next": "ent2c",
+          "fatigue": 14,
+          "rel": 8,
+          "style": 4,
+          "flags": {
+            "joueur": 1
+          }
+        }
+      ]
+    },
+    "ent2a": {
+      "text": "{ally} trottine à tes côtés. « Tu tiens le rythme. On pousse encore un cran, ou on coupe ? »",
+      "choices": [
+        {
+          "id": "e_push",
+          "label": "On pousse. Encore un tour.",
+          "next": null,
+          "fatigue": 10,
+          "rel": 3,
+          "xp": 8,
+          "end": "Tu termines lessivé, mais plus solide.",
+          "flags": {
+            "discipline": 1,
+            "victoire": 1
+          }
+        },
+        {
+          "id": "e_cut",
+          "label": "On coupe, on garde des jambes pour demain.",
+          "next": null,
+          "fatigue": -4,
+          "rel": 2,
+          "end": "Vous vous arrêtez à temps. {ally} hoche la tête.",
+          "flags": {
+            "prudent": 1
+          }
+        }
+      ]
+    },
+    "ent2b": {
+      "text": "Les cibles fumènt. {ally} siffle. « Tu vises juste, mais tu brûles tes PA. On travaille l'économie, ou on tape plus fort ? »",
+      "choices": [
+        {
+          "id": "e_eco",
+          "label": "Économie. Deux sorts, pas un de plus.",
+          "next": null,
+          "style": 8,
+          "fatigue": 6,
+          "rel": 3,
+          "end": "Tes lancers se calment. {ally} prend des notes.",
+          "flags": {
+            "étude": 1,
+            "discret": 1
+          }
+        },
+        {
+          "id": "e_fort",
+          "label": "Plus fort. Qu'ils s'en souviennent.",
+          "next": null,
+          "style": 12,
+          "fatigue": 10,
+          "buzz": 2,
+          "end": "Un mannequin craque. Ça fera du bruit au camp.",
+          "flags": {
+            "fier": 1,
+            "style": 1
+          }
+        }
+      ]
+    },
+    "ent2c": {
+      "text": "Sparring. {ally} sourit et lève la garde. « Pas de cadeau. Si je te touche, tu paies le thé. »",
+      "choices": [
+        {
+          "id": "e_agg",
+          "label": "J'attaque le premier",
+          "next": null,
+          "rel": 6,
+          "style": 8,
+          "fatigue": 12,
+          "end": "Vous terminez essoufflés et contents. Le thé est pour toi.",
+          "flags": {
+            "victoire": 1,
+            "joueur": 1
+          }
+        },
+        {
+          "id": "e_def",
+          "label": "Je lis d'abord, je contre ensuite",
+          "next": null,
+          "rel": 8,
+          "style": 6,
+          "fatigue": 8,
+          "end": "Tu prends un coup, tu rends mieux. {ally} respectueux.",
+          "flags": {
+            "prudent": 1,
+            "étude": 1
+          }
+        }
+      ]
+    },
+    "sor1": {
+      "text": "Le quartier bas allume ses enseignes. {ally} hésite entre le stand de nouilles et la salle de jeu. « On va où ? »",
+      "choices": [
+        {
+          "id": "s_nouilles",
+          "label": "Les nouilles. On parle peu, on mange bien.",
+          "next": "sor2a",
+          "money": -8,
+          "rel": 6,
+          "fatigue": -6,
+          "flags": {
+            "social": 1
+          }
+        },
+        {
+          "id": "s_jeu",
+          "label": "La salle de jeu. Un tour de dés.",
+          "next": "sor2b",
+          "money": -12,
+          "rel": 4,
+          "buzz": 2,
+          "flags": {
+            "joueur": 1,
+            "argent": 1
+          }
+        },
+        {
+          "id": "s_marche",
+          "label": "On marche, sans but.",
+          "next": "sor2c",
+          "rel": 5,
+          "fatigue": -4,
+          "flags": {
+            "solitaire": 1
+          }
+        }
+      ]
+    },
+    "sor2a": {
+      "text": "Le bouillon brûle les lèvres. {ally} lâche : « Si tu signes quelque part, tu m'oublies pas. »",
+      "choices": [
+        {
+          "id": "s_promesse",
+          "label": "Je n'oublie personne.",
+          "next": null,
+          "rel": 10,
+          "flags": {
+            "loyauté": 2
+          },
+          "end": "Une poignée de main au-dessus des bols. C'est dit."
+        },
+        {
+          "id": "s_honnete",
+          "label": "Je ne peux rien promettre. Mais je reste droit.",
+          "next": null,
+          "rel": 4,
+          "end": "{ally} hoche la tête. L'honnêteté passe.",
+          "flags": {
+            "discret": 1,
+            "loyauté": 1
+          }
+        }
+      ]
+    },
+    "sor2b": {
+      "text": "Les dés roulent. {ally} mise petit. « Tu tentes le tout, ou tu sors propre ? »",
+      "choices": [
+        {
+          "id": "s_tout",
+          "label": "Je tente le tout.",
+          "next": null,
+          "money": -10,
+          "chanceGame": 1,
+          "rel": 3,
+          "buzz": 3,
+          "end": "La table parle de toi. Gagné ou perdu, on t'a vu.",
+          "flags": {
+            "joueur": 1,
+            "ambitieux": 1
+          }
+        },
+        {
+          "id": "s_propre",
+          "label": "Je sors propre, on garde l'argent.",
+          "next": null,
+          "rel": 2,
+          "end": "Vous partez en riant. La caisse n'a pas bougé.",
+          "flags": {
+            "prudent": 1,
+            "discipline": 1
+          }
+        }
+      ]
+    },
+    "sor2c": {
+      "text": "Les rues sentent l'huile chaude et la pluie. {ally} demande : « T'as peur de rester sans contrat ? »",
+      "choices": [
+        {
+          "id": "s_peur",
+          "label": "Un peu. Je vais le chercher quand même.",
+          "next": null,
+          "rel": 7,
+          "end": "{ally} apprécie. Vous rentrez sans te presser.",
+          "flags": {
+            "loyauté": 1
+          }
+        },
+        {
+          "id": "s_non",
+          "label": "Non. Quelqu'un finira par avoir besoin de moi.",
+          "next": null,
+          "rel": 3,
+          "buzz": 1,
+          "end": "Un silence, puis un sourire. L'arrogance passe presque.",
+          "flags": {
+            "fier": 1,
+            "ambitieux": 1
+          }
+        }
+      ]
+    },
+    "pre1": {
+      "text": "Deux micros, une nappe trop blanche. Premier journaliste : « {name}, on dit que tu es encore un rookie. Qu'est-ce que tu réponds à ceux qui doutent ? »",
+      "press": true,
+      "choices": [
+        {
+          "id": "p_preuve",
+          "label": "Les preuves seront sur l'arène, pas ici.",
+          "next": "pre2",
+          "buzz": 6,
+          "style": 4,
+          "tone": "ferme",
+          "answer": "Les preuves seront sur l'arène",
+          "flags": {
+            "fier": 1,
+            "presse": 1
+          }
+        },
+        {
+          "id": "p_merci",
+          "label": "Ils ont le droit. Je bosse, c'est tout.",
+          "next": "pre2",
+          "buzz": 3,
+          "rel": 2,
+          "tone": "modeste",
+          "answer": "Je bosse, c'est tout",
+          "flags": {
+            "discret": 1,
+            "loyauté": 1
+          }
+        },
+        {
+          "id": "p_pique",
+          "label": "Qu'ils viennent essayer mon emploi du temps.",
+          "next": "pre2",
+          "buzz": 8,
+          "style": 2,
+          "tone": "piquante",
+          "answer": "Qu'ils essayent mon emploi du temps",
+          "flags": {
+            "fier": 1,
+            "polémique": 1
+          }
+        }
+      ]
+    },
+    "pre2": {
+      "text": "Deuxième question, plus sèche : « Si une équipe du bas de tableau te fait une offre demain, tu signes ? »",
+      "press": true,
+      "choices": [
+        {
+          "id": "p_oui",
+          "label": "Oui, pour jouer. Le maillot viendra après.",
+          "next": null,
+          "buzz": 4,
+          "flags": {
+            "loyauté": 2,
+            "joueur": 1
+          },
+          "tone": "pragmatique",
+          "answer": "Oui, pour jouer",
+          "end": "Les stylos grattent. On te trouve fiable."
+        },
+        {
+          "id": "p_choix",
+          "label": "Seulement si le projet me ressemble.",
+          "next": null,
+          "buzz": 5,
+          "tone": "exigeante",
+          "answer": "Seulement si le projet me ressemble",
+          "end": "Certains clubs ricanent, d'autres notent le caractère.",
+          "flags": {
+            "ambitieux": 1,
+            "libre": 1
+          }
+        },
+        {
+          "id": "p_argent",
+          "label": "Je regarderai d'abord les termes.",
+          "next": null,
+          "buzz": 3,
+          "flags": {
+            "argent": 2,
+            "mercenaire": 1
+          },
+          "tone": "prudente",
+          "answer": "Je regarderai les termes",
+          "end": "Réponse de mercenaire, pas d'idiot. Le marché entend."
+        }
+      ]
+    },
+    "inv1": {
+      "text": "Ta pièce est simple. {ally} s'arrête sur le pas de la porte. « C'est chez toi, ça ? On fait quoi ? »",
+      "choices": [
+        {
+          "id": "i_the",
+          "label": "Un thé, et on parle de la saison.",
+          "next": "inv2a",
+          "rel": 8,
+          "fatigue": -4,
+          "money": -2,
+          "flags": {
+            "social": 1
+          }
+        },
+        {
+          "id": "i_outil",
+          "label": "Je te montre mon établi, si j'en ai un.",
+          "next": "inv2b",
+          "rel": 5,
+          "flags": {
+            "artisan": 2
+          }
+        },
+        {
+          "id": "i_repos",
+          "label": "On s'assoit et on ne parle de rien.",
+          "next": "inv2c",
+          "rel": 6,
+          "fatigue": -8,
+          "flags": {
+            "soigneur": 1,
+            "discret": 1
+          }
+        }
+      ]
+    },
+    "inv2a": {
+      "text": "{ally} souffle sur la tasse. « Les équipes, elles transforment les gens. Toi, tu veux rester qui ? »",
+      "choices": [
+        {
+          "id": "i_meme",
+          "label": "Le même. Juste plus fort.",
+          "next": null,
+          "rel": 8,
+          "end": "{ally} trinque avec de l'eau chaude. C'est bon.",
+          "flags": {
+            "loyauté": 1
+          }
+        },
+        {
+          "id": "i_changer",
+          "label": "Je changerai si ça me fait gagner.",
+          "next": null,
+          "rel": 2,
+          "end": "Un silence poli. L'amitié tient, un peu plus froide.",
+          "flags": {
+            "ambitieux": 1,
+            "mercenaire": 1
+          }
+        }
+      ]
+    },
+    "inv2b": {
+      "text": "{ally} touche le bois de l'établi — ou le mur nu s'il n'est pas là. « Tu comptes vivre de tes mains, ou de tes sorts ? »",
+      "choices": [
+        {
+          "id": "i_mains",
+          "label": "Des deux. L'un nourrit l'autre.",
+          "next": null,
+          "rel": 6,
+          "end": "Vous parlez outils et runes jusqu'à tard.",
+          "flags": {
+            "artisan": 1,
+            "étude": 1
+          }
+        },
+        {
+          "id": "i_sorts",
+          "label": "Des sorts. L'atelier est un plus.",
+          "next": null,
+          "rel": 3,
+          "end": "{ally} comprend. Chacun son feu.",
+          "flags": {
+            "étude": 1
+          }
+        }
+      ]
+    },
+    "inv2c": {
+      "text": "Le temps passe. {ally} finit par dire : « Merci. C'est rare, les gens qui laissent le silence. »",
+      "choices": [
+        {
+          "id": "i_ok",
+          "label": "Reviens quand tu veux.",
+          "next": null,
+          "rel": 10,
+          "end": "La porte se referme doucement. L'entente a monté.",
+          "flags": {
+            "social": 1,
+            "loyauté": 1
+          }
+        }
+      ]
+    }
+  },
+  "shop": [
+    {
+      "id": "etabli",
+      "name": "Établi",
+      "price": 200,
+      "desc": "Pour poser l'appareil de forgemagie.",
+      "place": "etabli"
+    },
+    {
+      "id": "fonderie",
+      "name": "Fonderie",
+      "price": 250,
+      "desc": "Pour faire fondre un objet.",
+      "place": "fonderie"
+    },
+    {
+      "id": "couture",
+      "name": "Poste de couture",
+      "price": 250,
+      "desc": "Pour découdre un équipement.",
+      "place": "couture"
+    },
+    {
+      "id": "outil_rustique",
+      "name": "Outils rustiques",
+      "price": 50,
+      "desc": "Qualité 1. Suffisant pour commencer.",
+      "tool": 1
+    },
+    {
+      "id": "outil_correct",
+      "name": "Outils corrects",
+      "price": 150,
+      "desc": "Qualité 2. Meilleur taux de réussite.",
+      "tool": 2
+    },
+    {
+      "id": "outil_pro",
+      "name": "Outils professionnels",
+      "price": 400,
+      "desc": "Qualité 3. Le geste tient.",
+      "tool": 3
+    }
+  ],
+  "trainings": [
+    {
+      "id": "poids",
+      "label": "Charges et appuis",
+      "stat": "force",
+      "style": 4,
+      "fatigue": 16,
+      "text": "Barres de fonte, souffle court. La Force apprend le poids."
+    },
+    {
+      "id": "footwork",
+      "label": "Pas de side et feintes",
+      "stat": "agi",
+      "style": 8,
+      "fatigue": 14,
+      "text": "Tu glisses entre les plots. L'Agilité prend le dessus."
+    },
+    {
+      "id": "etude",
+      "label": "Tableaux et schémas",
+      "stat": "intel",
+      "style": 3,
+      "fatigue": 8,
+      "text": "Tu recopies des trajectoires. L'Intelligence s'échauffe."
+    },
+    {
+      "id": "des",
+      "label": "Jeux de dés et de timing",
+      "stat": "chance",
+      "style": 6,
+      "fatigue": 8,
+      "text": "Tu apprends à laisser venir le bon moment."
+    },
+    {
+      "id": "souffle",
+      "label": "Souffle et récupération",
+      "stat": "vit",
+      "style": 2,
+      "fatigue": 12,
+      "text": "Tours d'arène, cœur régulier. La Vitalité tient."
+    },
+    {
+      "id": "focus",
+      "label": "Veille et concentration",
+      "stat": "sage",
+      "style": 3,
+      "fatigue": 7,
+      "text": "Tu restes immobile plus longtemps que les autres. La Sagesse s'installe."
+    },
+    {
+      "id": "rythme",
+      "label": "Rythme de frappe (PA)",
+      "stat": "pa",
+      "rare": true,
+      "style": 10,
+      "fatigue": 18,
+      "text": "Une cadence rare. Parfois, un point d'action de plus."
+    },
+    {
+      "id": "glisse",
+      "label": "Glisse d'ouverture (PM)",
+      "stat": "pm",
+      "rare": true,
+      "style": 10,
+      "fatigue": 16,
+      "text": "Tu cherches un pas que presque personne ne tient."
+    }
+  ],
+  "interviews": [
+    {
+      "id": "humble",
+      "label": "Rester humble, parler travail",
+      "interview": 22,
+      "buzz": 4,
+      "text": "Le dirigeant apprécie le calme.",
+      "flags": {
+        "ambitieux": 1
+      }
+    },
+    {
+      "id": "ambition",
+      "label": "Montrer les dents, viser haut",
+      "interview": 16,
+      "buzz": 10,
+      "text": "Ça impressionne, ça peut aussi faire peur.",
+      "flags": {
+        "ambitieux": 1
+      }
+    },
+    {
+      "id": "argent",
+      "label": "Parler clairement de contrat",
+      "interview": 10,
+      "buzz": 6,
+      "text": "Honnête, un peu mercenaire. Certains aiment.",
+      "flags": {
+        "argent": 1
+      }
+    }
+  ],
+  "places": {
+    "villes": [
+      "Cendre-Rive",
+      "Port-Nacre",
+      "Val-Brume",
+      "Tour-Sable",
+      "Haut-Verre",
+      "Faubourg de Laine"
+    ],
+    "pays": [
+      "la Marche d'Ocre",
+      "le Plateau de Verre",
+      "les Neuf Cercles",
+      "la Côte de Suie",
+      "le Val de Laiton"
+    ],
+    "monde": [
+      "la Sphère",
+      "les Trois Lunes",
+      "le Corridor d'Étain",
+      "la Mer de Poussière",
+      "les Ateliers-Orbites"
+    ]
+  },
+  "newsTemplates": {
+    "ville": [
+      {
+        "text": "À {ville}, les lanternes à vapeur restent allumées jusqu'à l'aube.",
+        "reactable": false,
+        "tag": "vie"
+      },
+      {
+        "text": "Le marché de {ville} accuse un lobby des huiles d'éclairage de faire monter les prix.",
+        "reactable": true,
+        "tag": "lobby"
+      },
+      {
+        "text": "Une porte d'atelier s'est ouverte toute seule dans la ruelle haute de {ville}.",
+        "reactable": false,
+        "tag": "vie"
+      },
+      {
+        "text": "Les fontaines de {ville} crachent une eau légèrement dorée. On parle d'un dépôt.",
+        "reactable": true,
+        "tag": "cause"
+      },
+      {
+        "text": "À {ville}, un collectif demande plus de bancs sous les palmiers de fer.",
+        "reactable": true,
+        "tag": "cause"
+      },
+      {
+        "text": "Un crieur de {ville} prétend qu'un sous-sol relie le stade à la mer de poussière.",
+        "reactable": true,
+        "tag": "complot"
+      }
+    ],
+    "pays": [
+      {
+        "text": "Dans {pays}, la saison des vents roux commence plus tôt que d'habitude.",
+        "reactable": false,
+        "tag": "vie"
+      },
+      {
+        "text": "Un décret de {pays} limite les combats de nuit près des citernes.",
+        "reactable": true,
+        "tag": "lobby"
+      },
+      {
+        "text": "Des caravanes de {pays} signalent des tours silencieuses sur le plateau.",
+        "reactable": false,
+        "tag": "vie"
+      },
+      {
+        "text": "Polémique dans {pays} : un comité veut taxer les runes d'amateur.",
+        "reactable": true,
+        "tag": "lobby"
+      },
+      {
+        "text": "Des familles de {pays} réclament un toit pour les combattants blessés.",
+        "reactable": true,
+        "tag": "cause"
+      },
+      {
+        "text": "Rumeur dans {pays} : quelqu'un achèterait les résultats d'avant-saison.",
+        "reactable": true,
+        "tag": "complot"
+      }
+    ],
+    "monde": [
+      {
+        "text": "Sur {monde}, deux ateliers-orbites ont cessé de se parler.",
+        "reactable": true,
+        "tag": "guerre"
+      },
+      {
+        "text": "Une lueur nouvelle a été vue du côté de {monde}. Les astronomes se taisent.",
+        "reactable": true,
+        "tag": "complot"
+      },
+      {
+        "text": "Les messageries de {monde} promettent un délai d'un jour, pour une fois.",
+        "reactable": false,
+        "tag": "vie"
+      },
+      {
+        "text": "Un convoi humanitaire tente la traversée de {monde} malgré les vents.",
+        "reactable": true,
+        "tag": "cause"
+      },
+      {
+        "text": "Des pactes d'acier se nouent entre cités de {monde}. On parle déjà d'escalade.",
+        "reactable": true,
+        "tag": "guerre"
+      },
+      {
+        "text": "Un pamphlet circule sur {monde} : « les ligues appartiennent aux mêmes mains ».",
+        "reactable": true,
+        "tag": "complot"
+      }
+    ],
+    "ligue": [
+      {
+        "text": "Transfert : {player} quitte {team} pour {team2}.",
+        "reactable": false,
+        "tag": "transfert",
+        "special": "transfer"
+      },
+      {
+        "text": "{player}, vétéran de {team}, annonce sa retraite avant que le corps ne décide.",
+        "reactable": false,
+        "tag": "retraite",
+        "special": "retirement"
+      },
+      {
+        "text": "La ligue officielle un décès dans l'effectif de {team} : {player}. Une place s'ouvre.",
+        "reactable": false,
+        "tag": "deces",
+        "special": "death"
+      },
+      {
+        "text": "Avant-match : {team} reçoit {team2} sous les lanternes de {ville}.",
+        "reactable": false,
+        "tag": "match"
+      },
+      {
+        "text": "{team} cherche un profil « déjà prêt, pas cher » avant la prochaine journée.",
+        "reactable": false,
+        "tag": "transfert",
+        "special": "transfer"
+      }
+    ]
+  },
+  "pressIdle": {
+    "start": "pxi1",
+    "nodes": {
+      "pxi1": {
+        "text": "La salle est à moitié vide. Premier journaliste, un peu las : « {name}, pourquoi cette conférence, aujourd'hui ? Il ne s'est rien passé. »",
+        "choices": [
+          {
+            "id": "pxi_habitude",
+            "label": "Parce qu'il faut parler aux gens, même les jours calmes.",
+            "next": "pxi2",
+            "tone": "maladroite",
+            "answer": "Il faut parler même les jours calmes",
+            "buzz": -3,
+            "flags": {
+              "presse": 1,
+              "social": 1
+            }
+          },
+          {
+            "id": "pxi_rien",
+            "label": "Justement. Je préfère venir quand il n'y a pas le feu.",
+            "next": "pxi2",
+            "tone": "calme",
+            "answer": "Je viens quand il n'y a pas le feu",
+            "buzz": -2,
+            "flags": {
+              "discret": 1,
+              "prudent": 1
+            }
+          },
+          {
+            "id": "pxi_promo",
+            "label": "Pour qu'on se souvienne de mon nom.",
+            "next": "pxi2",
+            "tone": "opportuniste",
+            "answer": "Pour qu'on se souvienne de mon nom",
+            "buzz": -5,
+            "flags": {
+              "ambitieux": 1,
+              "presse": 1
+            }
+          }
+        ]
+      },
+      "pxi2": {
+        "text": "Deuxième question, plus sèche : « Tu ne crains pas de lasser ceux qui te suivent déjà ? »",
+        "choices": [
+          {
+            "id": "pxi_assume",
+            "label": "S'ils sont là, c'est qu'ils veulent m'entendre.",
+            "answer": "S'ils veulent m'entendre",
+            "tone": "ferme",
+            "end": "Quelques fidèles hochent la tête. Le reste range les stylos.",
+            "flags": {
+              "fier": 1
+            }
+          },
+          {
+            "id": "pxi_excuse",
+            "label": "Tu as raison. Je serai plus rare, ensuite.",
+            "answer": "Je serai plus rare",
+            "tone": "embarrassée",
+            "end": "La salle se vide plus vite. Au moins c'est dit.",
+            "flags": {
+              "prudent": 1,
+              "discret": 1
+            }
+          },
+          {
+            "id": "pxi_blague",
+            "label": "Lasser, oui. Mais pas encore ce soir.",
+            "answer": "Pas encore ce soir",
+            "tone": "légère",
+            "end": "Un rire court, puis le silence. Ce n'était pas le jour.",
+            "flags": {
+              "troll": 1,
+              "style": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "pressNews": {
+    "start": "pxn1",
+    "nodes": {
+      "pxn1": {
+        "text": "Les micros sont tendus. « {name}, tout le monde parle de ça : {news}. Ta réaction ? »",
+        "choices": [
+          {
+            "id": "pxn_clair",
+            "label": "Je dis ce que je pense, clairement.",
+            "next": "pxn2",
+            "tone": "franche",
+            "answer": "Je dis ce que je pense",
+            "buzz": 6,
+            "style": 2,
+            "flags": {
+              "presse": 1,
+              "discipline": 1
+            }
+          },
+          {
+            "id": "pxn_mesure",
+            "label": "Je pèse mes mots. C'est plus large que moi.",
+            "next": "pxn2",
+            "tone": "mesurée",
+            "answer": "C'est plus large que moi",
+            "buzz": 4,
+            "flags": {
+              "prudent": 1,
+              "discret": 1
+            }
+          },
+          {
+            "id": "pxn_equipe",
+            "label": "Je pense d'abord à mon équipe et à ceux qui nous regardent.",
+            "next": "pxn2",
+            "tone": "solidaire",
+            "answer": "Je pense à mon équipe",
+            "buzz": 5,
+            "rel": 3,
+            "flags": {
+              "loyauté": 1,
+              "social": 1
+            }
+          }
+        ]
+      },
+      "pxn2": {
+        "text": "Relance : « Et si ça tourne mal pour ceux que tu viens de citer ? »",
+        "choices": [
+          {
+            "id": "pxn_tient",
+            "label": "Je tiens ma parole. On verra ensuite.",
+            "answer": "Je tiens ma parole",
+            "tone": "ferme",
+            "buzz": 4,
+            "end": "Les stylos grattent. La conférence a servi.",
+            "flags": {
+              "discipline": 1
+            }
+          },
+          {
+            "id": "pxn_écoute",
+            "label": "J'écouterai ceux que ça touche, avant de rajouter une phrase.",
+            "answer": "J'écouterai d'abord",
+            "tone": "prudente",
+            "buzz": 3,
+            "end": "Réponse sage. Une partie de la salle approuve.",
+            "flags": {
+              "social": 1
+            }
+          },
+          {
+            "id": "pxn_action",
+            "label": "Les mots ne suffisent pas. Je ferai un geste, même petit.",
+            "answer": "Je ferai un geste",
+            "tone": "engagée",
+            "buzz": 6,
+            "style": 2,
+            "end": "Ça fera une une. On te trouve utile, pour une fois.",
+            "flags": {
+              "engagé": 1,
+              "ambitieux": 1
+            }
+          }
+        ]
+      }
+    }
+  },
+  "mediaPosts": [
+    {
+      "id": "photo_lunes",
+      "type": "photo",
+      "icon": "moon",
+      "label": "Photo : toit sous les trois lunes",
+      "desc": "Un toit plat, trois lunes pâles, une tasse qui fume. Aucune légende.",
+      "effects": {
+        "curieux": 6,
+        "supporters": 1,
+        "buzz": 2
+      },
+      "comments": [
+        "Les lunes sont bien cadrées.",
+        "On dirait une carte postale de Haut-Verre.",
+        "Encore une photo de toits…"
+      ],
+      "flags": {
+        "style": 1,
+        "discret": 1
+      }
+    },
+    {
+      "id": "photo_aube",
+      "type": "photo",
+      "icon": "sword",
+      "label": "Photo : séance à l'aube",
+      "desc": "Une ombre en garde, la poussière dorée, personne d'autre sur le cercle.",
+      "effects": {
+        "supporters": 4,
+        "style": 3,
+        "buzz": 1
+      },
+      "comments": [
+        "Le travail, au moins.",
+        "Beau geste, un peu posé.",
+        "Les ultras aiment la sueur du matin."
+      ],
+      "flags": {
+        "style": 1,
+        "discipline": 1
+      }
+    },
+    {
+      "id": "photo_bol",
+      "type": "photo",
+      "icon": "bowl",
+      "label": "Photo : bol de nouilles au faubourg",
+      "desc": "Un bol trop plein, une table de tôle, la vapeur qui cache le visage.",
+      "effects": {
+        "curieux": 5,
+        "social": 1
+      },
+      "comments": [
+        "J'ai faim maintenant.",
+        "C'est quel stand, à Cendre-Rive ?",
+        "Lifestyle de rookie."
+      ],
+      "flags": {
+        "social": 1
+      }
+    },
+    {
+      "id": "photo_fenetre",
+      "type": "photo",
+      "icon": "window",
+      "label": "Photo : fenêtre ouverte sur les ateliers",
+      "desc": "Un cadre de bois, des cheminées lentes, un fil de cuivre sur le rebord.",
+      "effects": {
+        "curieux": 3,
+        "fans": 1
+      },
+      "comments": [
+        "Calme.",
+        "Ça respire la Sphère d'en bas.",
+        "Joli grain."
+      ],
+      "flags": {
+        "solitaire": 1
+      }
+    },
+    {
+      "id": "msg_merci",
+      "type": "msg",
+      "icon": "hand",
+      "label": "Message : remercier ceux qui restent",
+      "desc": "« Merci d'être encore là quand la salle est petite. »",
+      "effects": {
+        "supporters": 3,
+        "fans": 2,
+        "buzz": 2
+      },
+      "comments": [
+        "Simple et bien.",
+        "On reste.",
+        "Les fidèles notent."
+      ],
+      "flags": {
+        "loyauté": 1,
+        "social": 1
+      }
+    },
+    {
+      "id": "msg_train",
+      "type": "msg",
+      "icon": "sword",
+      "label": "Message : l'entraînement continue",
+      "desc": "« Pas de secret. Demain, même heure, mêmes appuis. »",
+      "effects": {
+        "supporters": 4,
+        "style": 2
+      },
+      "comments": [
+        "Professionnel.",
+        "Un peu plat, mais solide.",
+        "Le staff doit aimer."
+      ],
+      "flags": {
+        "discipline": 1,
+        "joueur": 1
+      }
+    },
+    {
+      "id": "msg_ville",
+      "type": "msg",
+      "icon": "window",
+      "label": "Message : éloge de Cendre-Rive",
+      "desc": "« Cette ville grince, et c'est pour ça que je l'aime. »",
+      "effects": {
+        "curieux": 4,
+        "buzz": 2
+      },
+      "comments": [
+        "Local et malin.",
+        "Les gens de Cendre-Rive valident.",
+        "Attends de perdre un match ici."
+      ],
+      "flags": {
+        "social": 1,
+        "presse": 1
+      }
+    }
+  ],
+  "mediaStances": [
+    {
+      "id": "denounce",
+      "label": "Dénoncer clairement",
+      "tone": "indignée",
+      "effects": {
+        "fans": 3,
+        "supporters": 2,
+        "buzz": 5,
+        "press": 2
+      },
+      "sponsorMod": 0,
+      "scandal": 0,
+      "rel": 1,
+      "comments": [
+        "Enfin quelqu'un le dit.",
+        "Un peu fort, mais juste.",
+        "Les sponsors vont lire ça deux fois."
+      ],
+      "flags": {
+        "engagé": 1,
+        "presse": 1
+      }
+    },
+    {
+      "id": "cause",
+      "label": "Soutenir la cause",
+      "tone": "engagée",
+      "effects": {
+        "fans": 4,
+        "curieux": 2,
+        "buzz": 4
+      },
+      "sponsorMod": 0,
+      "scandal": 0,
+      "rel": 2,
+      "comments": [
+        "Soutien noté.",
+        "C'est courageux pour un rookie.",
+        "On verra si ça dure."
+      ],
+      "flags": {
+        "engagé": 2,
+        "social": 1
+      }
+    },
+    {
+      "id": "lobby",
+      "label": "Accuser un lobby",
+      "tone": "accusatrice",
+      "effects": {
+        "ultras": 2,
+        "curieux": -3,
+        "buzz": 6
+      },
+      "sponsorMod": -1,
+      "scandal": 1,
+      "rel": -1,
+      "comments": [
+        "Il vise quelqu'un.",
+        "Dangeroux, ça.",
+        "Les ultras s'échauffent."
+      ],
+      "flags": {
+        "polémique": 1,
+        "ruse": 1
+      }
+    },
+    {
+      "id": "complot",
+      "label": "Parler d'un complot plus large",
+      "tone": "ombrageuse",
+      "effects": {
+        "ultras": 3,
+        "supporters": -4,
+        "curieux": -6,
+        "buzz": 8
+      },
+      "sponsorMod": -2,
+      "scandal": 2,
+      "rel": -2,
+      "comments": [
+        "Il a basculé.",
+        "Certains y croient trop vite.",
+        "Un journaliste demande des preuves."
+      ],
+      "flags": {
+        "polémique": 2,
+        "troll": 1
+      }
+    },
+    {
+      "id": "guerre",
+      "label": "Dénoncer la guerre / l'escalade",
+      "tone": "grave",
+      "effects": {
+        "fans": 3,
+        "supporters": 3,
+        "buzz": 5
+      },
+      "sponsorMod": 0,
+      "scandal": 0,
+      "rel": 1,
+      "comments": [
+        "Position juste.",
+        "Ça dépasse le sport, et tant mieux.",
+        "Pas tout le monde appréciera."
+      ],
+      "flags": {
+        "engagé": 1,
+        "fier": 1
+      }
+    },
+    {
+      "id": "neutral",
+      "label": "Rester neutre",
+      "tone": "prudente",
+      "effects": {
+        "supporters": 1,
+        "buzz": -1
+      },
+      "sponsorMod": 1,
+      "scandal": 0,
+      "rel": 1,
+      "comments": [
+        "Pas pris de risque.",
+        "Un peu lisse.",
+        "Le club respire."
+      ],
+      "flags": {
+        "discret": 1,
+        "prudent": 1
+      }
+    },
+    {
+      "id": "troll",
+      "label": "Troller, détourner, ironiser",
+      "tone": "moqueuse",
+      "effects": {
+        "ultras": 4,
+        "fans": -2,
+        "curieux": -3,
+        "buzz": 7
+      },
+      "sponsorMod": -1,
+      "scandal": 1,
+      "rel": -2,
+      "comments": [
+        "Mdr.",
+        "Pas le moment.",
+        "Les ultras adorent. Les autres moins."
+      ],
+      "flags": {
+        "troll": 2,
+        "polémique": 1
+      }
+    }
+  ],
+  "mediaCommentsExtra": [
+    "Un compte anonyme : « typique ».",
+    "Une voix de {ville} : « on te voit ».",
+    "Un vieux supporter : « attention à tes amitiés ».",
+    "Réponse d'un journaliste : « on en reparlera ».",
+    "Un ultra : « tu assumes, bien ».",
+    "Quelqu'un : « reste dans l'arène »."
+  ],
+  "sponsors": [
+    {
+      "id": "vesper",
+      "name": "Lampes Vesper",
+      "minValue": 60,
+      "perDay": 3,
+      "hateScandal": true,
+      "needUltras": 0,
+      "days": 14,
+      "conditions": "Aucune polémique ouverte."
+    },
+    {
+      "id": "ocre",
+      "name": "Huiles d'Ocre",
+      "minValue": 160,
+      "perDay": 8,
+      "hateScandal": true,
+      "needUltras": 0,
+      "days": 18,
+      "conditions": "Pas de scandale médiatique."
+    },
+    {
+      "id": "lunes",
+      "name": "Ateliers des Trois Lunes",
+      "minValue": 320,
+      "perDay": 18,
+      "hateScandal": false,
+      "needUltras": 0,
+      "days": 21,
+      "conditions": "Tenir le contrat jusqu'au terme."
+    },
+    {
+      "id": "feu",
+      "name": "Cercle du Feu Froid",
+      "minValue": 600,
+      "perDay": 40,
+      "hateScandal": false,
+      "needUltras": 6,
+      "days": 24,
+      "conditions": "Gardes tes ultras. Zéro polémique exigée, mais le feu froid n'aime pas qu'on disparaisse."
+    }
+  ],
+  "journalist": {
+    "indignée": "La presse salue le courage, et compte les ennemis.",
+    "engagée": "Un papier bienveillant paraît le soir même.",
+    "accusatrice": "Plusieurs rédactions parlent déjà de polémique.",
+    "ombrageuse": "On te demande des preuves. Le doute s'installe.",
+    "grave": "Le ton est jugé juste, presque trop adulte pour un rookie.",
+    "prudente": "Personne n'est froissé. Personne n'est emballé.",
+    "moqueuse": "On te trouve drôle, ou fatiguant, selon le camp.",
+    "maladroite": "La chronique du matin est sèche.",
+    "calme": "On note l'effort, pas le sujet.",
+    "opportuniste": "On te soupçonne de vouloir exister à tout prix.",
+    "ferme": "La phrase passera en bandeau.",
+    "embarrassée": "On écrit que tu as reculé.",
+    "légère": "Un sourire, puis on tourne la page.",
+    "franche": "Citation retenue, sans fioriture.",
+    "mesurée": "Article posé, plutôt favorable.",
+    "solidaire": "Le club sort bien de l'histoire.",
+    "default": "La gazette du soir consacre trois lignes."
+  },
+  "leagues": [
+    {
+      "id": "amateur",
+      "name": "Ligue Amateur",
+      "tier": 0,
+      "presenters": [
+        "Mira Veine",
+        "Rook Calde"
+      ],
+      "arenas": [
+        "Cour des Lampions",
+        "Hangar de Laine",
+        "Arène de Cendre-Rive",
+        "Salle du Pont Bas",
+        "Préau des Chardons",
+        "Fosse de Nuit Calme",
+        "Pré de Haut-Pont",
+        "Atelier des Trois Fontaines"
+      ],
+      "teams": [
+        "Les Chardons",
+        "Rive Basse",
+        "Fers Rouges",
+        "Nuit Calme",
+        "Haut-Pont",
+        "Cendre Vive",
+        "Lames Sèches",
+        "Trois Fontaines"
+      ]
+    },
+    {
+      "id": "regionale",
+      "name": "Ligue Régionale",
+      "tier": 1,
+      "presenters": [
+        "Sia Lumen",
+        "Bram d'Ocre"
+      ],
+      "arenas": [
+        "Cirque de Val-Brume",
+        "Quai de Port-Nacre",
+        "Tour de Sable",
+        "Halle de Suie",
+        "Préau Claire",
+        "Cercle de Laine",
+        "Rive-Nacre",
+        "Belvédère de Haut-Verre"
+      ],
+      "teams": [
+        "Marche d'Ocre",
+        "Val-Brume",
+        "Tour-Sable",
+        "Pont de Suie",
+        "Atelier Claire",
+        "Cercle de Laine",
+        "Rive-Nacre",
+        "Haut-Verre"
+      ]
+    },
+    {
+      "id": "nationale",
+      "name": "Ligue Nationale",
+      "tier": 2,
+      "presenters": [
+        "Ora Vesper",
+        "Kal Étain"
+      ],
+      "arenas": [
+        "Grand Cercle",
+        "Jetée de Laiton",
+        "Corridor d'Étain",
+        "Maison des Vents",
+        "Phare d'Ivoire",
+        "Cour des Lampes",
+        "Arc de Poussière",
+        "Guilde de Minuit"
+      ],
+      "teams": [
+        "Neuf Cercles",
+        "Côte de Laiton",
+        "Corridor d'Étain",
+        "Maison des Vents",
+        "Phare d'Ivoire",
+        "Cour des Lampes",
+        "Arc de Poussière",
+        "Guilde de Minuit"
+      ]
+    },
+    {
+      "id": "mondiale",
+      "name": "Ligue Mondiale",
+      "tier": 3,
+      "presenters": [
+        "Vey Orbite",
+        "Lis des Trois Lunes"
+      ],
+      "arenas": [
+        "Sphère d'Orage",
+        "Anneau des Trois Lunes",
+        "Mer de Poussière",
+        "Ateliers-Orbites",
+        "Couronne de Zinc",
+        "Voile-Solaire",
+        "Puits des Âges",
+        "Chœur d'Éther"
+      ],
+      "teams": [
+        "Sphère d'Orage",
+        "Trois Lunes",
+        "Mer de Poussière",
+        "Ateliers-Orbites",
+        "Couronne de Zinc",
+        "Voile-Solaire",
+        "Puits des Âges",
+        "Chœur d'Éther"
+      ]
+    }
+  ],
+  "delayedEvents": [
+    {
+      "id": "scandal",
+      "delay": [
+        2,
+        4
+      ],
+      "text": "Conséquence : une rumeur née de ton choix « {source} » tourne dans les feuilles. Polémique."
+    },
+    {
+      "id": "invitation",
+      "delay": [
+        2,
+        5
+      ],
+      "text": "Conséquence : un allié t'invite, se souvenant de « {source} »."
+    },
+    {
+      "id": "rival_challenge",
+      "delay": [
+        3,
+        5
+      ],
+      "text": "Conséquence : un rival, piqué par « {source} », te cherche sur l'arène."
+    },
+    {
+      "id": "extra_offer",
+      "delay": [
+        3,
+        6
+      ],
+      "text": "Conséquence : un club a noté « {source} » et glisse une offre en plus."
+    },
+    {
+      "id": "gift",
+      "delay": [
+        2,
+        4
+      ],
+      "text": "Conséquence : un paquet t'attend — quelqu'un a retenu « {source} »."
+    },
+    {
+      "id": "injury_rumor",
+      "delay": [
+        2,
+        3
+      ],
+      "text": "Conséquence : la presse colporte une blessure après « {source} », vraie ou non."
+    },
+    {
+      "id": "sponsor_boost",
+      "delay": [
+        3,
+        5
+      ],
+      "text": "Conséquence : un artisan-sponsor aime ta ligne « {source} » et renforce le contrat."
+    },
+    {
+      "id": "sponsor_drop",
+      "delay": [
+        2,
+        4
+      ],
+      "text": "Conséquence : un sponsor pudique lâche prise, encore à cause de « {source} »."
+    },
+    {
+      "id": "teammate_cold",
+      "delay": [
+        1,
+        3
+      ],
+      "text": "Conséquence : au vestiaire, on te trouve trop mercenaire depuis « {source} »."
+    },
+    {
+      "id": "leader_trust",
+      "delay": [
+        2,
+        4
+      ],
+      "text": "Conséquence : le chef d'équipe te fait davantage confiance depuis « {source} »."
+    },
+    {
+      "id": "leader_bench",
+      "delay": [
+        1,
+        3
+      ],
+      "text": "Conséquence : le chef hésite à te lancer, souvenir de « {source} »."
+    },
+    {
+      "id": "fan_letter",
+      "delay": [
+        2,
+        5
+      ],
+      "text": "Conséquence : une lettre d'un ultra, écrite après « {source} »."
+    },
+    {
+      "id": "workshop_invite",
+      "delay": [
+        3,
+        6
+      ],
+      "text": "Conséquence : un atelier t'ouvre sa porte, impressionné par « {source} »."
+    },
+    {
+      "id": "media_ambush",
+      "delay": [
+        2,
+        4
+      ],
+      "text": "Conséquence : des micros t'attendent au coin de la rue, à propos de « {source} »."
+    },
+    {
+      "id": "late_praise",
+      "delay": [
+        3,
+        5
+      ],
+      "text": "Conséquence : un journal, plus tard, salue encore « {source} »."
+    }
+  ],
+  "flagEvents": {
+    "loyauté": "gift",
+    "social": "invitation",
+    "artisan": "workshop_invite",
+    "argent": "teammate_cold",
+    "mercenaire": "teammate_cold",
+    "presse": "media_ambush",
+    "victoire": "rival_challenge",
+    "fier": "rival_challenge",
+    "troll": "scandal",
+    "polémique": "scandal",
+    "discipline": "leader_trust",
+    "étude": "late_praise",
+    "ruse": "leader_bench",
+    "joueur": "fan_letter",
+    "engagé": "fan_letter",
+    "discret": "sponsor_boost",
+    "ambitieux": "extra_offer",
+    "prudent": "late_praise",
+    "solitaire": "injury_rumor",
+    "libre": "extra_offer",
+    "style": "fan_letter",
+    "soigneur": "invitation"
+  },
+  "eventEffects": {
+    "scandal": {
+      "scandals": 1,
+      "buzz": -4,
+      "special": "controversy"
+    },
+    "invitation": {
+      "rel": 8,
+      "fatigue": -4
+    },
+    "rival_challenge": {
+      "buzz": 4,
+      "style": 4
+    },
+    "extra_offer": {
+      "buzz": 3
+    },
+    "gift": {
+      "money": 28,
+      "rel": 4
+    },
+    "injury_rumor": {
+      "buzz": -2,
+      "special": "injury"
+    },
+    "sponsor_boost": {
+      "money": 40
+    },
+    "sponsor_drop": {
+      "scandals": 0
+    },
+    "teammate_cold": {
+      "rel": -8
+    },
+    "leader_trust": {
+      "flags": {
+        "discipline": 1
+      }
+    },
+    "leader_bench": {
+      "flags": {
+        "ruse": 1
+      }
+    },
+    "fan_letter": {
+      "fans": {
+        "ultras": 1,
+        "fans": 2
+      },
+      "buzz": 2
+    },
+    "workshop_invite": {
+      "flags": {
+        "artisan": 1
+      },
+      "money": 0,
+      "style": 2
+    },
+    "media_ambush": {
+      "buzz": 3,
+      "special": "controversy"
+    },
+    "late_praise": {
+      "buzz": 4,
+      "fans": {
+        "supporters": 2
+      }
+    }
+  },
+  "spellUpgrades": [
+    {
+      "id": "dmg1",
+      "rarity": "common",
+      "weight": 14,
+      "type": "dmg_pct",
+      "value": 1,
+      "label": "+1 % dégâts",
+      "desc": "Le sort inflige 1 % de dégâts en plus."
+    },
+    {
+      "id": "dmg2",
+      "rarity": "common",
+      "weight": 12,
+      "type": "dmg_pct",
+      "value": 2,
+      "label": "+2 % dégâts",
+      "desc": "Le sort inflige 2 % de dégâts en plus."
+    },
+    {
+      "id": "dmg3",
+      "rarity": "common",
+      "weight": 10,
+      "type": "dmg_pct",
+      "value": 3,
+      "label": "+3 % dégâts",
+      "desc": "Le sort inflige 3 % de dégâts en plus."
+    },
+    {
+      "id": "crit1",
+      "rarity": "common",
+      "weight": 12,
+      "type": "crit",
+      "value": 1,
+      "label": "+1 % critique",
+      "desc": "Une petite chance de coup critique en plus."
+    },
+    {
+      "id": "crit2",
+      "rarity": "common",
+      "weight": 10,
+      "type": "crit",
+      "value": 2,
+      "label": "+2 % critique",
+      "desc": "Les critiques arrivent un peu plus souvent."
+    },
+    {
+      "id": "crit3",
+      "rarity": "common",
+      "weight": 8,
+      "type": "crit",
+      "value": 3,
+      "label": "+3 % critique",
+      "desc": "Les critiques arrivent plus souvent."
+    },
+    {
+      "id": "heal1",
+      "rarity": "common",
+      "weight": 10,
+      "type": "heal_pct",
+      "value": 1,
+      "label": "+1 % soins",
+      "desc": "Les soins de ce sort gagnent 1 %."
+    },
+    {
+      "id": "heal2",
+      "rarity": "common",
+      "weight": 8,
+      "type": "heal_pct",
+      "value": 2,
+      "label": "+2 % soins",
+      "desc": "Les soins de ce sort gagnent 2 %."
+    },
+    {
+      "id": "heal3",
+      "rarity": "common",
+      "weight": 7,
+      "type": "heal_pct",
+      "value": 3,
+      "label": "+3 % soins",
+      "desc": "Les soins de ce sort gagnent 3 %."
+    },
+    {
+      "id": "rgch4",
+      "rarity": "common",
+      "weight": 10,
+      "type": "range_chance",
+      "value": 4,
+      "label": "Portée opportuniste (4 %)",
+      "desc": "4 % de chance d'atteindre une case de plus."
+    },
+    {
+      "id": "rgch6",
+      "rarity": "common",
+      "weight": 8,
+      "type": "range_chance",
+      "value": 6,
+      "label": "Portée opportuniste (6 %)",
+      "desc": "6 % de chance d'atteindre une case de plus."
+    },
+    {
+      "id": "pach4",
+      "rarity": "common",
+      "weight": 10,
+      "type": "pa_chance",
+      "value": 4,
+      "label": "Économie de PA (4 %)",
+      "desc": "4 % de chance que le sort coûte 1 PA de moins."
+    },
+    {
+      "id": "pach6",
+      "rarity": "common",
+      "weight": 8,
+      "type": "pa_chance",
+      "value": 6,
+      "label": "Économie de PA (6 %)",
+      "desc": "6 % de chance que le sort coûte 1 PA de moins."
+    },
+    {
+      "id": "dmg5",
+      "rarity": "uncommon",
+      "weight": 5,
+      "type": "dmg_pct",
+      "value": 5,
+      "label": "+5 % dégâts",
+      "desc": "Le sort frappe clairement plus fort."
+    },
+    {
+      "id": "dmg6",
+      "rarity": "uncommon",
+      "weight": 4,
+      "type": "dmg_pct",
+      "value": 6,
+      "label": "+6 % dégâts",
+      "desc": "Une nette hausse de puissance."
+    },
+    {
+      "id": "crit5",
+      "rarity": "uncommon",
+      "weight": 5,
+      "type": "crit",
+      "value": 5,
+      "label": "+5 % critique",
+      "desc": "Les critiques deviennent fréquents."
+    },
+    {
+      "id": "heal6",
+      "rarity": "uncommon",
+      "weight": 4,
+      "type": "heal_pct",
+      "value": 6,
+      "label": "+6 % soins",
+      "desc": "Les soins sont franchement meilleurs."
+    },
+    {
+      "id": "rgch12",
+      "rarity": "uncommon",
+      "weight": 4,
+      "type": "range_chance",
+      "value": 12,
+      "label": "Portée opportuniste (12 %)",
+      "desc": "12 % de chance d'une case de plus."
+    },
+    {
+      "id": "pach12",
+      "rarity": "uncommon",
+      "weight": 4,
+      "type": "pa_chance",
+      "value": 12,
+      "label": "Économie de PA (12 %)",
+      "desc": "12 % de chance de payer 1 PA de moins."
+    },
+    {
+      "id": "buff",
+      "rarity": "uncommon",
+      "weight": 3,
+      "type": "buff",
+      "value": 1,
+      "label": "+ durée de buff",
+      "desc": "Un éventuel bonus dure un tour de plus."
+    },
+    {
+      "id": "push",
+      "rarity": "uncommon",
+      "weight": 3,
+      "type": "push",
+      "value": 1,
+      "label": "Poussée",
+      "desc": "La cible est poussée d'une case."
+    },
+    {
+      "id": "dmg",
+      "rarity": "uncommon",
+      "weight": 3,
+      "type": "dmg_flat",
+      "value": 2,
+      "label": "+ dégâts",
+      "desc": "Le sort frappe un peu plus fort (+2)."
+    },
+    {
+      "id": "dmg10",
+      "rarity": "rare",
+      "weight": 2,
+      "type": "dmg_pct",
+      "value": 10,
+      "label": "+10 % dégâts",
+      "desc": "Une vraie montée en puissance."
+    },
+    {
+      "id": "crit10",
+      "rarity": "rare",
+      "weight": 2,
+      "type": "crit",
+      "value": 10,
+      "label": "+10 % critique",
+      "desc": "Les critiques fusent."
+    },
+    {
+      "id": "heal12",
+      "rarity": "rare",
+      "weight": 2,
+      "type": "heal_pct",
+      "value": 12,
+      "label": "+12 % soins",
+      "desc": "Les soins deviennent remarquables."
+    },
+    {
+      "id": "range",
+      "rarity": "rare",
+      "weight": 2,
+      "type": "range",
+      "value": 1,
+      "label": "+ portée",
+      "desc": "Tu atteins une case de plus."
+    },
+    {
+      "id": "elem",
+      "rarity": "rare",
+      "weight": 2,
+      "type": "elem",
+      "value": 1,
+      "label": "Effet élémentaire",
+      "desc": "Une teinte élémentaire s'ajoute au coup."
+    },
+    {
+      "id": "pach20",
+      "rarity": "rare",
+      "weight": 2,
+      "type": "pa_chance",
+      "value": 20,
+      "label": "Économie de PA (20 %)",
+      "desc": "Une chance réelle de payer 1 PA de moins."
+    },
+    {
+      "id": "dmg20",
+      "rarity": "very_rare",
+      "weight": 1,
+      "type": "dmg_pct",
+      "value": 20,
+      "label": "+20 % dégâts",
+      "desc": "Le sort change d'échelle."
+    },
+    {
+      "id": "crit16",
+      "rarity": "very_rare",
+      "weight": 1,
+      "type": "crit",
+      "value": 16,
+      "label": "+16 % critique",
+      "desc": "Les critiques deviennent une arme."
+    },
+    {
+      "id": "heal20",
+      "rarity": "very_rare",
+      "weight": 1,
+      "type": "heal_pct",
+      "value": 20,
+      "label": "+20 % soins",
+      "desc": "Les soins soignent vraiment."
+    },
+    {
+      "id": "pa",
+      "rarity": "very_rare",
+      "weight": 1,
+      "type": "pa",
+      "value": 1,
+      "label": "−1 PA",
+      "desc": "Le sort coûte un PA de moins (minimum 1)."
+    },
+    {
+      "id": "rgch40",
+      "rarity": "very_rare",
+      "weight": 1,
+      "type": "range_chance",
+      "value": 40,
+      "label": "Portée opportuniste (40 %)",
+      "desc": "Souvent, le sort porte une case de plus."
+    }
+  ],
+  "months": [
+    "Mois des Lampions",
+    "Mois de la Suie",
+    "Mois des Trois Lunes",
+    "Mois d'Étain",
+    "Mois des Brumes",
+    "Mois du Chaudron",
+    "Mois de la Trêve",
+    "Mois des Serments"
+  ],
+  "weekDays": [
+    "L",
+    "M",
+    "M",
+    "J",
+    "V",
+    "S",
+    "D"
+  ],
+  "director": {
+    "name": "Ira Veine",
+    "title": "Directrice de ligue",
+    "moods": {
+      "bas": "morose",
+      "mid": "stable",
+      "haut": "fiévreux"
+    },
+    "dialogues": [
+      {
+        "id": "open",
+        "text": "{dir} : « {name}, on est le jour {day} de {month}. Le marché est {mood}. {city} écoute. »"
+      },
+      {
+        "id": "event",
+        "text": "{dir} : « {line} »"
+      },
+      {
+        "id": "sponsor_ask",
+        "text": "{dir} : « {sponsor} veut un événement. La relation est à {rel}. »"
+      },
+      {
+        "id": "sponsor_warn",
+        "text": "{dir} : « Attention : {sponsor} s'impatiente. Encore une absence et le contrat vacille. »"
+      },
+      {
+        "id": "sponsor_drop",
+        "text": "{dir} : « {sponsor} rompt le contrat. Trop d'événements manqués. »"
+      },
+      {
+        "id": "econ_up",
+        "text": "{dir} : « Les prix montent. Inflation à {inflation}. {item} passe à {price} ¥. »"
+      },
+      {
+        "id": "econ_down",
+        "text": "{dir} : « Le marché se calme. {item} redescend à {price} ¥. »"
+      },
+      {
+        "id": "signing",
+        "text": "{dir} : « {team} officialise {npc} pour {wage} ¥. Ça bouge. »"
+      },
+      {
+        "id": "retire",
+        "text": "{dir} : « {npc} ({team}) raccroche. L'effectif change. »"
+      },
+      {
+        "id": "rest",
+        "text": "{dir} : « {team} laisse {npc} au repos. Fatigue trop haute. »"
+      },
+      {
+        "id": "lineup",
+        "text": "{dir} : « {team} aligne {npc} pour le prochain match. »"
+      }
+    ],
+    "events": [
+      {
+        "id": "signing",
+        "kind": "signing",
+        "weight": 8,
+        "line": "{team} annonce l'arrivée de {npc}. Salaire annoncé : {wage} ¥.",
+        "effects": {
+          "mood": 3,
+          "teamRel": 2
+        }
+      },
+      {
+        "id": "rest",
+        "kind": "rest",
+        "weight": 7,
+        "line": "{team} laisse {npc} au repos aujourd'hui.",
+        "effects": {
+          "mood": -1
+        }
+      },
+      {
+        "id": "retire",
+        "kind": "retire",
+        "weight": 2,
+        "line": "{npc} quitte {team} et raccroche les gants.",
+        "effects": {
+          "mood": -4,
+          "teamRel": -3
+        }
+      },
+      {
+        "id": "lineup",
+        "kind": "lineup",
+        "weight": 8,
+        "line": "{team} prévoit d'aligner {npc} contre {foe}.",
+        "effects": {
+          "teamRel": 1
+        }
+      },
+      {
+        "id": "price_hike",
+        "kind": "price_hike",
+        "weight": 5,
+        "line": "Les marchands de {city} relèvent {item} à {price} ¥.",
+        "effects": {
+          "inflation": 2,
+          "mood": 2
+        }
+      },
+      {
+        "id": "price_drop",
+        "kind": "price_drop",
+        "weight": 4,
+        "line": "Le calme revient : {item} retombe à {price} ¥.",
+        "effects": {
+          "inflation": -2,
+          "mood": -1
+        }
+      },
+      {
+        "id": "wage",
+        "kind": "wage",
+        "weight": 4,
+        "line": "Les salaires de {league} se discutent. Coefficient {wageMult}.",
+        "effects": {
+          "wage": 3,
+          "mood": 1
+        }
+      },
+      {
+        "id": "sponsor_mood",
+        "kind": "sponsor_mood",
+        "weight": 5,
+        "line": "{sponsor} observe tes faits et gestes. Relation {rel}.",
+        "effects": {
+          "sponsorRel": 1
+        }
+      },
+      {
+        "id": "gossip",
+        "kind": "gossip",
+        "weight": 6,
+        "line": "À {city}, on parle de {npc} et de {team}.",
+        "effects": {
+          "mood": 0
+        }
+      },
+      {
+        "id": "injury_npc",
+        "kind": "injury_npc",
+        "weight": 3,
+        "line": "{npc} ({team}) se blesse à l'entraînement. Quelques jours de moins.",
+        "effects": {
+          "mood": -2,
+          "teamRel": -1
+        }
+      },
+      {
+        "id": "market_hot",
+        "kind": "market_hot",
+        "weight": 3,
+        "line": "Le marché s'emballe. Inflation {inflation}, humeur {mood}.",
+        "effects": {
+          "inflation": 3,
+          "mood": 6
+        }
+      },
+      {
+        "id": "market_cold",
+        "kind": "market_cold",
+        "weight": 3,
+        "line": "Le marché se refroidit. Les salaires et les prix se tassent.",
+        "effects": {
+          "inflation": -3,
+          "mood": -5
+        }
+      }
+    ]
+  },
+  "sponsorEvents": [
+    {
+      "id": "demo",
+      "title": "Démonstration en boutique",
+      "text": "{sponsor} t'attend pour une démo à {city}. Sourire, serrer des mains, signer deux affiches."
+    },
+    {
+      "id": "dinner",
+      "title": "Dîner partenaires",
+      "text": "Un dîner organisé par {sponsor}. On parle du contrat, de la ligue, de toi."
+    },
+    {
+      "id": "spot",
+      "title": "Tournage d'un spot",
+      "text": "{sponsor} filme un court spot. Deux prises, un slogan, et on te relâche."
+    },
+    {
+      "id": "visit",
+      "title": "Visite d'atelier",
+      "text": "Visite de l'atelier de {sponsor}. Tu poses avec les outils, tu salues l'équipe."
+    },
+    {
+      "id": "parade",
+      "title": "Apparition publique",
+      "text": "{sponsor} te veut visible en ville. Une heure sur le stand, des autographes."
+    }
+  ],
+  "dailyActivities": [
+    {
+      "id": "train_fonte",
+      "kind": "train",
+      "scope": "ville",
+      "title": "Séance de fonte",
+      "text": "L'entraîneur du quartier t'attend à la salle. Fonte, sueur, peu de paroles.",
+      "effects": {
+        "fatigue": 8,
+        "allyRel": 2,
+        "fan_supporters": 1
+      }
+    },
+    {
+      "id": "train_trot",
+      "kind": "train",
+      "scope": "ville",
+      "title": "Trot autour des quais",
+      "text": "Un tour de la ville au petit jour. Les curieux te reconnaissent.",
+      "effects": {
+        "fatigue": 5,
+        "fan_curieux": 2
+      }
+    },
+    {
+      "id": "train_spar",
+      "kind": "train",
+      "scope": "region",
+      "title": "Sparring régional",
+      "text": "Un club voisin ouvre ses portes pour un sparring.",
+      "effects": {
+        "fatigue": 10,
+        "allyRel": 3,
+        "teamRel": 2
+      }
+    },
+    {
+      "id": "train_camp",
+      "kind": "train",
+      "scope": "monde",
+      "title": "Stage d'une journée",
+      "text": "Un camp improvisé avec des gladiateurs de passage.",
+      "effects": {
+        "fatigue": 12,
+        "fan_fans": 2,
+        "buzz": 3
+      }
+    },
+    {
+      "id": "media_local",
+      "kind": "media",
+      "scope": "ville",
+      "title": "Gazette locale",
+      "text": "La feuille du quartier veut deux phrases. Tu choisis tes mots.",
+      "effects": {
+        "buzz": 2,
+        "fan_curieux": 2,
+        "allyRel": 1
+      }
+    },
+    {
+      "id": "media_radio",
+      "kind": "media",
+      "scope": "region",
+      "title": "Radio de la région",
+      "text": "On t'installe devant un micro un peu trop près. Questions simples, réponses qui portent.",
+      "effects": {
+        "buzz": 4,
+        "fan_supporters": 2
+      }
+    },
+    {
+      "id": "media_sphere",
+      "kind": "media",
+      "scope": "monde",
+      "title": "Antenne mondiale",
+      "text": "Une voix lointaine te pose une question que toute la Sphère entendra.",
+      "effects": {
+        "buzz": 6,
+        "fan_fans": 2,
+        "fan_ultras": 1
+      }
+    },
+    {
+      "id": "outing_market",
+      "kind": "outing",
+      "scope": "ville",
+      "title": "Marché du soir",
+      "text": "Tu erres au marché. Une poignée de mains, un étal, un bruit de ligue.",
+      "effects": {
+        "fatigue": -4,
+        "allyRel": 3,
+        "fan_curieux": 1
+      }
+    },
+    {
+      "id": "outing_river",
+      "kind": "outing",
+      "scope": "ville",
+      "title": "Promenade sur la rive",
+      "text": "L'allié le plus proche propose la rive. Rien à signer, juste marcher.",
+      "effects": {
+        "fatigue": -6,
+        "allyRel": 4
+      }
+    },
+    {
+      "id": "outing_fair",
+      "kind": "outing",
+      "scope": "region",
+      "title": "Foire de la marche",
+      "text": "Une foire régionale. On te reconnaît, on te tire par la manche.",
+      "effects": {
+        "fatigue": 2,
+        "fan_supporters": 3,
+        "buzz": 2
+      }
+    },
+    {
+      "id": "outing_port",
+      "kind": "outing",
+      "scope": "monde",
+      "title": "Escale au port lointain",
+      "text": "Un jour hors des murs, vers un port dont parlent les feuilles du monde.",
+      "effects": {
+        "fatigue": 3,
+        "fan_fans": 2,
+        "mood": 2
+      }
+    },
+    {
+      "id": "meet_coach",
+      "kind": "meeting",
+      "scope": "ville",
+      "title": "Entretien avec le chef d'équipe",
+      "text": "Le chef d'équipe t'attend dans le couloir. Il parle de confiance, de fatigue, de la prochaine journée.",
+      "effects": {
+        "teamRel": 4,
+        "allyRel": 2,
+        "leader": 1
+      }
+    },
+    {
+      "id": "meet_council",
+      "kind": "meeting",
+      "scope": "region",
+      "title": "Réunion de club",
+      "text": "Les dirigeants régionaux veulent un visage. Le tien.",
+      "effects": {
+        "teamRel": 3,
+        "buzz": 2,
+        "sponsorRel": 1
+      }
+    },
+    {
+      "id": "meet_guild",
+      "kind": "meeting",
+      "scope": "monde",
+      "title": "Guilde des promoteurs",
+      "text": "Autour d'une table trop longue, on parle contrats, routes, et de toi.",
+      "effects": {
+        "teamRel": 2,
+        "buzz": 4,
+        "wage": 2,
+        "mood": 2
+      }
+    },
+    {
+      "id": "meet_fans",
+      "kind": "meeting",
+      "scope": "ville",
+      "title": "Rencontre avec les supporters",
+      "text": "Un petit groupe attend derrière le gymnase. Tu restes un moment.",
+      "effects": {
+        "fan_supporters": 3,
+        "fan_fans": 1,
+        "allyRel": 1
+      }
+    },
+    {
+      "id": "rest_shade",
+      "kind": "outing",
+      "scope": "ville",
+      "title": "Repos à l'ombre",
+      "text": "Pas de micro, pas de fonte. Juste l'ombre d'un mur et un peu d'eau.",
+      "effects": {
+        "fatigue": -20,
+        "heal": 1
+      }
+    }
+  ],
+  "fightTalk": {
+    "pre": {
+      "ally": [
+        {
+          "who": "Ira Veine",
+          "text": "{dir} : « {ally} te serre l'épaule. On joue en {format} contre {foeTeam}. Un mot pour le vestiaire ? »",
+          "choices": [
+            {
+              "id": "respect",
+              "label": "« On gagne ensemble. »",
+              "rel": 4,
+              "morale": 4,
+              "rival": 0
+            },
+            {
+              "id": "taunt",
+              "label": "« Qu'ils tremblent. »",
+              "rel": -1,
+              "morale": 2,
+              "rival": 4
+            },
+            {
+              "id": "focus",
+              "label": "Rester concentré",
+              "rel": 1,
+              "morale": 1,
+              "rival": 0
+            }
+          ]
+        },
+        {
+          "who": "Ira Veine",
+          "text": "{dir} : « {ally} demande qui mène le premier échange. {foe} est déjà dans l'arène. »",
+          "choices": [
+            {
+              "id": "respect",
+              "label": "Laisser {ally} commencer",
+              "rel": 5,
+              "morale": 3,
+              "rival": 0
+            },
+            {
+              "id": "focus",
+              "label": "Prendre le premier pas",
+              "rel": 1,
+              "morale": 1,
+              "rival": 1
+            },
+            {
+              "id": "taunt",
+              "label": "Huer {foe}",
+              "rel": -2,
+              "morale": 0,
+              "rival": 6
+            }
+          ]
+        }
+      ],
+      "enemy": [
+        {
+          "who": "Ira Veine",
+          "text": "{dir} : « {foe} te toise : “Tu vas plier, {name}.” Le public de {foeTeam} attend ta réponse. »",
+          "choices": [
+            {
+              "id": "respect",
+              "label": "« On verra sur le terrain. »",
+              "rel": 2,
+              "morale": 2,
+              "rival": -2
+            },
+            {
+              "id": "taunt",
+              "label": "Rendre l'insulte",
+              "rel": -1,
+              "morale": 1,
+              "rival": 7
+            },
+            {
+              "id": "focus",
+              "label": "Ignorer et respirer",
+              "rel": 1,
+              "morale": 0,
+              "rival": 0
+            }
+          ]
+        },
+        {
+          "who": "Ira Veine",
+          "text": "{dir} : « {foe} avance d'un pas. “Ce {format}, je le connais mieux que toi.” »",
+          "choices": [
+            {
+              "id": "respect",
+              "label": "Saluer l'adversaire",
+              "rel": 3,
+              "rival": -3
+            },
+            {
+              "id": "taunt",
+              "label": "« On va voir ça. »",
+              "rel": 0,
+              "rival": 5
+            },
+            {
+              "id": "focus",
+              "label": "Ne rien dire",
+              "rel": 1,
+              "rival": 0
+            }
+          ]
+        }
+      ],
+      "rivalry": [
+        {
+          "who": "Ira Veine",
+          "text": "{dir} : « Encore {foe}. La rivalité n'est pas oubliée. {ally} attend que tu donnes le ton. »",
+          "choices": [
+            {
+              "id": "respect",
+              "label": "Tendre la main",
+              "rel": 3,
+              "rival": -4
+            },
+            {
+              "id": "taunt",
+              "label": "Raviver la querelle",
+              "rel": -1,
+              "rival": 8
+            },
+            {
+              "id": "focus",
+              "label": "Jouer, rien d'autre",
+              "rel": 1,
+              "rival": 1
+            }
+          ]
+        }
+      ]
+    },
+    "post": {
+      "win": [
+        {
+          "who": "Ira Veine",
+          "text": "{dir} : « Victoire. {ally} souffle. {foe} reste à terre un moment. Un mot ? »",
+          "choices": [
+            {
+              "id": "respect",
+              "label": "Relever l'adversaire",
+              "rel": 4,
+              "rival": -3
+            },
+            {
+              "id": "taunt",
+              "label": "Célébrer trop fort",
+              "rel": -2,
+              "rival": 5
+            },
+            {
+              "id": "focus",
+              "label": "Remercier le vestiaire",
+              "rel": 5,
+              "morale": 4,
+              "rival": 0
+            }
+          ]
+        }
+      ],
+      "loss": [
+        {
+          "who": "Ira Veine",
+          "text": "{dir} : « Défaite. {foe} n'en rajoute presque pas. {ally} te cherche du regard. »",
+          "choices": [
+            {
+              "id": "respect",
+              "label": "Féliciter {foe}",
+              "rel": 3,
+              "rival": -2
+            },
+            {
+              "id": "taunt",
+              "label": "Promettre la revanche",
+              "rel": 1,
+              "rival": 6
+            },
+            {
+              "id": "focus",
+              "label": "Porter le groupe",
+              "rel": 4,
+              "morale": 3,
+              "rival": 0
+            }
+          ]
+        }
+      ],
+      "rival": [
+        {
+          "who": "Ira Veine",
+          "text": "{dir} : « {foe} et toi, ça continue. Le vestiaire retient son souffle. »",
+          "choices": [
+            {
+              "id": "respect",
+              "label": "Calmer le jeu",
+              "rel": 4,
+              "rival": -5
+            },
+            {
+              "id": "taunt",
+              "label": "Attiser la rivalité",
+              "rel": -2,
+              "rival": 8
+            },
+            {
+              "id": "focus",
+              "label": "Tourner la page",
+              "rel": 2,
+              "rival": 0
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "center": [250, 250], "grid": 5, "block": 52, "towerFoot": [20, 34], "towerH": [40, 200],
+  "palette": ["#2c2838", "#38304a", "#3a2c30", "#2a3438", "#30303a"],
+  "aerialStreet": { "y": 10, "width": 14, "z": 250, "x": [70, 430], "ramp": 30 },
+  "bridge": { "y": 60, "width": 5 },
+  "chantierSlot": [2, 3], "parkSlot": [3, 1], "skipSlots": [[2, 2]],
+  "neon": ["#ff2e88", "#ffb000", "#ff4d2e", "#c35bff", "#2effc8"],
+  "neonLights": 6, "smokeVents": [[180, 300], [320, 200], [260, 330]],
+  "flowers": 900, "props": { "bench": 8, "lamp": 12 },
+  "destruction": { "hp": 2 }
+}

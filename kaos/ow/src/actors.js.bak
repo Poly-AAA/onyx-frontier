@@ -1,0 +1,95 @@
+/** Corps provisoire low-poly (1,80 m, os nommés comme Mixamo) + fringues Benceaki par manifeste, joueur (toucher pour bouger), PNJ scripté, caméra iso. */
+import { walkSpeed } from "./core/gen.js";
+
+/** Capsule provisoire neutre (1,80 m) en attendant les persos PSX des packs itch.io (chargés via le manifeste, GLB/FBX).
+ * Garde l'API corps : root, anchors (emplacements Benceaki), limbs, animate. */
+export function buildBody(eng, colors = {}, scale = [1, 1, 1]) {
+  const { THREE } = eng, root = new THREE.Group();
+  const capsule = new THREE.Mesh(new THREE.CapsuleGeometry(0.3, 1.2, 3, 8), eng.material({ color: colors.torso || "#9a9aa0" }));
+  capsule.position.y = 0.9; capsule.name = "mixamorig:Hips"; root.add(capsule);
+  const nose = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.1, 0.2), eng.material({ color: "#303034" })); nose.position.set(0, 0.55, 0.28); capsule.add(nose); // repère d'orientation
+  const blob = new THREE.Mesh(new THREE.CircleGeometry(0.45, 8), eng.material({ color: "#000000", transparent: true, opacity: 0.45, unlit: true })); // ombre ronde façon PS1
+  blob.rotation.x = -Math.PI / 2; blob.position.y = 0.04; root.add(blob);
+  root.scale.set(...scale);
+  const anchors = { head: capsule, torso: capsule, hips: capsule, back: capsule, neck: capsule, legs: capsule, feet: capsule, hands: capsule, handR: capsule, handL: capsule };
+  let phase = 0;
+  return {
+    root, anchors, limbs: {}, capsule,
+    animate(dt, speed) { phase += dt * speed * 2.6; capsule.position.y = 0.9 + (speed > 0.05 ? Math.abs(Math.sin(phase)) * 0.05 : 0); },
+  };
+}
+
+/** Fringues : seulement les modèles réels du manifeste (url GLB/FBX), passés en PSX. Pas de pièce provisoire. */
+export function dress(eng, body, manifest, equipped) {
+  Object.entries(equipped).forEach(([slot, pieceId]) => {
+    const piece = manifest.pieces.find((p) => p.id === pieceId); if (!piece || !piece.url) return;
+    const anchor = body.anchors[manifest.visibleSlots[slot]]; if (!anchor) return;
+    eng.loadModel(piece.url).then((g) => anchor.add(eng.psxify(g.scene))).catch(() => {});
+  });
+}
+
+export function createPlayer(eng, phys, cfg, data, save, opt = {}) {
+  const P = data.player, man = data["benceaki.manifest"];
+  const bodyDef = man.bodies.find((b) => b.id === P.body) || man.bodies[0];
+  const sc = [bodyDef.scale[0] * P.scale.x, bodyDef.scale[1] * P.scale.y, bodyDef.scale[2] * P.scale.z];
+  const body = buildBody(eng, opt.colors || { torso: "#b0aca4" }, sc);
+  if (!opt.colors) dress(eng, body, man, P.equipped);
+  eng.scene.add(body.root);
+  const spawn = opt.spawn || (save && save.player) || cfg.player.spawn;
+  const ch = phys.character(spawn, 0.35, 0.55);
+  const st = { pm: (save && save.pm) ?? P.stats.pm, target: null, key: null, vy: 0, speed: 0, body, ch, def: P };
+  st.update = (dt) => {
+    const t = ch.body.translation();
+    let dx = 0, dz = 0;
+    if (st.key && (st.key.x || st.key.z)) { st.target = null; const d = Math.hypot(st.key.x, st.key.z); dx = st.key.x / d; dz = st.key.z / d; }
+    else if (st.target) { dx = st.target.x - t.x; dz = st.target.z - t.z; const d = Math.hypot(dx, dz); if (d < 0.3) { st.target = null; dx = dz = 0; } else { dx /= d; dz /= d; } }
+    const v = walkSpeed(cfg.player.walk, st.pm);
+    st.vy = ch.ctl.computedGrounded() ? -0.5 : st.vy + cfg.player.gravity * dt;
+    ch.ctl.computeColliderMovement(ch.col, { x: dx * v * dt, y: st.vy * dt, z: dz * v * dt });
+    const mv = ch.ctl.computedMovement();
+    ch.body.setNextKinematicTranslation({ x: t.x + mv.x, y: t.y + mv.y, z: t.z + mv.z });
+    st.speed = Math.hypot(mv.x, mv.z) / Math.max(dt, 1e-4);
+    if (st.target && st.speed < 0.05 && Math.hypot(dx, dz) > 0) st.stuck = (st.stuck || 0) + dt; else st.stuck = 0;
+    if (st.stuck > 1) st.target = null;
+    if (dx || dz) body.root.rotation.y = Math.atan2(dx, dz);
+    body.root.position.set(t.x, t.y - 0.9, t.z);
+    body.animate(dt, st.speed);
+  };
+  st.pos = () => ch.body.translation();
+  return st;
+}
+
+/** PNJ scripté (classe C4 « scripted ») : boucle de waypoints, marche animée. GLB KAG3D/Vinrax si présent. */
+export function createWalker(eng, def, manifest) {
+  const body = buildBody(eng, def.colors);
+  eng.scene.add(body.root);
+  const asset = manifest.assets.find((a) => a.id === def.asset);
+  if (asset && asset.status === "present") eng.loadModel(asset.url).then((g) => { body.root.clear(); body.root.add(eng.normalize(eng.psxify(g.scene), 1.8)); }).catch(() => {});
+  let k = 0; const p = body.root.position; p.set(...def.waypoints[0]);
+  return {
+    def, body,
+    update(dt) {
+      const w = def.waypoints[(k + 1) % def.waypoints.length];
+      const dx = w[0] - p.x, dy = w[1] - p.y, dz = w[2] - p.z, d = Math.hypot(dx, dy, dz), s = def.speed * dt;
+      if (d <= s) { k = (k + 1) % def.waypoints.length; } else { p.x += dx / d * s; p.y += dy / d * s; p.z += dz / d * s; body.root.rotation.y = Math.atan2(dx, dz); }
+      body.animate(dt, def.speed);
+    },
+  };
+}
+
+/** Caméra iso réglable (+/−) qui suit le joueur. */
+export function createCamera(eng, cfg) {
+  const C = cfg.camera, cam = eng.camera;
+  cam.fov = C.fov; cam.updateProjectionMatrix();
+  const st = { dist: C.distance, yaw: C.isoYaw * Math.PI / 180 };
+  st.zoom = (k) => { st.dist = Math.min(C.max, Math.max(C.min, st.dist * k)); };
+  st.rotate = (a) => { st.yaw += a; };
+  /** Vecteur monde pour une entrée écran (avant/droite) selon l'orientation caméra. */
+  st.toWorld = (fwd, right) => { const y = st.yaw; return { x: -Math.sin(y) * fwd + Math.cos(y) * right, z: -Math.cos(y) * fwd - Math.sin(y) * right }; };
+  st.update = (target) => {
+    const yaw = st.yaw, pitch = C.isoPitch * Math.PI / 180;
+    cam.position.set(target.x + Math.sin(yaw) * Math.cos(pitch) * st.dist, target.y + Math.sin(pitch) * st.dist, target.z + Math.cos(yaw) * Math.cos(pitch) * st.dist);
+    cam.lookAt(target.x, target.y + 1, target.z);
+  };
+  return st;
+}

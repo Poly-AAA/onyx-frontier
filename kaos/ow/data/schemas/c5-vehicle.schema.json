@@ -1,0 +1,50 @@
+{
+ "title": "Véhicule",
+ "type": "object",
+ "required": [
+  "id",
+  "parts"
+ ],
+ "properties": {
+  "id": {
+   "type": "string"
+  },
+  "parts": {
+   "type": "object",
+   "properties": {
+    "chassis": {
+     "type": "string"
+    },
+    "engine": {
+     "type": "string"
+    },
+    "bumper": {
+     "type": "string"
+    },
+    "spoiler": {
+     "type": "string"
+    },
+    "wheels": {
+     "type": "string"
+    }
+   }
+  },
+  "jumpImpulse": {
+   "type": "number"
+  },
+  "flight": {
+   "type": "object",
+   "properties": {
+    "localGravity": {
+     "type": "array",
+     "items": {
+      "type": "number"
+     },
+     "minItems": 3,
+     "maxItems": 3
+    }
+   }
+  }
+ },
+ "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

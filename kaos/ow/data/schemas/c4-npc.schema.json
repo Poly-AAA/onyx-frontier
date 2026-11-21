@@ -1,0 +1,61 @@
+{
+ "title": "PNJ",
+ "type": "object",
+ "required": [
+  "id",
+  "class"
+ ],
+ "properties": {
+  "id": {
+   "type": "string"
+  },
+  "class": {
+   "enum": [
+    "inert",
+    "scripted",
+    "key"
+   ]
+  },
+  "job": {
+   "type": "string"
+  },
+  "lines": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "bio": {
+   "type": "string"
+  },
+  "memory": {
+   "type": "object",
+   "properties": {
+    "summary": {
+     "type": "string"
+    },
+    "entries": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "t": {
+        "type": "number"
+       },
+       "text": {
+        "type": "string"
+       },
+       "importance": {
+        "type": "number"
+       }
+      }
+     }
+    }
+   }
+  },
+  "reactsToOutfit": {
+   "type": "object"
+  }
+ },
+ "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

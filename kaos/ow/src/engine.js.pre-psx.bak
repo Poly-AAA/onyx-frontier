@@ -1,0 +1,133 @@
+/** C1 moteur : WebGPURenderer (repli WebGL2 auto), éclairage physique, toon + outline (coque inversée), vent partagé, particules. */
+import * as THREE from "three/webgpu";
+import { time, sin, positionLocal, normalLocal, uv, vec3, float, uniform, instancedBufferAttribute, texture, pass, floor, mix, pow, vec4 } from "three/tsl";
+
+export { THREE };
+
+export async function createEngine(cfg, canvas) {
+  const renderer = new THREE.WebGPURenderer({ canvas, antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, cfg.render.pixelRatioMax));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.shadowMap.enabled = !!cfg.render.shadows;
+  renderer.shadowMap.type = THREE.PCFShadowMap; // PCFSoft retiré du WebGPURenderer : PCF + radius = ombres douces
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  await renderer.init();
+  const backend = renderer.backend.isWebGPUBackend ? "WebGPU" : "WebGL2";
+  const scene = new THREE.Scene();
+  scene.background = skyTexture();
+  scene.fog = new THREE.FogExp2(cfg.world.fog[1], cfg.world.fog[0]);
+  const camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 4000);
+  // soleil directionnel (ombres) + ciel/sol
+  let engHemi; const sun = new THREE.DirectionalLight("#ffd9b0", 2.2);
+  sun.position.set(120, 200, 60);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(cfg.render.shadowMapSize, cfg.render.shadowMapSize);
+  Object.assign(sun.shadow.camera, { left: -90, right: 90, top: 90, bottom: -90, near: 1, far: 600 });
+  sun.shadow.radius = 4; sun.shadow.bias = -0.0005;
+  scene.add(sun, sun.target, (engHemi = new THREE.HemisphereLight("#b8b0d8", "#4a3a48", 1.8)));
+  addEventListener("resize", () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+
+  // --- vent : UN seul calcul sinusoïdal partagé (herbe, fleurs, capes, rideaux) ---
+  const W = cfg.wind;
+  const windAmp = uniform(W.amplitude);
+  const wave = sin(time.mul(W.speed).add(positionLocal.x.mul(W.frequency)).add(positionLocal.z.mul(W.frequency * 0.7)));
+  /** factor = node 0..1 (0 = point fixe). */
+  const windPosition = (factor, k = 1) => positionLocal.add(vec3(wave.mul(windAmp).mul(factor).mul(k), float(0), wave.mul(windAmp).mul(factor).mul(0.4 * k)));
+
+  const toon = cfg.render.style === "toon";
+  const gradient = toonRamp();
+  /** Fabrique de matériaux : PBR (éclairage physique) ou toon (Batman), selon config. */
+  function material(opts = {}) {
+    const m = toon ? new THREE.MeshToonNodeMaterial({ gradientMap: gradient }) : new THREE.MeshStandardNodeMaterial({ roughness: 0.8, metalness: 0.1 });
+    Object.assign(m, opts.params || {});
+    if (opts.color) m.color = new THREE.Color(opts.color);
+    if (opts.map) m.map = opts.map;
+    if (opts.emissiveMap) { m.emissiveMap = opts.emissiveMap; m.emissive = new THREE.Color("#ffffff"); m.emissiveIntensity = opts.emissiveIntensity ?? 1.4; }
+    if (opts.vertexColors) m.vertexColors = true;
+    if (opts.wind) m.positionNode = windPosition(opts.wind === "hang" ? float(1).sub(uv().y) : uv().y, opts.windK || 1);
+    if (opts.side) m.side = opts.side;
+    return m;
+  }
+  const outlineThin = new THREE.MeshBasicNodeMaterial({ color: "#07050a", side: THREE.BackSide });
+  outlineThin.positionNode = positionLocal.add(normalLocal.mul(cfg.render.outline));
+  /** Contour par coque inversée (toon seulement). big = bâtiments. */
+  const edgeMat = new THREE.LineBasicNodeMaterial({ color: "#07050a" });
+  function outline(mesh, big = false) {
+    if (!toon) return null;
+    if (big) { // grands volumes : arêtes encrées (la coque inversée occultait la scène à grande échelle)
+      const e = new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry), edgeMat); e.raycast = () => {}; mesh.add(e); return e;
+    }
+    const o = new THREE.Mesh(mesh.geometry, outlineThin);
+    o.castShadow = false; o.receiveShadow = false; o.raycast = () => {};
+    mesh.add(o);
+    return o;
+  }
+  // post-traitement toon (par-dessus l'éclairage physique) : postérisation des couleurs
+  let post = null;
+  if (toon) {
+    const PP = THREE.RenderPipeline || THREE.PostProcessing;
+    post = new PP(renderer);
+    const col = pass(scene, camera).getTextureNode();
+    const lv = float(cfg.render.posterize || 6);
+    // postérisation en espace ~sRGB (en linéaire, les sombres tombaient à 0)
+    const g = pow(col.rgb.max(0), vec3(1 / 2.2));
+    const q = floor(g.mul(lv).add(0.5)).div(lv);
+    post.outputNode = vec4(pow(mix(g, q, float(0.5)), vec3(2.2)), col.a);
+  }
+  const render = () => (post ? post.render() : renderer.render(scene, camera));
+  let gltf = null; // GLTFLoader chargé à la demande (chunk séparé) : seulement si un GLB est présent
+  const loadGLB = async (url) => { if (!gltf) { const { GLTFLoader } = await import("three/examples/jsm/loaders/GLTFLoader.js"); gltf = new GLTFLoader(); } return gltf.loadAsync(url); };
+  /** Normalisation d'échelle à l'import : hauteur cible (perso = 1,80 m). */
+  const normalize = (obj, height) => { const b = new THREE.Box3().setFromObject(obj), h = b.max.y - b.min.y || 1; obj.scale.multiplyScalar(height / h); obj.position.y -= b.min.y * height / h; return obj; };
+  return { THREE, renderer, scene, camera, sun, hemi: engHemi, backend, material, outline, windAmp, toon, render, loadGLB, normalize };
+}
+
+function toonRamp() {
+  const d = new Uint8Array([40, 110, 190, 255]);
+  const t = new THREE.DataTexture(d, 4, 1, THREE.RedFormat);
+  t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true;
+  return t;
+}
+function skyTexture() {
+  const c = document.createElement("canvas"); c.width = 2; c.height = 256;
+  const g = c.getContext("2d"), gr = g.createLinearGradient(0, 0, 0, 256);
+  gr.addColorStop(0, "#07060d"); gr.addColorStop(0.55, "#1c1430"); gr.addColorStop(0.8, "#4a2240"); gr.addColorStop(1, "#1a1424");
+  g.fillStyle = gr; g.fillRect(0, 0, 2, 256);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+
+/** Particules semi-transparentes (fumée, sable, nuages) : un système générique piloté par JSON. */
+export function particles(eng, { count = 200, color = "#888", size = 2, opacity = 0.35, area = [40, 20, 40], rise = 1, drift = [0.3, 0], life = 8 }) {
+  const { THREE } = eng;
+  const pos = new Float32Array(count * 3), seed = new Float32Array(count);
+  for (let i = 0; i < count; i++) { pos[i * 3] = (Math.random() - 0.5) * area[0]; pos[i * 3 + 1] = Math.random() * area[1]; pos[i * 3 + 2] = (Math.random() - 0.5) * area[2]; seed[i] = Math.random() * life; }
+  const attr = new THREE.InstancedBufferAttribute(pos, 3);
+  // sprites instanciés (les points WebGPU font 1 px) : taille réelle en mètres
+  const mat = new THREE.SpriteNodeMaterial({ transparent: true, depthWrite: false });
+  mat.positionNode = instancedBufferAttribute(attr);
+  mat.scaleNode = float(size);
+  mat.colorNode = texture(puff()).mul(vec3(new THREE.Color(color).r, new THREE.Color(color).g, new THREE.Color(color).b));
+  mat.opacityNode = texture(puff()).a.mul(opacity);
+  const pts = new THREE.Sprite(mat);
+  pts.count = count;
+  const geo = { attributes: { position: attr } };
+  pts.frustumCulled = false;
+  pts.userData.update = (dt) => {
+    for (let i = 0; i < count; i++) {
+      seed[i] += dt;
+      pos[i * 3] += drift[0] * dt; pos[i * 3 + 1] += rise * dt; pos[i * 3 + 2] += drift[1] * dt;
+      if (seed[i] > life) { seed[i] = 0; pos[i * 3] = (Math.random() - 0.5) * area[0]; pos[i * 3 + 1] = rise >= 0 ? 0 : area[1]; pos[i * 3 + 2] = (Math.random() - 0.5) * area[2]; }
+    }
+    geo.attributes.position.needsUpdate = true;
+  };
+  return pts;
+}
+let _puff;
+function puff() {
+  if (_puff) return _puff;
+  const c = document.createElement("canvas"); c.width = c.height = 64;
+  const g = c.getContext("2d"), r = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  r.addColorStop(0, "rgba(255,255,255,1)"); r.addColorStop(1, "rgba(255,255,255,0)");
+  g.fillStyle = r; g.fillRect(0, 0, 64, 64);
+  return (_puff = new THREE.CanvasTexture(c));
+}

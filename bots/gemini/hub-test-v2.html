@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<link rel="icon" href="data:,">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Hub Test - Cyberpunk</title>
+<style>
+  body {
+    background-color: #05020A;
+    color: #E2C044;
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .mobile-container {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    background: #0E071B;
+    border-left: 2px solid #1C154D;
+    border-right: 2px solid #1C154D;
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  h1, h2, h3 {
+    color: #FF9E00;
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    border-bottom: 1px solid #1C154D;
+    padding-bottom: 4px;
+  }
+  button, input[type="file"] {
+    min-height: 44px;
+    padding: 12px 16px;
+    background: #1C154D;
+    color: #FFB703;
+    border: 2px solid #3A2E75;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 4px 0;
+  }
+  button:active {
+    background: #2D2369;
+  }
+  .panel {
+    background: #140A26;
+    border: 2px solid #1C154D;
+    padding: 12px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .gauge-bar-bg {
+    background: #090412;
+    height: 22px;
+    border: 2px solid #1C154D;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-top: 6px;
+  }
+  .gauge-bar-fill {
+    background: #D97706;
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s;
+  }
+  .avatar-box {
+    display: flex;
+    justify-content: center;
+    background: #140A26;
+    border: 2px solid #1C154D;
+    padding: 12px;
+    border-radius: 4px;
+  }
+  svg {
+    width: 120px;
+    height: 160px;
+  }
+  .item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0C0517;
+    padding: 8px;
+    border: 1px solid #1C154D;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .item-row span {
+    font-size: 0.85rem;
+    color: #E2C044;
+  }
+  .item-row button {
+    width: auto;
+    min-height: 40px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    margin: 0;
+  }
+  .log-box {
+    background: #07030E;
+    border: 2px solid #1C154D;
+    padding: 8px;
+    height: 110px;
+    overflow-y: auto;
+    font-size: 0.75rem;
+    color: #C084FC;
+    border-radius: 4px;
+  }
+  .hidden {
+    display: none !important;
+  }
+  .fallback-box {
+    border: 2px dashed #FF9E00;
+    padding: 16px;
+    background: #1A0D2E;
+    text-align: center;
+    border-radius: 4px;
+  }
+  .row-buttons {
+    display: flex;
+    gap: 8px;
+  }
+</style>
+<script src="corruption-v2.js"></script>
+</head>
+<body>
+
+<div class="mobile-container">
+  <h1>Hub Test Cyberpunk</h1>
+
+  <!-- Fallback fetch error -->
+  <div id="fallbackContainer" class="fallback-box hidden">
+    <p>Erreur de chargement de dialogues.json (mode file:// ?)</p>
+    <p>Veuillez charger le fichier manuellement :</p>
+    <input type="file" id="fileInput" accept=".json">
+  </div>
+
+  <!-- Main UI -->
+  <div id="mainContent" class="hidden">
+    
+    <!-- Jauge & Palier -->
+    <div class="panel">
+      <h3>Corruption</h3>
+      <div>Palier : <span id="tierLabel" style="color:#FF9E00; font-weight:bold;">---</span></div>
+      <div>Jauge : <span id="gaugeVal">0</span>%</div>
+      <div class="gauge-bar-bg">
+        <div id="gaugeBarFill" class="gauge-bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- Avatar SVG -->
+    <div class="avatar-box">
+      <svg id="avatarSvg" viewBox="0 0 120 160"></svg>
+    </div>
+
+    <!-- Objets Étranges -->
+    <div class="panel">
+      <h3>Objets Étranges</h3>
+      <div id="itemsContainer"></div>
+    </div>
+
+    <!-- Actions Temporelles & Services -->
+    <div class="panel">
+      <h3>Actions & Services</h3>
+      <button id="tickBtn">Attendre 30 min</button>
+      <button id="clinicBtn">Clinique (Soigner)</button>
+      <button id="healerBtn">Guérisseuse (Purger)</button>
+    </div>
+
+    <!-- PNJ -->
+    <div class="panel">
+      <h3>Interactions PNJ</h3>
+      <div id="npcsContainer"></div>
+    </div>
+
+    <!-- Sauvegarde -->
+    <div class="panel">
+      <h3>Système</h3>
+      <div class="row-buttons">
+        <button id="saveBtn">Sauvegarder</button>
+        <button id="loadBtn">Charger</button>
+      </div>
+    </div>
+
+    <!-- Journal d'événements -->
+    <div class="panel">
+      <h3>Journal</h3>
+      <div id="logBox" class="log-box"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  let state = null;
+  let dialoguesData = null;
+  const items = [
+    { id: 'item_feather', name: "Plume d'ange", corruption: 25 },
+    { id: 'item_eye', name: "Œil du Général", corruption: 30 },
+    { id: 'item_shard', name: "Éclat de Faille", corruption: 35 }
+  ];
+  let equippedSet = new Set();
+
+  function log(msg) {
+    const logBox = document.getElementById('logBox');
+    const timestamp = new Date().toLocaleTimeString();
+    logBox.innerHTML += `[${timestamp}] ${msg}<br>`;
+    logBox.scrollTop = logBox.scrollHeight;
+  }
+
+  function initApp() {
+    if (!window.Corruption) {
+      log("ERREUR critique: window.Corruption introuvable.");
+      return;
+    }
+
+    state = window.Corruption.createCorruptionState();
+
+    window.Corruption.on(state, 'tierChange', (data) => {
+      log(`Palier changé -> ${data?.label || JSON.stringify(data)}`);
+    });
+    window.Corruption.on(state, 'markGained', (data) => {
+      log(`Marque obtenue -> ${data?.label || JSON.stringify(data)}`);
+    });
+    window.Corruption.on(state, 'gaugeChange', () => {
+      updateUI();
+    });
+
+    updateUI();
+    renderItems();
+    renderNPCs();
+    log("Système initialisé.");
+  }
+
+  function updateUI() {
+    if (!state) return;
+    const gauge = window.Corruption.getGauge(state);
+    const tier = window.Corruption.getTier(state);
+
+    document.getElementById('gaugeVal').textContent = gauge;
+    document.getElementById('gaugeBarFill').style.width = Math.min(100, Math.max(0, gauge)) + '%';
+    document.getElementById('tierLabel').textContent = tier ? tier.label : 'Inconnu';
+
+    renderAvatar();
+  }
+
+  function renderAvatar() {
+    const svg = document.getElementById('avatarSvg');
+    let svgContent = `
+      <rect x="0" y="0" width="120" height="160" fill="#0E071B" rx="4"/>
+      <circle cx="60" cy="40" r="16" fill="#2D1B4E" stroke="#1C154D" stroke-width="2"/>
+      <path d="M40 64 C40 58 80 58 80 64 L85 130 C85 135 75 135 75 130 L65 90 L55 90 L45 130 C45 135 35 135 35 130 Z" fill="#2D1B4E" stroke="#1C154D" stroke-width="2"/>
+    `;
+
+    const marks = window.Corruption.getAvatarMarks(state) || [];
+    marks.forEach(m => {
+      const color = m.color || '#FF8800';
+      const opacity = m.opacity || 0.6;
+      if (m.zone === 'visage') {
+        svgContent += `<circle cx="60" cy="40" r="10" fill="${color}" opacity="${opacity}" />`;
+      } else if (m.zone === 'bras') {
+        svgContent += `<rect x="28" y="70" width="10" height="42" fill="${color}" opacity="${opacity}" rx="3"/>`;
+        svgContent += `<rect x="82" y="70" width="10" height="42" fill="${color}" opacity="${opacity}" rx="3"/>`;
+      } else if (m.zone === 'peau') {
+        svgContent += `<rect x="47" y="66" width="26" height="36" fill="${color}" opacity="${opacity}" rx="2"/>`;
+      } else if (m.zone === 'aura') {
+        svgContent += `<circle cx="60" cy="80" r="52" fill="none" stroke="${color}" stroke-width="3" opacity="${opacity}" stroke-dasharray="4 2"/>`;
+      }
+    });
+
+    svg.innerHTML = svgContent;
+  }
+
+  function renderItems() {
+    const container = document.getElementById('itemsContainer');
+    container.innerHTML = '';
+    items.forEach(item => {
+      const isEquipped = equippedSet.has(item.id);
+      const row = document.createElement('div');
+      row.className = 'item-row';
+      row.innerHTML = `
+        <span>${item.name} (+${item.corruption})</span>
+        <button>${isEquipped ? 'Retirer' : 'Équiper'}</button>
+      `;
+      const btn = row.querySelector('button');
+      btn.onclick = () => {
+        if (isEquipped) {
+          window.Corruption.unequip(state, item.id);
+          equippedSet.delete(item.id);
+          log(`Objet retiré: ${item.name}`);
+        } else {
+          window.Corruption.equip(state, item);
+          equippedSet.add(item.id);
+          log(`Objet équipé: ${item.name}`);
+        }
+        updateUI();
+      };
+      container.appendChild(row);
+    });
+  }
+
+  function renderNPCs() {
+    const container = document.getElementById('npcsContainer');
+    container.innerHTML = '';
+    if (!dialoguesData || !dialoguesData.npcs) return;
+
+    dialoguesData.npcs.forEach(npc => {
+      const btn = document.createElement('button');
+      btn.textContent = `${npc.name} (${npc.role})`;
+      btn.onclick = () => {
+        const reaction = window.Corruption.npcReaction(state, npc.npcType, undefined, npc.id);
+        const tierId = reaction ? reaction.tierId : 'sain';
+        const action = reaction ? reaction.action : 'Regard vide.';
+        
+        const lines = npc.lines && npc.lines[tierId] ? npc.lines[tierId] : ["..."];
+        const randomLine = window.Corruption.pickLine(state, npc.id, lines);
+        
+        log(`[${npc.name}] ${action} — "${randomLine}"`);
+      };
+      container.appendChild(btn);
+    });
+  }
+
+  // Event bindings
+  document.getElementById('tickBtn').onclick = () => {
+    window.Corruption.tick(state, 30);
+    log("30 minutes se sont écoulées.");
+    updateUI();
+  };
+
+  document.getElementById('clinicBtn').onclick = () => {
+    const res = window.Corruption.clinicTreat(state);
+    if (res && res.ok) {
+      log("Clinique: Traitement appliqué avec succès.");
+    } else {
+      log(`Clinique: Refus - ${res && res.reason ? res.reason : 'Traitement impossible'}`);
+    }
+    updateUI();
+  };
+
+  document.getElementById('healerBtn').onclick = () => {
+    const cost = typeof window.Corruption.occultShopPrice === 'function' ? window.Corruption.occultShopPrice(state, 50) : 50;
+    const res = window.Corruption.healerPurge(state, cost);
+    if (res && res.ok) {
+      log(`Guérisseuse: Purge réussie (Marque retirée : ${res.removedMark?.label || 'Inconnue'}).`);
+    } else {
+      log("Guérisseuse: Échec de la purge ou fonds insuffisants.");
+    }
+    updateUI();
+  };
+
+  document.getElementById('saveBtn').onclick = () => {
+    const serialized = window.Corruption.serialize(state);
+    localStorage.setItem('hub_state_save', JSON.stringify(serialized));
+    log("État sauvegardé dans le localStorage.");
+  };
+
+  document.getElementById('loadBtn').onclick = () => {
+    const saved = localStorage.getItem('hub_state_save');
+    if (!saved) {
+      log("Aucune sauvegarde trouvée.");
+      return;
+    }
+    try {
+      const parsed = JSON.parse(saved);
+      state = window.Corruption.createCorruptionState(parsed);
+      equippedSet.clear();
+      updateUI();
+      log("État chargé avec succès.");
+    } catch (e) {
+      log("Erreur lors du chargement de la sauvegarde.");
+    }
+  };
+
+  // Chargement dialogues.json
+  function loadDialogues(json) {
+    dialoguesData = json;
+    document.getElementById('fallbackContainer').classList.add('hidden');
+    document.getElementById('mainContent').classList.remove('hidden');
+    initApp();
+    log("dialogues.json chargé.");
+  }
+
+  fetch('dialogues.json')
+    .then(res => {
+      if (!res.ok) throw new Error("HTTP error");
+      return res.json();
+    })
+    .then(data => loadDialogues(data))
+    .catch(() => {
+      log("Fetch échoué (file://). Chargement manuel requis.");
+      document.getElementById('fallbackContainer').classList.remove('hidden');
+    });
+
+  document.getElementById('fileInput').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const json = JSON.parse(event.target.result);
+        loadDialogues(json);
+      } catch (err) {
+        alert("Fichier JSON invalide.");
+      }
+    };
+    reader.readAsText(file);
+  });
+</script>
+
+</body>
+</html>

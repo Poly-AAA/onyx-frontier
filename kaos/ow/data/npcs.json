@@ -1,0 +1,40 @@
+{
+  "walkers": [
+    {
+      "id": "flic_1", "class": "scripted", "asset": "vinrax_cop",
+      "speed": 1.5, "pause": 2, "interact": "idle", "night": "idle",
+      "workHours": [6, 22],
+      "home": [120, 0, 262],
+      "waypoints": [[120, 0, 262], [380, 0, 262], [380, 0, 238], [120, 0, 238]]
+    },
+    {
+      "id": "civil_1", "class": "scripted", "asset": "sh4rk_office",
+      "speed": 1.3, "pause": 3, "interact": "interact", "night": "sit",
+      "workHours": [8, 19],
+      "home": [146, 0, 224],
+      "waypoints": [[146, 0, 224], [240, 0, 224], [240, 0, 172], [146, 0, 172]]
+    },
+    {
+      "id": "driver_1", "class": "scripted", "asset": "lanka_driver",
+      "speed": 1.6, "pause": 2.5, "interact": "idle", "night": "sit",
+      "workHours": [7, 21],
+      "home": [302, 0, 224],
+      "waypoints": [[172, 0, 276], [328, 0, 276], [328, 0, 328], [172, 0, 328]]
+    },
+    {
+      "id": "nurse_1", "class": "scripted", "asset": "sh4rk_nurse",
+      "speed": 1.2, "pause": 4, "interact": "sit", "night": "sit",
+      "workHours": [7, 20],
+      "home": [302, 0, 204],
+      "waypoints": [[280, 0, 204], [320, 0, 204], [320, 0, 188], [280, 0, 188]]
+    },
+    {
+      "id": "secretary_1", "class": "inert", "asset": "vinrax_secretary",
+      "pose": "sit", "spawn": [188, 0, 236], "yaw": 0.4
+    },
+    {
+      "id": "casual_1", "class": "inert", "asset": "vinrax_casual",
+      "pose": "idle", "spawn": [210, 0, 236], "yaw": -0.6
+    }
+  ]
+}

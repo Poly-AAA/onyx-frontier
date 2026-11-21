@@ -1,0 +1,69 @@
+{
+ "note": "Modèles runtime compressés (meshopt, textures ≤ 128 px). Originaux déplacés dans kaos/_unused_assets/.",
+ "assets": [
+  {
+   "id": "csaf_patrol",
+   "type": "player",
+   "format": "glb",
+   "url": "assets/chars/csaf-patrol.glb",
+   "height": 1.8,
+   "status": "present",
+   "clips": 46,
+   "source": "https://csaf.itch.io/psx-characters-sampler"
+  },
+  {
+   "id": "sh4rk_office",
+   "type": "npc",
+   "format": "glb",
+   "url": "assets/chars/sh4rk-office.glb",
+   "height": 1.8,
+   "status": "present",
+   "source": "https://sh4rkdev.itch.io/everyday-npcs-free-sample"
+  },
+  {
+   "id": "sh4rk_nurse",
+   "type": "npc",
+   "format": "glb",
+   "url": "assets/chars/sh4rk-nurse.glb",
+   "height": 1.8,
+   "status": "present",
+   "source": "https://sh4rkdev.itch.io/everyday-npcs-free-sample"
+  },
+  {
+   "id": "lanka_driver",
+   "type": "npc",
+   "format": "glb",
+   "url": "assets/chars/lanka-driver.glb",
+   "height": 1.8,
+   "status": "present",
+   "source": "https://lowpolylanka.itch.io/psx-villagers-free"
+  },
+  {
+   "id": "vinrax_cop",
+   "type": "npc",
+   "format": "glb",
+   "url": "assets/chars/vinrax-cop.glb",
+   "height": 1.8,
+   "status": "present",
+   "source": "https://vinrax.itch.io/psx-cop-character"
+  },
+  {
+   "id": "vinrax_casual",
+   "type": "npc",
+   "format": "glb",
+   "url": "assets/chars/vinrax-casual.glb",
+   "height": 1.8,
+   "status": "present",
+   "source": "https://vinrax.itch.io/psx-casual-male-character"
+  },
+  {
+   "id": "vinrax_secretary",
+   "type": "npc",
+   "format": "glb",
+   "url": "assets/chars/vinrax-secretary.glb",
+   "height": 1.8,
+   "status": "present",
+   "source": "https://vinrax.itch.io/psx-secretary-character"
+  }
+ ]
+}

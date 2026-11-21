@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"/>
+<title>Néo-Faille — open world V1</title><link rel="icon" href="data:,"/><link rel="stylesheet" href="style.css"/></head>
+<body>
+<canvas id="view"></canvas>
+<div id="hud">Chargement…</div>
+<div id="toast"></div>
+<div id="loading">Néo-Faille — chargement du monde…</div>
+<nav id="bar">
+  <button id="zoomOut">Caméra −</button><button id="zoomIn">Caméra +</button>
+  <button id="pmMinus">PM −</button><button id="pmPlus">PM +</button>
+  <button id="rotL">Tourner −</button><button id="rotR">Tourner +</button><button id="persoBtn">Perso 1</button>
+  <button id="modeBtn">Mode : marcher</button><button id="saveBtn">Sauver</button><button id="creditsBtn">Crédits</button>
+</nav>
+<aside id="credits" hidden>
+  <header><strong>Crédits</strong> <button id="creditsClose" type="button">Fermer</button></header>
+  <div class="credits-body">
+    <p><strong>Vinrax</strong> — personnages flic, civil homme et secrétaire (usage libre, crédit obligatoire).</p>
+    <p><strong>godgoldfear</strong> — décors industriels PSX, licence Creative Commons Attribution 4.0 (CC-BY 4.0).</p>
+    <p>CSAF — PSX Characters Sampler (joueur). Sh4rkDev — Everyday NPCs. LowPoly Lanka — villageois. Elbolilloduro / valsekamerplant — props urbains. Elegant Crow — nature. reodesuxz — véhicules. MBDesigns — hover car (CC0). three.js (MIT), Rapier (Apache-2.0).</p>
+    <p>Liste complète : CREDITS.md</p>
+  </div>
+</aside>
+<script type="module" src="dist/ow.js"></script>
+</body></html>

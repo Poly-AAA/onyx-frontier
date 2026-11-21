@@ -1,0 +1,349 @@
+[
+  {
+    "name": "brains-adapter-TACTICAL-0-0-0",
+    "status": "PASS",
+    "detail": "Brain TACTICAL executed successfully with 0 actions"
+  },
+  {
+    "name": "brains-adapter-TACTICAL-0-0-6",
+    "status": "PASS",
+    "detail": "Brain TACTICAL executed successfully with 0 actions"
+  },
+  {
+    "name": "brains-adapter-TACTICAL-1-1-0",
+    "status": "PASS",
+    "detail": "Brain TACTICAL executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-TACTICAL-1-1-6",
+    "status": "PASS",
+    "detail": "Brain TACTICAL executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-TACTICAL-6-3-0",
+    "status": "PASS",
+    "detail": "Brain TACTICAL executed successfully with 4 actions"
+  },
+  {
+    "name": "brains-adapter-TACTICAL-6-3-6",
+    "status": "PASS",
+    "detail": "Brain TACTICAL executed successfully with 5 actions"
+  },
+  {
+    "name": "brains-adapter-AGGRESSIVE-0-0-0",
+    "status": "PASS",
+    "detail": "Brain AGGRESSIVE executed successfully with 0 actions"
+  },
+  {
+    "name": "brains-adapter-AGGRESSIVE-0-0-6",
+    "status": "PASS",
+    "detail": "Brain AGGRESSIVE executed successfully with 0 actions"
+  },
+  {
+    "name": "brains-adapter-AGGRESSIVE-1-1-0",
+    "status": "PASS",
+    "detail": "Brain AGGRESSIVE executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-AGGRESSIVE-1-1-6",
+    "status": "PASS",
+    "detail": "Brain AGGRESSIVE executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-AGGRESSIVE-6-3-0",
+    "status": "PASS",
+    "detail": "Brain AGGRESSIVE executed successfully with 4 actions"
+  },
+  {
+    "name": "brains-adapter-AGGRESSIVE-6-3-6",
+    "status": "PASS",
+    "detail": "Brain AGGRESSIVE executed successfully with 5 actions"
+  },
+  {
+    "name": "brains-adapter-SUPPORT-0-0-0",
+    "status": "PASS",
+    "detail": "Brain SUPPORT executed successfully with 0 actions"
+  },
+  {
+    "name": "brains-adapter-SUPPORT-0-0-6",
+    "status": "PASS",
+    "detail": "Brain SUPPORT executed successfully with 0 actions"
+  },
+  {
+    "name": "brains-adapter-SUPPORT-1-1-0",
+    "status": "PASS",
+    "detail": "Brain SUPPORT executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-SUPPORT-1-1-6",
+    "status": "PASS",
+    "detail": "Brain SUPPORT executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-SUPPORT-6-3-0",
+    "status": "PASS",
+    "detail": "Brain SUPPORT executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-SUPPORT-6-3-6",
+    "status": "PASS",
+    "detail": "Brain SUPPORT executed successfully with 4 actions"
+  },
+  {
+    "name": "brains-adapter-BLOCKING-0-0-0",
+    "status": "PASS",
+    "detail": "Brain BLOCKING executed successfully with 0 actions"
+  },
+  {
+    "name": "brains-adapter-BLOCKING-0-0-6",
+    "status": "PASS",
+    "detail": "Brain BLOCKING executed successfully with 0 actions"
+  },
+  {
+    "name": "brains-adapter-BLOCKING-1-1-0",
+    "status": "PASS",
+    "detail": "Brain BLOCKING executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-BLOCKING-1-1-6",
+    "status": "PASS",
+    "detail": "Brain BLOCKING executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-BLOCKING-6-3-0",
+    "status": "PASS",
+    "detail": "Brain BLOCKING executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-BLOCKING-6-3-6",
+    "status": "PASS",
+    "detail": "Brain BLOCKING executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-RUNAWAY-0-0-0",
+    "status": "PASS",
+    "detail": "Brain RUNAWAY executed successfully with 0 actions"
+  },
+  {
+    "name": "brains-adapter-RUNAWAY-0-0-6",
+    "status": "PASS",
+    "detail": "Brain RUNAWAY executed successfully with 0 actions"
+  },
+  {
+    "name": "brains-adapter-RUNAWAY-1-1-0",
+    "status": "PASS",
+    "detail": "Brain RUNAWAY executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-RUNAWAY-1-1-6",
+    "status": "PASS",
+    "detail": "Brain RUNAWAY executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-RUNAWAY-6-3-0",
+    "status": "PASS",
+    "detail": "Brain RUNAWAY executed successfully with 4 actions"
+  },
+  {
+    "name": "brains-adapter-RUNAWAY-6-3-6",
+    "status": "PASS",
+    "detail": "Brain RUNAWAY executed successfully with 5 actions"
+  },
+  {
+    "name": "brains-adapter-LUNATIC-0-0-0",
+    "status": "PASS",
+    "detail": "Brain LUNATIC executed successfully with 0 actions"
+  },
+  {
+    "name": "brains-adapter-LUNATIC-0-0-6",
+    "status": "PASS",
+    "detail": "Brain LUNATIC executed successfully with 0 actions"
+  },
+  {
+    "name": "brains-adapter-LUNATIC-1-1-0",
+    "status": "PASS",
+    "detail": "Brain LUNATIC executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-LUNATIC-1-1-6",
+    "status": "PASS",
+    "detail": "Brain LUNATIC executed successfully with 1 actions"
+  },
+  {
+    "name": "brains-adapter-LUNATIC-6-3-0",
+    "status": "PASS",
+    "detail": "Brain LUNATIC executed successfully with 4 actions"
+  },
+  {
+    "name": "brains-adapter-LUNATIC-6-3-6",
+    "status": "PASS",
+    "detail": "Brain LUNATIC executed successfully with 5 actions"
+  },
+  {
+    "name": "getGauge clamp",
+    "status": "PASS"
+  },
+  {
+    "name": "getGauge clamp",
+    "status": "PASS"
+  },
+  {
+    "name": "getGauge clamp",
+    "status": "PASS"
+  },
+  {
+    "name": "getGauge clamp",
+    "status": "PASS"
+  },
+  {
+    "name": "getGauge clamp",
+    "status": "PASS"
+  },
+  {
+    "name": "getGauge clamp",
+    "status": "PASS"
+  },
+  {
+    "name": "getGauge clamp",
+    "status": "PASS"
+  },
+  {
+    "name": "clinic threshold 59",
+    "status": "PASS"
+  },
+  {
+    "name": "clinic threshold 60",
+    "status": "PASS"
+  },
+  {
+    "name": "clinic threshold 61",
+    "status": "PASS"
+  },
+  {
+    "name": "clinicTreat(59)",
+    "status": "PASS"
+  },
+  {
+    "name": "clinicTreat(60)",
+    "status": "PASS"
+  },
+  {
+    "name": "clinicTreat(61)",
+    "status": "PASS"
+  },
+  {
+    "name": "occulte(0)",
+    "status": "PASS"
+  },
+  {
+    "name": "guerisseur(0)",
+    "status": "PASS"
+  },
+  {
+    "name": "occulte(49)",
+    "status": "PASS"
+  },
+  {
+    "name": "guerisseur(49)",
+    "status": "PASS"
+  },
+  {
+    "name": "occulte(50)",
+    "status": "PASS"
+  },
+  {
+    "name": "guerisseur(50)",
+    "status": "PASS"
+  },
+  {
+    "name": "occulte(79)",
+    "status": "PASS"
+  },
+  {
+    "name": "guerisseur(79)",
+    "status": "PASS"
+  },
+  {
+    "name": "occulte(80)",
+    "status": "PASS"
+  },
+  {
+    "name": "guerisseur(80)",
+    "status": "PASS"
+  },
+  {
+    "name": "occulte(100)",
+    "status": "PASS"
+  },
+  {
+    "name": "guerisseur(100)",
+    "status": "PASS"
+  },
+  {
+    "name": "occultShopPrice(19)",
+    "status": "PASS"
+  },
+  {
+    "name": "occultShopPrice(20)",
+    "status": "PASS"
+  },
+  {
+    "name": "occultShopPrice(39)",
+    "status": "PASS"
+  },
+  {
+    "name": "occultShopPrice(40)",
+    "status": "PASS"
+  },
+  {
+    "name": "occultShopPrice(59)",
+    "status": "PASS"
+  },
+  {
+    "name": "occultShopPrice(60)",
+    "status": "PASS"
+  },
+  {
+    "name": "occultShopPrice(79)",
+    "status": "PASS"
+  },
+  {
+    "name": "occultShopPrice(80)",
+    "status": "PASS"
+  },
+  {
+    "name": "occultShopPrice(100)",
+    "status": "PASS"
+  },
+  {
+    "name": "clinic halo durable",
+    "status": "PASS",
+    "detail": "halo durable: refus clinique voulu meme jauge zero"
+  },
+  {
+    "name": "corruption",
+    "status": "SKIP",
+    "detail": "API de bornage absente. Ce test couvre uniquement clampCorruption/clamp. Seuls les seuils exportés sont listés (pas de vérification contractuelle)."
+  },
+  {
+    "name": "equipment/stats",
+    "status": "PASS"
+  },
+  {
+    "name": "equipment/replacement",
+    "status": "PASS"
+  },
+  {
+    "name": "equipment/synthetic-body-matrix",
+    "status": "PASS",
+    "detail": "synthetic fixtures only"
+  },
+  {
+    "name": "equipment/all-real-morphologies",
+    "status": "SKIP",
+    "detail": "Catalogue exhaustif des morphologies et ajustement visuel non disponibles: compatibilite complete non prouvee"
+  }
+]
+Summary: 74 PASS, 0 FAIL, 2 SKIP
+
+Code de sortie Node: 0

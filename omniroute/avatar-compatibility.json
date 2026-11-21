@@ -1,0 +1,18 @@
+{
+  "response": {
+    "content": "En tant qu’Architecte Assets, la demande de Jean concernant l'intégration totale (58 pièces v34/v35, Kintsugi, Aube Pourpre Féminin/Pulpeux, Prêtre/Prêtresse 6 slots, toutes morphologies/sexes, 30 animations, 8 directions, 15 frames, sheets 1920x1024, contour #1C154D, sans PixelLab pour les corps/vêtements et sans \"blue glow\") exige une rigueur industrielle. \n\nVoici la stratégie d’architecture et de production :\n\n**1. Micro-Lots et Priorisation**\nInterdiction de traiter les 58 pièces d’un coup. \n*   **Lot 0 (Référence) :** Validation d'une morphologie étalon et de ses ancres sur les 5 animations socles (*Idle, Walk, Run, Rolling, Die*).\n*   **Lot 1 :** Sets Kintsugi (socle armure, 2 morphologies de base).\n*   **Lot 2 :** Sets Prêtre/Prêtresse (les 6 slots par genre).\n*   **Lot 3 :** Sets Aube Pourpre (Féminin/Pulpeux). \n*Règle :* Livrer chaque pièce validée sur *toutes* les morphologies avant de passer à la pièce suivante, jamais l'inverse.\n\n**2. Sélection UI vs Compatibilité Géométrique**\nIl faut distinguer la *sélection logique* (le joueur clique sur l'item dans l'inventaire) de la *compatibilité géométrique* (l'équipement s'adapte au sprite sans briser l'anatomie). Une pièce sélectionnable dans l’UI peut générer un rejet géométrique si la morphologie (ex: Pulpeux ou Aube Pourpre) dépasse les bounding boxes standard. La compatibilité impose des déclinaisons de sprites dédiées par morphologie, et non un simple \"scaling\" automatique destructeur de pixels.\n\n**3. Matrice de Compatibilité et Ajustement 2D**\nMise en place d'une matrice [58 Pièces x Sexe x Morphologie]. \nPour conserver l'intégrité pixel art à 128px par frame sur les sheets 1920x1024 :\n*   Aucune interpolation ni anti-aliasing.\n*   Déplacement des pixels par blocs entiers via les coordonnées d'ancres par frame.\n*   Maintien absolu du contour unique #1C154D. \n*   Les vêtements doivent impérativement habiller le personnage (pas de zones transparentes non voulues sur les corps).\n\n**4. Protocoles QA (30 Animations)**\nLa validation QA se fait en entonnoir :\n1.  **Phase 1 (Critique) :** Test sur *Idle, Walk, Run, Rolling, Die*. Si une pièce Kintsugi décale d'un pixel ou si une robe de Prêtre traverse les cuisses en *Rolling* ou *Die*, rejet immédiat.\n2.  **Phase 2 (Extension) :** Validation des 25 animations restantes (combats, sorts, interactions).\n3.  **Phase 3 (Contrôle visuel) :** Vérification de l'absence de \"blue glow\" parasites, respect des 15 frames par ligne et du découpage de la sheet 1920x1024.\n\n**5. Gestion de la Mémoire Mobile**\nMultiplier les morphologies et les 58 pièces pour 30 animations et 8 directions sature la RAM mobile. \n*   **Stratégie :** Ne jamais charger toutes les sheets. Utiliser un système de chargement à la demande (lazy loading) par atlas d'équipement actif. \n*   Purger immédiatement du cache les assets des morphologies et des slots non équipés. Les sheets 1920x1024 doivent être compressées en textures adaptées au mobile (ex: formats natifs GPU) sans perte sur le contour #1C154D.",
+    "model": "gemini-3.5-flash-lite",
+    "tokens": {
+      "prompt": 241,
+      "completion": 2330
+    }
+  },
+  "routing": {
+    "provider": "unknown",
+    "combo": null,
+    "fallbacksTriggered": 0,
+    "cost": 0,
+    "latencyMs": 10196,
+    "routingExplanation": "Request routed through primary provider"
+  }
+}

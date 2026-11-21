@@ -1,0 +1,55 @@
+{
+ "title": "Recette",
+ "type": "object",
+ "required": [
+  "id",
+  "inputs",
+  "outputs"
+ ],
+ "properties": {
+  "id": {
+   "type": "string"
+  },
+  "inputs": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "item": {
+      "type": "string"
+     },
+     "n": {
+      "type": "integer"
+     }
+    }
+   }
+  },
+  "tools": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "requires": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   },
+   "description": "recettes prérequises"
+  },
+  "outputs": {
+   "type": "array",
+   "items": {
+    "type": "object"
+   }
+  },
+  "tier": {
+   "enum": [
+    "manuel",
+    "machine",
+    "robot"
+   ]
+  }
+ },
+ "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

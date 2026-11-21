@@ -1,0 +1,36 @@
+{
+ "title": "IA locale",
+ "type": "object",
+ "properties": {
+  "model": {
+   "type": "string"
+  },
+  "quant": {
+   "const": "q4"
+  },
+  "backend": {
+   "const": "webgpu"
+  },
+  "worldTickGameMinutes": {
+   "const": 10
+  },
+  "events": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "kind": {
+      "type": "string"
+     },
+     "target": {
+      "type": "string"
+     },
+     "effect": {
+      "type": "object"
+     }
+    }
+   }
+  }
+ },
+ "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

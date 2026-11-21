@@ -1,0 +1,93 @@
+/** Textures PSX procédurales (pixel art 32–128 px, NearestFilter, sans mipmaps). Graine fixe = même rendu. */
+import { THREE } from "./three.js";
+
+const R = (s) => () => { s |= 0; s = (s + 0x6d2b79f5) | 0; let t = Math.imul(s ^ (s >>> 15), 1 | s); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+const hex = (c) => [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)];
+const cache = new Map();
+
+/** Fabrique : canvas w×h, pinceau px(x,y,couleur,±bruit), puis texture Nearest répétable. */
+function make(key, w, h, draw, srgb = true) {
+  if (cache.has(key)) return cache.get(key);
+  const cv = document.createElement("canvas"); cv.width = w; cv.height = h;
+  const g = cv.getContext("2d"), img = g.createImageData(w, h), d = img.data;
+  const px = (x, y, c, a = 255) => { x = ((x % w) + w) % w; y = ((y % h) + h) % h; const i = (y * w + x) * 4; d[i] = c[0]; d[i + 1] = c[1]; d[i + 2] = c[2]; d[i + 3] = a; };
+  const fill = (c, n, r) => { for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const k = (r() - 0.5) * n; px(x, y, [c[0] + k, c[1] + k, c[2] + k]); } };
+  const rect = (x0, y0, rw, rh, c, n = 0, r) => { for (let y = y0; y < y0 + rh; y++) for (let x = x0; x < x0 + rw; x++) { const k = n ? (r() - 0.5) * n : 0; px(x, y, [c[0] + k, c[1] + k, c[2] + k]); } };
+  draw({ px, fill, rect, w, h, r: R(key.length * 7919 + w * 31 + h), d });
+  g.putImageData(img, 0, 0);
+  const t = new THREE.CanvasTexture(cv);
+  t.magFilter = t.minFilter = THREE.NearestFilter; t.generateMipmaps = false;
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; if (srgb) t.colorSpace = THREE.SRGBColorSpace;
+  t.userData.canvas = cv;
+  cache.set(key, t); return t;
+}
+
+export const tex = {
+  /** Façade 64×64 = 2 fenêtres × 2 étages (≈ 8 m). v = variante de couleur ; lit = masque émissif des fenêtres allumées. */
+  facade(v = 0, lit = false) {
+    const walls = ["#6a5e58", "#5a5f6a", "#7a6a5a", "#4e5660", "#6e5a64"], wall = hex(walls[v % walls.length]);
+    return make(`facade${v}${lit}`, 64, 64, ({ fill, rect, r }) => {
+      if (lit) fill([0, 0, 0], 0, r); else fill(wall, 22, r);
+      for (let fy = 0; fy < 2; fy++) {
+        if (!lit) rect(0, fy * 32 + 28, 64, 4, wall.map((c) => c - 30), 8, r); // bandeau d'étage
+        for (let fx = 0; fx < 2; fx++) {
+          const on = r() < 0.55, x = fx * 32 + 7, y = fy * 32 + 6;
+          if (lit) { if (on) rect(x + 1, y + 1, 16, 18, r() < 0.8 ? [255, 200, 110] : [255, 110, 170], 30, r); continue; }
+          rect(x - 1, y - 1, 20, 22, [40, 36, 40]); // encadrement
+          rect(x + 1, y + 1, 16, 18, on ? [190, 160, 90] : [44, 58, 78], 18, r);
+          rect(x + 8, y + 1, 1, 18, [30, 28, 34]); rect(x + 1, y + 9, 16, 1, [30, 28, 34]);
+          rect(x - 2, y + 20, 22, 2, [150, 145, 140], 10, r); // appui
+        }
+      }
+    });
+  },
+  brick: () => make("brick", 64, 64, ({ fill, rect, r }) => { fill([92, 52, 44], 10, r); for (let y = 0; y < 16; y++) for (let x = 0; x < 4; x++) rect(x * 16 + (y % 2) * 8 + 1, y * 4 + 1, 14, 3, [130 + r() * 30, 62 + r() * 14, 48], 14, r); }),
+  concrete: () => make("concrete", 64, 64, ({ fill, px, rect, r }) => { fill([128, 124, 118], 26, r); for (let i = 0; i < 60; i++) px(r() * 64 | 0, r() * 64 | 0, [86, 84, 80]); rect(0, 0, 64, 1, [96, 94, 90]); rect(0, 0, 1, 64, [96, 94, 90]); }),
+  /** Asphalte 64×64 (≈ 8 m), sans marquage (les pointillés sont des bandes séparées). */
+  asphalt: () => make("asphalt", 64, 64, ({ fill, px, r }) => { fill([54, 54, 58], 18, r); for (let i = 0; i < 96; i++) px(r() * 64 | 0, r() * 64 | 0, r() < 0.5 ? [36, 36, 40] : [78, 76, 74]); for (let i = 0; i < 4; i++) { const x = r() * 64 | 0, y = r() * 64 | 0; for (let k = 0; k < 6; k++) px(x + k, y + (k >> 1), [30, 30, 34]); } }),
+  /** Pointillés jaunes 8×32 (1 bit, alpha) : à poser uniquement sur l'axe central des rues. */
+  lane: () => make("lane", 8, 32, ({ px }) => { for (let y = 0; y < 32; y++) for (let x = 0; x < 8; x++) { const on = y < 18 && x > 1 && x < 6; px(x, y, on ? [220, 200, 40] : [0, 0, 0], on ? 255 : 0); } }),
+  /** Overlay de crasse procédural 64×64, palier 1–3 (taches, poussière). */
+  grime: (level = 1) => make("grime" + level, 64, 64, ({ px, r }) => {
+    for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) px(x, y, [0, 0, 0], 0);
+    const n = 40 + level * 70;
+    for (let i = 0; i < n; i++) {
+      const cx = r() * 64 | 0, cy = r() * 64 | 0, rad = (1 + r() * (2 + level * 2)) | 0, a = (40 + level * 50 + r() * 40) | 0;
+      const c = r() < 0.5 ? [48, 36, 24] : [28, 26, 24];
+      for (let y = -rad; y <= rad; y++) for (let x = -rad; x <= rad; x++) if (x * x + y * y <= rad * rad) px(cx + x, cy + y, c, a);
+    }
+    for (let i = 0; i < 30 * level; i++) px(r() * 64 | 0, r() * 64 | 0, [80, 70, 50], 60 + level * 30);
+  }),
+  sidewalk: () => make("sidewalk", 32, 32, ({ fill, rect, r }) => { fill([140, 134, 126], 14, r); rect(0, 0, 32, 1, [92, 88, 84]); rect(0, 0, 1, 32, [92, 88, 84]); rect(16, 0, 1, 32, [104, 100, 96]); rect(0, 16, 32, 1, [104, 100, 96]); }),
+  rust: () => make("rust", 64, 64, ({ fill, px, rect, r }) => { fill([110, 70, 50], 30, r); for (let i = 0; i < 140; i++) px(r() * 64 | 0, r() * 64 | 0, r() < 0.5 ? [150, 80, 40] : [70, 60, 58]); for (let x = 0; x < 64; x += 8) rect(x, 0, 1, 64, [60, 44, 38]); for (let y = 4; y < 64; y += 16) for (let x = 4; x < 64; x += 8) px(x, y, [190, 150, 110]); }),
+  metal: () => make("metal", 32, 32, ({ fill, rect, r }) => { fill([88, 92, 100], 12, r); rect(0, 15, 32, 2, [60, 62, 70]); rect(15, 0, 2, 32, [60, 62, 70]); }),
+  roof: () => make("roof", 64, 64, ({ fill, px, rect, r }) => { fill([66, 64, 62], 20, r); for (let i = 0; i < 80; i++) px(r() * 64 | 0, r() * 64 | 0, [40, 40, 42]); rect(0, 0, 64, 2, [96, 92, 88]); rect(0, 0, 2, 64, [96, 92, 88]); }),
+  wood: () => make("wood", 32, 32, ({ fill, rect, r }) => { fill([112, 76, 48], 16, r); for (let y = 0; y < 32; y += 8) rect(0, y, 32, 1, [62, 40, 26]); for (let i = 0; i < 10; i++) rect(r() * 32 | 0, r() * 32 | 0, 6, 1, [90, 60, 38]); }),
+  grass: () => make("grass", 64, 64, ({ fill, px, r }) => { fill([70, 110, 52], 28, r); for (let i = 0; i < 260; i++) { const x = r() * 64 | 0, y = r() * 64 | 0; px(x, y, [96, 140, 64]); px(x, y + 1, [52, 84, 40]); } }),
+  rock: () => make("rock", 64, 64, ({ fill, px, rect, r }) => { fill([112, 106, 100], 30, r); for (let i = 0; i < 18; i++) { const x = r() * 64 | 0, y = r() * 64 | 0, l = 4 + r() * 14 | 0; for (let k = 0; k < l; k++) px(x + k, y + (k >> 2), [64, 60, 58]); } for (let i = 0; i < 40; i++) rect(r() * 64 | 0, r() * 64 | 0, 2, 2, [150, 144, 136]); }),
+  sand: () => make("sand", 64, 64, ({ fill, px, r }) => { fill([196, 164, 110], 22, r); for (let y = 0; y < 64; y += 8) for (let x = 0; x < 64; x++) px(x, y + Math.round(Math.sin(x / 5) * 1.5), [170, 138, 90]); }),
+  /** Clôture grillagée 32×32 (alpha). */
+  fence: () => make("fence", 32, 32, ({ px }) => { for (let y = 0; y < 32; y++) for (let x = 0; x < 32; x++) { const on = (x + y) % 8 === 0 || (x - y + 64) % 8 === 0 || y < 2 || x < 2; px(x, y, on ? [150, 150, 156] : [0, 0, 0], on ? 255 : 0); } }),
+  /** Enseigne néon 64×16 : mot en pixels (police 3×5 maison). */
+  sign(word, color) { const c = hex(color); return make("sign" + word + color, 64, 16, ({ fill, rect, r }) => { fill([16, 12, 20], 6, r); rect(0, 0, 64, 1, c); rect(0, 15, 64, 1, c); rect(0, 0, 1, 16, c); rect(63, 0, 1, 16, c); glyphs(word, (x, y) => rect(x, y, 1, 1, c), 32 - word.length * 2, 5); }); },
+  chantier: () => make("chantier", 64, 32, ({ fill, rect, px, r }) => { for (let y = 0; y < 32; y++) for (let x = 0; x < 64; x++) px(x, y, ((x + y) >> 3) % 2 ? [224, 160, 32] : [24, 24, 24]); rect(4, 8, 56, 16, [20, 20, 20]); glyphs("CHANTIER", (x, y) => rect(x, y, 1, 1, [255, 210, 60]), 16, 13); }),
+  solid: (c) => make("solid" + c, 4, 4, ({ fill, r }) => fill(hex(c), 0, r)),
+  /** Matrice de Bayer 4×4 (dithering 16 bits). */
+  bayer: () => make("bayer", 4, 4, ({ px }) => { const b = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5]; b.forEach((v, i) => px(i % 4, i >> 2, [v * 16 + 8, 0, 0])); }, false),
+};
+
+const F = { A: "777575", C: "744447", E: "746447", H: "557755", I: "722227", N: "775555", O: "755557", R: "675655", T: "722222", B: "675657", L: "444447", S: "741157", K: "556555", U: "555557", M: "577555", X: "552255", P: "675444", D: "655556", G: "745557", V: "555552", " ": "000000", Z: "712447", F: "746444" };
+/** Police 3 px × 6 : chaque chiffre = masque 3 bits d'une ligne. */
+function glyphs(word, dot, x0, y0) { [...word.toUpperCase()].forEach((ch, i) => { const g = F[ch] || F[" "]; [...g].forEach((row, y) => { const b = +row; for (let x = 0; x < 3; x++) if (b & (4 >> x)) dot(x0 + i * 4 + x, y0 + y); }); }); }
+
+/** UV monde (mètres / taille de tuile) selon l'orientation des faces : texel constant, comme les jeux PS1 à tuiles. */
+export function worldUV(geo, tile = 8, tileY = tile) {
+  const p = geo.attributes.position, n = geo.attributes.normal, uv = geo.attributes.uv;
+  for (let i = 0; i < p.count; i++) {
+    const ax = Math.abs(n.getX(i)), ay = Math.abs(n.getY(i)), az = Math.abs(n.getZ(i));
+    let u, v;
+    if (ay >= ax && ay >= az) { u = p.getX(i); v = p.getZ(i); } else if (ax >= az) { u = p.getZ(i) * Math.sign(n.getX(i)); v = p.getY(i); } else { u = -p.getX(i) * Math.sign(n.getZ(i)); v = p.getY(i); }
+    uv.setXY(i, u / tile, ay >= ax && ay >= az ? v / tile : v / tileY);
+  }
+  uv.needsUpdate = true; return geo;
+}
